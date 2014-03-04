@@ -1,0 +1,37 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="titulo">Prime_Scrum</ui:insert></title>
+	<h:outputStylesheet name="style.css" />
+</h:head>
+
+<h:body>
+
+	<header>
+		<ui:insert name="titulo">Prime_Scrum</ui:insert>
+		<!-- ######## Algum topo do prime ######## -->
+	</header>
+	<h:commandButton  value="valor" />
+	  <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="75" header="Project NZ" resizable="false" closable="false" collapsible="false">
+                <h:outputText value="" />
+            </p:layoutUnit>
+ 			
+            <p:layoutUnit position="west" size="200" header="Menu" resizable="false" closable="false" collapsible="false" >
+                    <ui:include src="../templates/tiles/LeftMenu.xhtml" />
+            </p:layoutUnit>
+ 
+            <p:layoutUnit position="east" size="200" header="Help" resizable="true" closable="true" collapsible="true" effect="drop">
+                <h:outputText value="Right unit content." />
+            </p:layoutUnit>
+ 
+            <p:layoutUnit position="center">
+                <ui:insert name="content">Put default content here, if any.</ui:insert>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>
