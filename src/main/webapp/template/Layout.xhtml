@@ -6,23 +6,25 @@
       xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title><ui:insert name="titulo">Prime_Scrum</ui:insert></title>
-	<h:outputStylesheet name="style.css" />
+	<!--  <h:outputStylesheet name="style.css" />-->
 </h:head>
 
 <h:body>
 
 	<header>
-		<ui:insert name="titulo">Prime_Scrum</ui:insert>
-		<!-- ######## Algum topo do prime ######## -->
+		<ui:insert name="titulo">
+			<h1>Prime_Scrum</h1>
+		</ui:insert>
 	</header>
 	<h:commandButton  value="valor" />
 	  <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="75" header="Project NZ" resizable="false" closable="false" collapsible="false">
+	  
+            <p:layoutUnit position="north" size="75" header="Prime Scrum" resizable="false" closable="false" collapsible="false">
                 <h:outputText value="" />
             </p:layoutUnit>
  			
             <p:layoutUnit position="west" size="200" header="Menu" resizable="false" closable="false" collapsible="false" >
-                    <ui:include src="../templates/tiles/LeftMenu.xhtml" />
+                     <ui:include src="./tiles/LeftMenu.xhtml" />
             </p:layoutUnit>
  
             <p:layoutUnit position="east" size="200" header="Help" resizable="true" closable="true" collapsible="true" effect="drop">
@@ -30,8 +32,15 @@
             </p:layoutUnit>
  
             <p:layoutUnit position="center">
+            	<ui:include src="./tiles/TabView.xhtml" />
                 <ui:insert name="content">Put default content here, if any.</ui:insert>
             </p:layoutUnit>
+            
+            <p:layoutUnit position="south" size="45" resizable="false" closable="false" collapsible="false">
+                <ui:insert name="content">Desenvolvido por Thiago Silva Barros</ui:insert>
+            </p:layoutUnit>
+            
+            
         </p:layout>
     </h:body>
 </html>

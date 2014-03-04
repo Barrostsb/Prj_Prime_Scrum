@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Login Prime Scrum</title>
+</h:head>
+<h:body>
+	<h:form styleClass="loginPanelStyle" >
+	
+		<p:growl id="msgs" showDetail="true" sticky="false" />
+		
+			<p:panelGrid columns="2">
+				<f:facet name="header">Prime Scrum Login</f:facet>
+				<h:outputText value="Username : "></h:outputText>
+				<p:inputText id="username" required="true"
+					requiredMessage="Please Enter Username!" message="fc">
+					<f:validateLength minimum="1" />
+				</p:inputText>
+				<h:outputText value="Password : "></h:outputText>
+				<p:password id="password" required="true"
+					requiredMessage="Please Enter password!">
+					<f:validateLength minimum="1" />
+				</p:password>
+				<f:facet name="footer">
+					<p:commandButton value="Submit" update="msgs" type="submit"
+						icon="ui-icon-check" style="margin:0"></p:commandButton>
+				</f:facet>
+			</p:panelGrid>
+		
+	</h:form>
+</h:body>
+</html>
