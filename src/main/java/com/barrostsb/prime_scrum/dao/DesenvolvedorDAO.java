@@ -5,8 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-
-
+import org.hibernate.Criteria;
 
 import com.barrostsb.prime_scrum.jpautils.JpaUtils;
 import com.barrostsb.prime_scrum.model.Desenvolvedor;
@@ -22,6 +21,8 @@ public class DesenvolvedorDAO {
 			tx.begin();
 	
 			manager.persist(desenvolvedor);
+			
+			
 	
 			tx.commit();
 	

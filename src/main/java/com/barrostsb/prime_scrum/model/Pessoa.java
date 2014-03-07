@@ -1,5 +1,7 @@
 package com.barrostsb.prime_scrum.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,12 @@ import javax.persistence.Table;
 @Entity
 @Table (name = "pessoa")
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Pessoa {
+public class Pessoa implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private long id_pessoa;
 	private String nome;
 	

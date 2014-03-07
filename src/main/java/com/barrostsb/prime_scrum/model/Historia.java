@@ -3,38 +3,43 @@ package com.barrostsb.prime_scrum.model;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ForeignKey;
+
 import com.barrostsb.prime_scrum.jpautils.HistoriaPK;
 
 
-@Entity
-@Table(name = "historia")
+//@Entity
+//@Table(name = "historia")
+//@IdClass(value=HistoriaPK.class)
 public class Historia {
 	private Sprint sprint;
-	private int id_historia;
+//	private Projeto projeto;	
 	private String nome;
+	private int id_historia;
 	private List<Tarefa> listaTarefas;
-	private HistoriaPK historiaPK;
+
+//	@Id
+//	@ManyToOne
+//	@JoinColumn(name="id_projeto")
+//	@ForeignKey(name="FK_ProjetoHistoia")
+//	public Projeto getProjeto() {
+//		return projeto;
+//	}
+//	
+//	public void setProjeto(Projeto projeto) {
+//		this.projeto = projeto;
+//	}
 	
-	@ManyToOne
-	@JoinColumn(name="id_sprint")
-	public Sprint getSprint() {
-		return sprint;
-	}
-	
-	public void setSprint(Sprint sprint) {
-		this.sprint = sprint;
-	}
-	
-	@Column
+	@Id
 	public int getId_historia() {
 		return id_historia;
 	}
@@ -44,13 +49,15 @@ public class Historia {
 	}
 	
 	@Id
-	@EmbeddedId
-	public HistoriaPK getHistoriaPK() {
-		return historiaPK;
+	@ManyToOne
+	@JoinColumn(name="id_sprint")
+	@ForeignKey(name="FK_SprintHistoria")
+	public Sprint getSprint() {
+		return sprint;
 	}
-
-	public void setHistoriaPK(HistoriaPK historiaPK) {
-		this.historiaPK = historiaPK;
+	
+	public void setSprint(Sprint sprint) {
+		this.sprint = sprint;
 	}
 
 	@Column

@@ -2,20 +2,13 @@ package com.barrostsb.prime_scrum.jpautils;
 
 import java.io.Serializable;
 
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-@Embeddable
 public class TarefaPK implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	private int projeto;
 	private int id_tarefa;
 	
-	
-	@ManyToOne
-	@JoinColumn(name="id_projeto")
 	public int getProjeto() {
 		return projeto;
 	}
@@ -30,7 +23,27 @@ public class TarefaPK implements Serializable {
 		this.id_tarefa = id_tarefa;
 	}
 	
-
-	
-
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id_tarefa;
+		result = prime * result + projeto;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TarefaPK other = (TarefaPK) obj;
+		if (id_tarefa != other.id_tarefa)
+			return false;
+		if (projeto != other.projeto)
+			return false;
+		return true;
+	}
 }

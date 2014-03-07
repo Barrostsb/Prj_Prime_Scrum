@@ -9,7 +9,7 @@ public class JpaUtils {
 	
 	static {
 		factory = Persistence.createEntityManagerFactory(
-				"FinanceiroPU");
+				"Prime_ScrumPU");
 	}
 	
 	public static EntityManager getEntityManager() {

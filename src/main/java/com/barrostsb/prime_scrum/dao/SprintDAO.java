@@ -34,7 +34,7 @@ public class SprintDAO {
 			manager.close();
 		}
 	
-		System.out.println("Sprint foi salvo e seu id e' " + sprint.getSprintpk().getId_sprint());
+		//System.out.println("Sprint foi salvo e seu id e' " + sprint.getSprintpk().getId_sprint());
 	}
 
 	private static void buscarSprint(int id) {

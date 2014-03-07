@@ -1,31 +1,35 @@
 package com.barrostsb.prime_scrum.model;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ForeignKey;
 
 import com.barrostsb.prime_scrum.jpautils.TarefaPK;
 
 @Entity
 @Table (name = "tarefa")
+@IdClass(value=TarefaPK.class)
 public class Tarefa {
 	private Projeto projeto;
-	private Sprint sprint;
-	private Historia historia;
+//	private int sprint;
+//	private int historia;
 	private int id_tarefa;
 	private Desenvolvedor desenvolvedor;
 	private String nome;
 	private int prioridade;
 	private float tempo_execucao;
 	private int dificuldade;
-	private TarefaPK tarefapk;
 	
+	@Id
 	@ManyToOne
 	@JoinColumn(name="id_projeto")
+	@ForeignKey(name="FK_Projeto_tarefa")
 	public Projeto getProjeto() {
 		return projeto;
 	}
@@ -34,35 +38,27 @@ public class Tarefa {
 		this.projeto = projeto;
 	}
 	
+
+//	@Column
+//	public int getSprint() {
+//		return sprint;
+//	}
+//	
+//	public void setSprint(int sprint) {
+//		this.sprint = sprint;
+//	}
+	
+//	@ManyToOne
+//	@JoinColumn(name="id_historia")
+//	public int getHistoria() {
+//		return historia;
+//	}
+//	
+//	public void setHistoria(int historia) {
+//		this.historia = historia;
+//	}
+	
 	@Id
-	@EmbeddedId
-	public TarefaPK getTarefapk() {
-		return tarefapk;
-	}
-
-	public void setTarefapk(TarefaPK tarefapk) {
-		this.tarefapk = tarefapk;
-	}
-
-	@Column
-	public Sprint getSprint() {
-		return sprint;
-	}
-	
-	public void setSprint(Sprint sprint) {
-		this.sprint = sprint;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name="id_historia")
-	public Historia getHistoria() {
-		return historia;
-	}
-	
-	public void setHistoria(Historia historia) {
-		this.historia = historia;
-	}
-	
 	public int getId_tarefa() {
 		return id_tarefa;
 	}
@@ -73,6 +69,7 @@ public class Tarefa {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_desenvolvedor", referencedColumnName="id_pessoa")
+	@ForeignKey(name="FK_DesenvolvedorTarefa")
 	public Desenvolvedor getDesenvolvedor() {
 		return desenvolvedor;
 	}

@@ -33,7 +33,7 @@ public class TarefaDAO {
 			manager.close();
 		}
 	
-		System.out.println("Historia foi salvo e seu id e' " + tarefa.getTarefapk().getId_tarefa());
+		//System.out.println("Historia foi salvo e seu id e' " + tarefa.getTarefapk().getId_tarefa());
 	}
 
 	private static void buscarTarefa(int id) {

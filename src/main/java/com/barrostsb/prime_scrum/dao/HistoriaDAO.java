@@ -33,7 +33,7 @@ public class HistoriaDAO {
 			manager.close();
 		}
 	
-		System.out.println("Historia foi salvo e seu id e' " + historia.getHistoriaPK().getId_historia());
+		//System.out.println("Historia foi salvo e seu id e' " + historia.getHistoriaPK().getId_historia());
 	}
 
 	private static void buscarHistoria(int id) {

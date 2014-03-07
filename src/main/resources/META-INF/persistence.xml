@@ -14,17 +14,17 @@
 	
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		
-		<class>com.barrostsb.prime_scrum.model.Historia</class>
-		<class>com.barrostsb.prime_scrum.model.Projeto</class>
-		<class>com.barrostsb.prime_scrum.model.Desenvolvedor</class>
-		<class>com.barrostsb.prime_scrum.model.ScrumMaster</class>
-		<class>com.barrostsb.prime_scrum.model.Sprint</class>
-		<class>com.barrostsb.prime_scrum.model.Tarefa</class>
-		<class>com.barrostsb.prime_scrum.model.Pessoa</class>
-		
+		<class>com.barrostsb.prime_scrum.model.Pessoa </class> 
+		<class>com.barrostsb.prime_scrum.model.Desenvolvedor</class> 
+		<class>com.barrostsb.prime_scrum.model.ScrumMaster</class> 
+		<class>com.barrostsb.prime_scrum.model.Projeto</class> 
+		<class>com.barrostsb.prime_scrum.model.Sprint</class> 
+	 	<class>com.barrostsb.prime_scrum.model.Tarefa</class>
+	 	<!-- Arrumar entidade Historia -->
+		<!--<class>com.barrostsb.prime_scrum.model.Historia</class> 
 		<class>com.barrostsb.prime_scrum.jpautils.SprintPK</class>
-		<class>com.barrostsb.prime_scrum.jpautils.HistoriaPK</class>
-		<class>com.barrostsb.prime_scrum.jpautils.TarefaPK</class>
+		<class>com.barrostsb.prime_scrum.jpautils.HistoriaPK</class>  
+		<class>com.barrostsb.prime_scrum.jpautils.TarefaPK</class>-->
 		<properties>
 		
 		<!-- Scan for annotated classes and Hibernate mapping XML files -->
