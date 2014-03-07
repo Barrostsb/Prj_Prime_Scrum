@@ -6,7 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 
-import com.barrostsb.prime_scrum.jpautils.JpaUtils;
+
+import com.barrostsb.prime_scrum.EntitiesPKs.JpaUtils;
 import com.barrostsb.prime_scrum.model.Projeto;
 
 public class ProjetoDAO {

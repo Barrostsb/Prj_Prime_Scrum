@@ -7,7 +7,7 @@ import javax.persistence.EntityTransaction;
 
 import org.hibernate.Criteria;
 
-import com.barrostsb.prime_scrum.jpautils.JpaUtils;
+import com.barrostsb.prime_scrum.EntitiesPKs.JpaUtils;
 import com.barrostsb.prime_scrum.model.Desenvolvedor;
 
 public class DesenvolvedorDAO {
@@ -15,7 +15,7 @@ public class DesenvolvedorDAO {
 	private static void salvarDesenvolvedor(Desenvolvedor desenvolvedor) {
 		EntityManager manager = JpaUtils. getEntityManager();
 		EntityTransaction tx = null;
-				
+
 		try {
 			tx = manager.getTransaction();
 			tx.begin();

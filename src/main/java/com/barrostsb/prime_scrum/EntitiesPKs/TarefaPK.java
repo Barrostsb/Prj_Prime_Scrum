@@ -1,18 +1,14 @@
-package com.barrostsb.prime_scrum.jpautils;
+package com.barrostsb.prime_scrum.EntitiesPKs;
 
 import java.io.Serializable;
 
-
-
-public class SprintPK implements Serializable {
+public class TarefaPK implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	private int projeto;
-	private int id_sprint;
+	private int id_tarefa;
 	
-	public SprintPK(){
-		
-	}
 	public int getProjeto() {
 		return projeto;
 	}
@@ -20,22 +16,21 @@ public class SprintPK implements Serializable {
 		this.projeto = projeto;
 	}
 	
-	public int getId_sprint() {
-		return id_sprint;
+	public int getId_tarefa() {
+		return id_tarefa;
 	}
-	public void setId_sprint(int sprint) {
-		this.id_sprint = sprint;
+	public void setId_tarefa(int id_tarefa) {
+		this.id_tarefa = id_tarefa;
 	}
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id_sprint;
+		result = prime * result + id_tarefa;
 		result = prime * result + projeto;
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -44,8 +39,8 @@ public class SprintPK implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SprintPK other = (SprintPK) obj;
-		if (id_sprint != other.id_sprint)
+		TarefaPK other = (TarefaPK) obj;
+		if (id_tarefa != other.id_tarefa)
 			return false;
 		if (projeto != other.projeto)
 			return false;

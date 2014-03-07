@@ -1,4 +1,4 @@
-package com.barrostsb.prime_scrum.jpautils;
+package com.barrostsb.prime_scrum.JpaUtils;
 
 //Para testes
 public class CreateTables {

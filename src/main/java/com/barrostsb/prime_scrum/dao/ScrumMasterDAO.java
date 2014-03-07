@@ -7,7 +7,7 @@ import javax.persistence.EntityTransaction;
 
 
 
-import com.barrostsb.prime_scrum.jpautils.JpaUtils;
+
 import com.barrostsb.prime_scrum.model.ScrumMaster;
 
 public class ScrumMasterDAO {

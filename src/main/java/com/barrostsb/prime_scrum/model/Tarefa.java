@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
-import com.barrostsb.prime_scrum.jpautils.TarefaPK;
+import com.barrostsb.prime_scrum.EntitiesPKs.TarefaPK;
 
 @Entity
 @Table (name = "tarefa")
