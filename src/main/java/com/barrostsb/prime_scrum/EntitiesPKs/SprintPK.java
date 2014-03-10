@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class SprintPK implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	private int projeto;
 	private int id_sprint;
 	

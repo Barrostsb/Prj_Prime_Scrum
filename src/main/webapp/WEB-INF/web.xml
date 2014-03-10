@@ -4,8 +4,22 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 
+	<!-- Nome Projeto -->
 	<display-name>Prime_Scrum</display-name>
-
+	
+	<!-- Lista de paginas inativas -->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<!-- Timeout de sessão inativa -->
+	<session-config>
+		<session-timeout>
+			30
+		</session-timeout>
+	</session-config>
+	
+	<!-- Servlet JSF -->
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -17,21 +31,50 @@
 		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
 
+
+	<!-- Servlet de recursos primefaces -->
+    <servlet>
+        <servlet-name>Resource Servlet</servlet-name>
+        <servlet-class>org.primefaces.resource.ResourceServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>Resource Servlet</servlet-name>
+        <url-pattern>/primefaces_resource/*</url-pattern>
+    </servlet-mapping>
+
+	<!-- Jboss weld -->
+	<listener>
+		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
+	</listener>
+
 	<context-param>
 		<param-name>com.sun.faces.writeStateAtFormEnd</param-name>
 		<param-value>false</param-value>
 	</context-param>
-
-	<!-- <context-param>
-		<param-name>primefaces.THEME</param-name>
-		<param-value>afternoon</param-value>
-	</context-param> -->
 	
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
+	<!-- Bloqueia o browser de acessar arquivos xhtml -->
+	<security-constraint>
+		<display-name>Bloqueia o browser de acessar arquivos xhtml</display-name>
+		<web-resource-collection>
+			<web-resource-name>xhtml files</web-resource-name>
+			<url-pattern>*.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint />
+	</security-constraint>
+	
+	<!-- Filtros de Upload -->
+    
+<!--    <filter>  
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>  
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>  
+    </filter>  
+    <filter-mapping>  
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>  
+        <servlet-name>Faces Servlet</servlet-name>  
+    </filter-mapping> -->
+	
 
-	<listener>
-		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
-	</listener>
+	<!-- <context-param> <param-name>primefaces.THEME</param-name> <param-value>afternoon</param-value> 
+		</context-param> -->
 </web-app>

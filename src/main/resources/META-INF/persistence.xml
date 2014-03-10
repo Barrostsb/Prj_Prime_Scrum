@@ -20,7 +20,8 @@
 		<class>com.barrostsb.prime_scrum.model.Projeto</class> 
 		<class>com.barrostsb.prime_scrum.model.Sprint</class> 
 	 	<class>com.barrostsb.prime_scrum.model.Tarefa</class>
-	 	<!-- Arrumar entidade Historia -->
+	<!--<class>com.barrostsb.prime_scrum.model.Historia</class> 
+	 		  Arrumar entidade Historia -->
 		<!--<class>com.barrostsb.prime_scrum.model.Historia</class> 
 		<class>com.barrostsb.prime_scrum.jpautils.SprintPK</class>
 		<class>com.barrostsb.prime_scrum.jpautils.HistoriaPK</class>  

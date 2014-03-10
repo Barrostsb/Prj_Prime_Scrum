@@ -1,5 +1,7 @@
 package com.barrostsb.prime_scrum.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,48 +17,25 @@ import com.barrostsb.prime_scrum.EntitiesPKs.TarefaPK;
 @Entity
 @Table (name = "tarefa")
 @IdClass(value=TarefaPK.class)
-public class Tarefa {
-	private Projeto projeto;
-//	private int sprint;
-//	private int historia;
+public class Tarefa implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private int id_tarefa;
+	private Projeto projeto;
+	
+	private int sprint;
+//	private int historia;
+	
 	private Desenvolvedor desenvolvedor;
 	private String nome;
 	private int prioridade;
 	private float tempo_execucao;
 	private int dificuldade;
 	
-	@Id
-	@ManyToOne
-	@JoinColumn(name="id_projeto")
-	@ForeignKey(name="FK_Projeto_tarefa")
-	public Projeto getProjeto() {
-		return projeto;
+	public Tarefa() {
+		// TODO Auto-generated constructor stub
 	}
-	
-	public void setProjeto(Projeto projeto) {
-		this.projeto = projeto;
-	}
-	
-
-//	@Column
-//	public int getSprint() {
-//		return sprint;
-//	}
-//	
-//	public void setSprint(int sprint) {
-//		this.sprint = sprint;
-//	}
-	
-//	@ManyToOne
-//	@JoinColumn(name="id_historia")
-//	public int getHistoria() {
-//		return historia;
-//	}
-//	
-//	public void setHistoria(int historia) {
-//		this.historia = historia;
-//	}
 	
 	@Id
 	public int getId_tarefa() {
@@ -67,9 +46,43 @@ public class Tarefa {
 		this.id_tarefa = id_tarefa;
 	}
 	
+	@Id
 	@ManyToOne
-	@JoinColumn(name = "id_desenvolvedor", referencedColumnName="id_pessoa")
-	@ForeignKey(name="FK_DesenvolvedorTarefa")
+	@JoinColumn(name="id_projeto", referencedColumnName="id_projeto")
+	@ForeignKey(name="FK_ProjetoTarefa")
+	public Projeto getProjeto() {
+		return projeto;
+	}
+	
+	public void setProjeto(Projeto projeto) {
+		this.projeto = projeto;
+	}
+
+//	@ManyToOne
+//	@JoinColumn(name = "id_sprint", referencedColumnName = "id_sprint")
+//	@ForeignKey(name = "FK_SprintTarefa")
+//	public int getSprint() {
+//		return sprint;
+//	}
+//	
+//	public void setSprint(int sprint) {
+//		this.sprint = sprint;
+//	}
+	
+//	@ManyToOne
+//	@JoinColumn(name="id_historia", referencedColumnName="id_historia")
+//	public int getHistoria() {
+//		return historia;
+//	}
+//	
+//	public void setHistoria(int historia) {
+//		this.historia = historia;
+//	}
+	
+	@ManyToOne
+	@JoinColumn( name = "id_desenvolvedor", 
+				 referencedColumnName="id_desenvolvedor")
+	@ForeignKey(name = "FK_DesenvolvedorTarefa")
 	public Desenvolvedor getDesenvolvedor() {
 		return desenvolvedor;
 	}

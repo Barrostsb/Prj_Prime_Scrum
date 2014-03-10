@@ -15,13 +15,15 @@ import javax.persistence.Table;
 @Table (name = "pessoa")
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Pessoa implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
 	private long id_pessoa;
 	private String nome;
+	
+	public Pessoa() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
