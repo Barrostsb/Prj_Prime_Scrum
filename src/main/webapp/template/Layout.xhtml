@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:f="http://java.sun.com/jsf/core"	
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title><ui:insert name="titulo">Prime_Scrum</ui:insert></title>
 	<!--  <h:outputStylesheet name="style.css" />-->
@@ -16,29 +16,50 @@
 			<h1>Prime_Scrum</h1>
 		</ui:insert>
 	</header>
-	<h:commandButton  value="valor" />
-	  <p:layout fullPage="true">
-	  
-            <p:layoutUnit position="north" size="75" header="Prime Scrum" resizable="false" closable="false" collapsible="false">
-                <h:outputText value="" />
-            </p:layoutUnit>
- 			
-            <p:layoutUnit position="west" size="200" header="Menu" resizable="false" closable="false" collapsible="false" >
-                     <ui:include src="./tiles/LeftMenu.xhtml" />
-            </p:layoutUnit>
- 
-            <p:layoutUnit position="east" size="200" header="Help" resizable="true" closable="true" collapsible="true" effect="drop">
+	<h:commandButton value="valor" />
+	<p:layout fullPage="true">
+
+		<p:layoutUnit position="north" size="75" header="Prime Scrum"
+			resizable="false" closable="false" collapsible="false">
+			<h:outputText value="" />
+		</p:layoutUnit>
+
+		<p:layoutUnit position="west" size="200" header="Menu"
+			resizable="false" closable="false" collapsible="false">
+			<h:form>
+				<p:growl id="menuprincipal" />
+				<p:menu style="width:100%">
+					<p:submenu label="Dados Pessoais">
+						<p:menuitem value="Dados Pessoais"	 ajax="false" icon="" />
+					</p:submenu>
+					
+					<p:submenu label="Gerenciar Pessoas">
+						<p:menuitem value="Scrum Master" action="/restrict/CadastrarScrumMaster.jsf" ajax="false" icon="" />
+						<p:menuitem value="Desenvolvedor" action="/restrict/CadastrarDesenvolvedor.jsf" ajax="false" icon="" />
+					</p:submenu>
+
+					<p:submenu label="Projetos">
+						<p:menuitem value="Gerenciar Projetos"	action="/restrict/CadastrarProjeto.jsf" ajax="false" icon="" />
+					</p:submenu>
+					
+				</p:menu>
+			</h:form>
+			<!--  <ui:include src="./tiles/LeftMenu.xhtml" /> -->
+		</p:layoutUnit>
+
+		<!--    <p:layoutUnit position="east" size="200" header="Help" resizable="true" closable="true" collapsible="true" effect="drop">
                 <h:outputText value="Right unit content." />
-            </p:layoutUnit>
- 
-            <p:layoutUnit position="center">
-            	<ui:include src="./tiles/TabView.xhtml" />
-                <ui:insert name="content">Put default content here, if any.</ui:insert>
-            </p:layoutUnit>
-            
-            <p:layoutUnit position="south" size="45" resizable="false" closable="false" collapsible="false">
-                <ui:insert name="content">Desenvolvido por Thiago Silva Barros</ui:insert>
-            </p:layoutUnit>
-        </p:layout>
-    </h:body>
+            </p:layoutUnit> -->
+
+		<p:layoutUnit position="center">
+			<!-- <ui:include src="./tiles/TabView.xhtml" />-->
+			<ui:insert name="content">Put default content here, if any.</ui:insert>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" size="45" resizable="false"
+			closable="false" collapsible="false">
+
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
 </html>

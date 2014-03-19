@@ -10,31 +10,34 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
-import com.barrostsb.prime_scrum.business.CadastroPessoas;
+import com.barrostsb.prime_scrum.business.CadastroProjetos;
 import com.barrostsb.prime_scrum.exception.BusinessException;
-import com.barrostsb.prime_scrum.model.Desenvolvedor;
-import com.barrostsb.prime_scrum.model.Pessoa;
-import com.barrostsb.prime_scrum.model.ScrumMaster;
-import com.barrostsb.prime_scrum.repository.Pessoas;
+import com.barrostsb.prime_scrum.model.Projeto;
+import com.barrostsb.prime_scrum.repository.Projetos;
 
-@ManagedBean(name = "scrumMasterController")
+@ManagedBean(name = "projetoController")
 @ViewScoped
-public class ScrumMasterController implements Serializable {
+public class ProjetoController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Pessoa scrumMaster = new ScrumMaster();
+	private Projeto projeto = new Projeto();
 
 	public void salvar() {
 		EntityManager manager = JpaUtils.getEntityManager();
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
-				
+		
+		
+		System.out.println(projeto.getNome());
+		
+		
+		
 		try {
 			trx.begin();
-			CadastroPessoas cadastro = new CadastroPessoas(new Pessoas(manager));
-			cadastro.salvar(this.scrumMaster);
-			this.scrumMaster = new Pessoa();			
-			context.addMessage(null, new FacesMessage("Scrum Master salvo com sucesso!"));
+			CadastroProjetos cadastro = new CadastroProjetos(new Projetos(manager));
+			cadastro.salvar(this.projeto);
+			this.projeto = new Projeto();			
+			context.addMessage(null, new FacesMessage("Projeto salvo com sucesso!"));
 			trx.commit();
 		} catch (BusinessException e) {
 			trx.rollback();
@@ -44,15 +47,16 @@ public class ScrumMasterController implements Serializable {
 	}
 	
 	public String clear(){
-		scrumMaster = new Pessoa();
-		return "/restrict/CadastrarScrumMaster.jsf"; 
+		projeto = new Projeto();
+		return "/restrict/CadastrarProjeto.jsf"; 
 	}
 	
-	public Pessoa getScrumMaster() {
-		return scrumMaster;
+	public Projeto getProjeto() {
+		return projeto;
 	}
 	
-	public void setScrumMaster(ScrumMaster sm) {
-		this.scrumMaster = sm;
+	public void setProjeto(Projeto projeto) {
+		this.projeto = projeto;
 	}
 }
+

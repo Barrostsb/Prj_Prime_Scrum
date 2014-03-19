@@ -1,1 +1,1 @@
-<jsp:forward page="/Login.jsf"/>  
+<jsp:forward page="restrict/home.jsf"/>  

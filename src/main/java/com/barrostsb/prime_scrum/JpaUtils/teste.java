@@ -1,19 +1,28 @@
-package com.barrostsb.prime_scrum.dao;
+package com.barrostsb.prime_scrum.JpaUtils;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.sound.midi.ControllerEventListener;
 
-import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
+import com.barrostsb.prime_scrum.controller.ScrumMasterController;
+import com.barrostsb.prime_scrum.dao.ScrumMasterDAO;
 import com.barrostsb.prime_scrum.model.ScrumMaster;
 
-public class ScrumMasterDAO {
+public class teste {
 	
-	public static void salvarScrumMaster(ScrumMaster scrumMaster) {
-		EntityManager manager = JpaUtils. getEntityManager();
+	
+	public static void main(String[] args) {
+		ScrumMasterController controller = new ScrumMasterController();
+		controller.insert();
+		;
+	}
+	
+	private static void salvarScrumMaster(ScrumMaster scrumMaster) {
+		EntityManager manager = JpaUtils.getEntityManager();
 		EntityTransaction tx = null;
-				
+		
 		try {
 			tx = manager.getTransaction();
 			tx.begin();

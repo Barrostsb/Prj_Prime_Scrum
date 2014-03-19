@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/template/Layout.xhtml">
+	<!--    xmlns:c="http://java.sun.com/jsf/jstl/core" -->
+
+	<ui:define name="content">
+		<p:tabView id="tbv1">
+			<p:tab title="Scrum Master">
+				<h:form prependId="false" id="formSM">
+					<p:growl id="msg0" />
+					<h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid"
+						id="grid0">
+
+						<h:outputLabel />
+						<h:inputHidden id="idpessoa" value="#{scrumMasterController.scrumMaster.id_pessoa}" />
+							
+						<h:outputLabel for="nomePessoa" value="Nome.:" />
+
+						<p:inputText id="nomePessoa" size="40"
+							value="#{scrumMasterController.scrumMaster.nome}"
+							onkeyup="this.value = this.value.toUpperCase()" required="true"
+							requiredMessage="O Campo Nome é Obrigatório!">
+						</p:inputText>
+
+
+						<p:panel>
+							<p:commandButton value="Salvar"
+								action="#{scrumMasterController.salvar}"
+								image="ui-icon ui-icon-disk" >
+							</p:commandButton>
+
+							<p:commandButton value="Cancelar"
+								actionListener="#{scrumMasterController.clear}"
+								image="ui-icon ui-icon-close" update="@form">
+							</p:commandButton>
+						</p:panel>
+					</h:panelGrid>
+				</h:form>
+			</p:tab>
+		</p:tabView>
+
+		<!--  <h:form id="formtable">
+			<p:growl id="msg1" />
+			<p:dataTable id="idtabela" var="pessoa" value="" paginator="true"
+				rows="10" emptyMessage="Nenhum regitro encontrado"
+				paginatorTemplate=" {{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">Lista de Pessoas</f:facet>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Nome" />
+					</f:facet>
+					<h:outputText value="TESTE" />
+				</p:column>
+
+				<p:column>
+					<p:commandButton image="ui-icon ui-icon-pencil" process="@this"
+						update=":tbv1:formPessoa">
+					</p:commandButton>
+
+					<p:commandButton image="ui-icon ui-icon-close" update="@form">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+		</h:form>-->
+	</ui:define>
+
+</ui:composition>

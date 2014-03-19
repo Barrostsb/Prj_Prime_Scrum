@@ -1,6 +1,5 @@
 package com.barrostsb.prime_scrum.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,43 +8,22 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ForeignKey;
-
 
 @Entity
 @Table (name = "projeto")
-public class Projeto implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
+public class Projeto {
 	private int id_projeto;	
-	private ScrumMaster id_scrumMaster;
+	private ScrumMaster scrumMaster;
 	private String nome;
-//	private List<Desenvolvedor> listaDesenvolvedores;
+	private List<Desenvolvedor> listaDesenvolvedores;
 	private List<Sprint> listaSprint;
 //	private List<Historia> listaHistoria;
-	private List<Tarefa> listaTarefa;
 
-	@OneToMany( mappedBy = "projeto",
-    fetch=FetchType.LAZY)
-	@ForeignKey(name="FK_ProjetoTarefa")
-	public List<Tarefa> getListaTarefa() {
-		return listaTarefa;
-	}
-
-	public void setListaTarefa(List<Tarefa> listaTarefa) {
-		this.listaTarefa = listaTarefa;
-	}
-
-	public Projeto() {
-		// TODO Auto-generated constructor stub
-	}
-	
 	@Id
 	@GeneratedValue
 	public int getId_projeto() {
@@ -56,15 +34,13 @@ public class Projeto implements Serializable {
 	}
 	
 	@ManyToOne
-	@JoinColumn( name = "id_scrumMaster",
-				 referencedColumnName="id_scrumMaster")
-	@ForeignKey(name = "FK_ScrumMasterProjeto")
+	@JoinColumn(name = "id_scrumMaster", referencedColumnName="id_pessoa")
 	public ScrumMaster getScrumMaster() {
-		return id_scrumMaster;
+		return scrumMaster;
 	}
 	
 	public void setScrumMaster(ScrumMaster scrumMaster) {
-		this.id_scrumMaster = scrumMaster;
+		this.scrumMaster = scrumMaster;
 	}
 	
 	@Column
@@ -75,9 +51,7 @@ public class Projeto implements Serializable {
 		this.nome = nome;
 	}
 	
-	@OneToMany( mappedBy = "projeto",
-			    fetch=FetchType.LAZY)
-	@ForeignKey(name = "FK_ProjetoSprint")
+	@OneToMany(mappedBy = "projeto", fetch=FetchType.LAZY)
 	public List<Sprint> getListaSprint() {
 		return listaSprint;
 	}
@@ -94,15 +68,13 @@ public class Projeto implements Serializable {
 //		this.listaHistoria = listaHistoria;
 //	}
 	
-//	@ManyToMany //(mappedBy="listaProjetos", fetch=FetchType.LAZY)
-//	@JoinTable(	name = "desenvolvedor_projeto", joinColumns = @JoinColumn(name = "id_projeto"), inverseJoinColumns = @JoinColumn(name = "id_desenvolvedor"))
-//	@ForeignKey(name = "FK_DesenvolvedorProjeto")
-//	public List<Desenvolvedor> getListaDesenvolvedores() {
-//		return listaDesenvolvedores;
-//	}
-//	public void setListaDesenvolvedores(List<Desenvolvedor> listaDesenvolvedores) {
-//		this.listaDesenvolvedores = listaDesenvolvedores;
-//	}
+	@ManyToMany(mappedBy="listaProjetos", fetch=FetchType.LAZY)
+	public List<Desenvolvedor> getListaDesenvolvedores() {
+		return listaDesenvolvedores;
+	}
+	public void setListaDesenvolvedores(List<Desenvolvedor> listaDesenvolvedores) {
+		this.listaDesenvolvedores = listaDesenvolvedores;
+	}
 	
 	@Override
 	public int hashCode() {

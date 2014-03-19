@@ -15,24 +15,23 @@ import javax.persistence.Table;
 @Table (name = "pessoa")
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Pessoa implements Serializable{
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	
-	private long id_pessoa;
+	private int id_pessoa;
 	private String nome;
-	
-	public Pessoa() {
-		// TODO Auto-generated constructor stub
-	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_pessoa", nullable = false)
-	public long getId_pessoa() {
+	
+	public int getId_pessoa() {
 		return id_pessoa;
 	}
 	
-	public void setId_pessoa(long id_pessoa) {
+	public void setId_pessoa(int id_pessoa) {
 		this.id_pessoa = id_pessoa;
 	}
 	
