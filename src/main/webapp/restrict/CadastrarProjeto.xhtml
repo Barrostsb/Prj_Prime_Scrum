@@ -1,49 +1,53 @@
-<ui:composition
-	  xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      template="/template/Layout.xhtml" >
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/template/Layout.xhtml">
 	<!--  xmlns:c="http://java.sun.com/jsf/jstl/core"> -->
-      
-      <ui:define name="content">
-      	<p:tabView id="tbv2">
-      		<p:tab title="Projeto">
-      			<h:form prependId="false" id= "formProjeto">
-      				<p:growl id="msg0"/>
-      					<h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid" id="grid0">
-      						
-      						<h:outputLabel />
-      						<h:inputHidden id="idprojeto" value="#{projetoController.projeto.id_projeto}" />
-      						
-      						<h:outputLabel for="nomeProjeto" value="Nome.:" />
-      						<p:inputText id="nomeProjeto" 
-      									 size="40" 
-      									 value="#{projetoController.projeto.nome}" 
-      									 onkeyup = "this.value = this.value.toUpperCase()" 
-      									 required="true" requiredMessage="O Campo Nome é Obrigatório!">
-      						</p:inputText>
-      						
-      						<p:panel>
-      							<p:commandButton value="Salvar" 
-      											 action="#{projetoController.salvar}"
-      											 image="ui-icon ui-icon-disk"
-      											 >
-      							</p:commandButton>
-      							
-      							<p:commandButton value="Limpar" 
-      											 action="#{projetoController.clear}"
-      											 image="ui-icon ui-icon-disk"
-      											 >
-      							</p:commandButton>
-      							 
-      						</p:panel>
-      					</h:panelGrid>
-      			</h:form>
-      		</p:tab>
-      		<p:tab title="Lista de Projetos">
-      		</p:tab>	
-      	</p:tabView>
-      	 </ui:define>
+
+	<ui:define name="content">
+		<p:tabView id="tbv2">
+			<p:tab title="Projeto">
+				<h:form prependId="false" id="formProjeto">
+					<p:growl id="msg0" />
+					<h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid"
+						id="grid0">
+
+						<h:outputLabel />
+						<h:inputHidden id="idprojeto"
+							value="#{projetoController.projeto.id_projeto}" />
+
+						<h:outputLabel for="nomeProjeto" value="Nome.:" />
+
+						<p:inputText id="nomeProjeto" size="40"
+							value="#{projetoController.projeto.nome}"
+							onkeyup="this.value = this.value.toUpperCase()" required="true"
+							requiredMessage="O Campo Nome é Obrigatório!">
+						</p:inputText>
+
+
+
+						<p:panel>
+							<p:commandButton value="Salvar"
+								action="#{projetoController.salvar}"
+								image="ui-icon ui-icon-disk">
+							</p:commandButton>
+
+							<p:commandButton value="Limpar"
+								action="#{projetoController.clear}" image="ui-icon ui-icon-disk">
+							</p:commandButton>
+
+						</p:panel>
+					</h:panelGrid>
+				</h:form>
+			</p:tab>
+			<p:tab title="Lista de Projetos">
+
+				<p:commandButton value="PROJETO TESTE" action="./GerenciaProjeto.jsf"
+					image="ui-icon ui-icon-script">
+				</p:commandButton>
+
+			</p:tab>
+		</p:tabView>
+	</ui:define>
 </ui:composition>

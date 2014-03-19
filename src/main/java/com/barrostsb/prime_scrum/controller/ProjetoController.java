@@ -27,11 +27,6 @@ public class ProjetoController implements Serializable {
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
 		
-		
-		System.out.println(projeto.getNome());
-		
-		
-		
 		try {
 			trx.begin();
 			CadastroProjetos cadastro = new CadastroProjetos(new Projetos(manager));

@@ -27,7 +27,7 @@ public class DesenvolvedorController implements Serializable {
 		EntityManager manager = JpaUtils.getEntityManager();
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
-
+		
 		try {
 			trx.begin();
 			CadastroPessoas cadastro = new CadastroPessoas(new Pessoas(manager));
