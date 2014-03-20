@@ -6,17 +6,27 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.sound.midi.ControllerEventListener;
 
+import com.barrostsb.prime_scrum.controller.ProjetoController;
 import com.barrostsb.prime_scrum.controller.ScrumMasterController;
 import com.barrostsb.prime_scrum.dao.ScrumMasterDAO;
+import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.model.ScrumMaster;
+import com.barrostsb.prime_scrum.repository.Pessoas;
 
 public class teste {
 	
 	
 	public static void main(String[] args) {
-		ScrumMasterController controller = new ScrumMasterController();
-		controller.insert();
-		;
+		EntityManager manager = JpaUtils.getEntityManager();
+		Pessoas p = new Pessoas(manager);
+		ProjetoController pc = new ProjetoController();
+		pc.buscarTodosProjetos();
+		List<Projeto> proj = pc.getProjetosBuscados();
+		
+	       for(Projeto model : proj) {
+	            System.out.println(model.getNome());
+	        }
+	       
 	}
 	
 	private static void salvarScrumMaster(ScrumMaster scrumMaster) {
@@ -63,7 +73,7 @@ public class teste {
 	
 		EntityManager maneger = JpaUtils.getEntityManager();
 		try {
-			scrumMastersBuscados = maneger.createQuery("FROM Produto").getResultList();
+			scrumMastersBuscados = maneger.createQuery("FROM ScrumMaster").getResultList();
 		} finally {
 			maneger.close();
 		}

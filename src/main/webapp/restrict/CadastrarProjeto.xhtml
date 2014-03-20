@@ -5,6 +5,10 @@
 	xmlns:p="http://primefaces.org/ui" template="/template/Layout.xhtml">
 	<!--  xmlns:c="http://java.sun.com/jsf/jstl/core"> -->
 
+	<f:metadata>
+		<f:viewAction action="#{projetoController.buscarTodosProjetos}" />
+	</f:metadata>
+	
 	<ui:define name="content">
 		<p:tabView id="tbv2">
 			<p:tab title="Projeto">
@@ -41,11 +45,47 @@
 					</h:panelGrid>
 				</h:form>
 			</p:tab>
+			
 			<p:tab title="Lista de Projetos">
 
-				<p:commandButton value="PROJETO TESTE" action="./GerenciaProjeto.jsf"
-					image="ui-icon ui-icon-script">
-				</p:commandButton>
+				<h:form id="formRing">
+					
+					<p:ring id="prjRing" value="#{projetoController.projetosBuscados}" var="projeto">
+						
+						<p:outputPanel style="text-align:center;" layout="block"> 
+							#{projeto.nome}             					 
+						</p:outputPanel>
+						
+						<p:outputPanel style="text-align:center;" layout="block"> 
+							<p:commandButton update="@form:detail" icon="ui-icon-search" title="View" oncomplete="PF('dlg').show()">
+									<f:setPropertyActionListener value="#{projeto}" target="#{projetoController.projetoSelecionado}" />
+							</p:commandButton>
+								<p:commandButton action="./GerenciaProjeto.jsf" image="ui-icon ui-icon-script">
+							</p:commandButton>
+							<p:commandButton update="@form:detail" icon="ui-icon-closethick">
+							</p:commandButton>
+						</p:outputPanel>
+					</p:ring>
+
+					<p:dialog id="dialog" widgetVar="dlg" showEffect="fade"	hideEffect="fade" modal="true" width="125">
+
+						<p:outputPanel id="detail" style="text-align:center;" layout="block">
+
+							<h:panelGrid columns="2" cellpadding="5" rendered="#{not empty projetoController.projetoSelecionado}">
+
+
+								<h:outputText value="Nome: " />
+								<h:outputText id="prjNome"
+									value="#{projetoController.projetoSelecionado.nome}" />
+
+							</h:panelGrid>
+						</p:outputPanel>
+
+					</p:dialog>
+				</h:form>
+
+
+			
 
 			</p:tab>
 		</p:tabView>
