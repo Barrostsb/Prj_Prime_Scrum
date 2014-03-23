@@ -2,6 +2,7 @@ package com.barrostsb.prime_scrum.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -14,7 +15,7 @@ import com.barrostsb.prime_scrum.EntitiesPKs.TarefaPK;
 
 @Entity
 @Table (name = "tarefa")
-@IdClass(value=TarefaPK.class)
+//@IdClass(value=TarefaPK.class)
 public class Tarefa {
 	private Projeto projeto;
 //	private int sprint;
@@ -26,7 +27,18 @@ public class Tarefa {
 	private float tempo_execucao;
 	private int dificuldade;
 	
+	
 	@Id
+	@GeneratedValue
+	public int getId_tarefa() {
+		return id_tarefa;
+	}
+	
+	public void setId_tarefa(int id_tarefa) {
+		this.id_tarefa = id_tarefa;
+	}
+	
+//	@Id
 	@ManyToOne
 	@JoinColumn(name="id_projeto")
 	@ForeignKey(name="FK_Projeto_tarefa")
@@ -58,14 +70,6 @@ public class Tarefa {
 //		this.historia = historia;
 //	}
 	
-	@Id
-	public int getId_tarefa() {
-		return id_tarefa;
-	}
-	
-	public void setId_tarefa(int id_tarefa) {
-		this.id_tarefa = id_tarefa;
-	}
 	
 	@ManyToOne
 	@JoinColumn(name = "id_desenvolvedor", referencedColumnName="id_pessoa")

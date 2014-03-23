@@ -3,17 +3,170 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui" template="/template/Layout.xhtml">
-	<!--  xmlns:c="http://java.sun.com/jsf/jstl/core"> -->
+
+	<f:metadata>
+		<f:viewAction action="#{tarefaController.buscarTodasTarefa}" />
+	</f:metadata>
+
 
 	<ui:define name="content">
+		<p:panel id="prjHeader" header="Projeto">
+			<h:outputText id="prjId"
+				value="#{projetoController.projetoSelecionado.nome}" />
+		</p:panel>
 		<p:tabView id="tbvGerenciaDeProjeto">
 			<p:tab title="Dados Projeto">
+
 			</p:tab>
+
+
 			<p:tab title="Lista de Requisitos">
+				<p:fieldset title="Novo requisito">
+
+					<h:form prependId="false" id="formTask">
+						<p:growl id="msg0" />
+						<h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid"
+							id="grid0">
+							<h:outputLabel />
+
+							<h:inputHidden id="idTarefa"
+								value="#{tarefaController.tarefa.id_tarefa}" />
+
+
+
+							<h:outputLabel value="Projeto" />
+
+							<h:selectOneMenu value="#{tarefaController.tarefa.projeto}"
+								label="Projeto">
+
+								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+
+								<f:selectItems value="#{tarefaController.todosProjetos}"
+									var="projeto" itemValue="#{projeto}"
+									itemLabel="#{projeto.nome}" />
+							</h:selectOneMenu>
+
+							<h:outputLabel for="nomeTarefa" value="Nome.:" />
+
+							<p:inputText id="nomeTarefa" size="40"
+								value="#{tarefaController.tarefa.nome}"
+								onkeyup="this.value = this.value.toUpperCase()" required="true"
+								requiredMessage="O Campo Nome é Obrigatório!">
+							</p:inputText>
+
+							<p:panel>
+								<p:commandButton value="Salvar"
+									action="#{tarefaController.salvar}"
+									image="ui-icon ui-icon-disk">
+								</p:commandButton>
+
+								<p:commandButton value="Cancelar"
+									actionListener="#{tarefaController.clear}"
+									image="ui-icon ui-icon-close" update="@form">
+								</p:commandButton>
+							</p:panel>
+						</h:panelGrid>
+					</h:form>
+
+				</p:fieldset>
+
+				<p:fieldset title="Requisitos">
+
+					<h:form id="formListaRequisitos">
+					
+							<p:dataGrid var="tarefa" value="#{tarefaController.todasTarefas}" columns="3"
+								rows="12" paginator="true"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="9,12,15">
+
+								<p:panel header="#{tarefa.nome}" style="text-align:center">
+									<h:panelGrid columns="1" style="width:100%">
+
+										<!--  <p:commandLink update=":form:carDetail"
+											oncomplete="PF('carDialog').show()" title="View Detail">
+											<h:outputText styleClass="ui-icon ui-icon-search"
+												style="margin:0 auto;" />
+											<f:setPropertyActionListener value="#{tarefa}"
+												target="#{tarefaController.tarefaSelecionado}" />
+										</p:commandLink>
+										-->
+									</h:panelGrid>
+								</p:panel>
+
+							</p:dataGrid>
+
+						<!--  	<p:dialog header="Car Detail" widgetVar="carDialog" modal="true">
+								<p:outputPanel id="carDetail" style="text-align:center;">
+
+									<h:panelGrid columns="2" cellpadding="5">
+										<h:outputLabel for="modelNo" value="Model No: " />
+										<h:outputText id="modelNo"
+											value="#{tarefaController.tarefaSelecionado.nome}" />
+
+										<h:outputLabel for="year" value="Year: " />
+										<h:outputText id="year" value="#{tableBean.selectedCar.year}" />
+
+										<h:outputLabel for="color" value="Color: " />
+										<h:outputText id="color"
+											value="#{tableBean.selectedCar.color}"
+											style="color:#{tableBean.selectedCar.color}" />
+									</h:panelGrid>
+								</p:outputPanel>
+							</p:dialog>
+-->
+						</h:form>
+				</p:fieldset>
+
+
+
 			</p:tab>
 			<p:tab title="Sprints">
 			</p:tab>
+
+
 			<p:tab title="TaskBoard">
+				<p:panel style="width:700px; margin-left:auto; margin-right:auto;">
+					<h:form id="form">
+
+						<p:growl id="growl" showDetail="true" />
+						<h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid"
+							id="grid0">
+
+							<p:dashboard id="board" model="#{taskBoardController.model}">
+								
+								
+								<p:ajax  event="reorder"
+									listener="#{taskBoardController.handleReorder}" update="growl" />
+
+								<p:panel id="todo" header="TO DO" >
+								</p:panel>
+								<p:panel id="inprocess" header="IN PROCESS">
+								</p:panel>
+								<p:panel id="done" header="DONE">
+								</p:panel>
+								
+								<p:panel id="sports" header="Sports">
+								</p:panel>
+
+								<p:panel id="finance" header="Finance">
+									<h:outputText value="Finance Content" />
+								</p:panel>
+
+								<p:panel id="lifestyle" header="Lifestyle">
+									<h:outputText value="Lifestyle Content" />
+								</p:panel>
+
+								<p:panel id="weather" header="Weather">
+									<h:outputText value="Weather Content" />
+								</p:panel>
+
+								<p:panel id="politics" header="Politics">
+									<h:outputText value="Politics Content" />
+								</p:panel>
+							</p:dashboard>
+						</h:panelGrid>
+					</h:form>
+				</p:panel>
 			</p:tab>
 			<p:tab title="Burndown">
 			</p:tab>

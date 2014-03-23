@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -18,20 +19,22 @@ import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.repository.Projetos;
 
 @ManagedBean(name = "projetoController")
-@ViewScoped
+@ApplicationScoped
 public class ProjetoController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+		
 	private Projeto projeto = new Projeto();
 	private List<Projeto> projetosBuscados = null;
-	
+
 	private Projeto projetoSelecionado;
-	
+
+	EntityManager manager = JpaUtils.getEntityManager();
+
 	public void salvar() {
-		EntityManager manager = JpaUtils.getEntityManager();
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
-		
+
 		try {
 			trx.begin();
 			CadastroProjetos cadastro = new CadastroProjetos(new Projetos(manager));
@@ -43,33 +46,33 @@ public class ProjetoController implements Serializable {
 			trx.rollback();
 			FacesMessage mensagem = new FacesMessage(e.getMessage());
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
-		} finally {
-			manager.close();
-		}
+		} 
 	}
-	
+
 	public void buscarTodosProjetos() {
-	
-		EntityManager manager = JpaUtils.getEntityManager();
-		TypedQuery<Projeto> query = manager.createQuery("from Projeto", Projeto.class);
-		this.projetosBuscados = query.getResultList();
-		manager.close();
-		
-//		EntityManager maneger = JpaUtils.getEntityManager();
-//		try {
-//			projetosBuscados = maneger.createQuery("FROM Projeto").getResultList();
-//		} finally {
-//			maneger.close();
-//		}
+		Projetos prjs = new Projetos(manager);
+		prjs.todos();
+
+		//		EntityManager manager = JpaUtils.getEntityManager();
+		//		TypedQuery<Projeto> query = manager.createQuery("from Projeto", Projeto.class);
+		//		this.projetosBuscados = query.getResultList();
+		//		manager.close();
+
+		//		EntityManager maneger = JpaUtils.getEntityManager();
+		//		try {
+		//			projetosBuscados = maneger.createQuery("FROM Projeto").getResultList();
+		//		} finally {
+		//			maneger.close();
+		//		}
 	}
 	
-	
+
 	public String clear(){
 		projeto = new Projeto();
 		return "/restrict/CadastrarProjeto.jsf"; 
 	}
-	
-	
+
+
 	public List<Projeto> getProjetosBuscados() {
 		EntityManager maneger = JpaUtils.getEntityManager();
 		try {
@@ -83,15 +86,15 @@ public class ProjetoController implements Serializable {
 	public void setProjetosBuscados(List<Projeto> projetosBuscados) {
 		this.projetosBuscados = projetosBuscados;
 	}
-	
+
 	public Projeto getProjeto() {
 		return projeto;
 	}
-	
+
 	public void setProjeto(Projeto projeto) {
 		this.projeto = projeto;
 	}
-	
+
 	public Projeto getProjetoSelecionado() {
 		return projetoSelecionado;
 	}

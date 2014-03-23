@@ -12,13 +12,13 @@
 	</properties>
 
 	<repositories>
-    <repository>
-        <id>prime-repo</id>
-        <name>PrimeFaces Maven Repository</name>
-        <url>http://repository.primefaces.org</url>
-        <layout>default</layout>
-    </repository>
-</repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
@@ -71,7 +71,7 @@
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.faces</artifactId>
-			<version>2.2.6</version>
+			<version>2.2.4</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -90,7 +90,7 @@
 			<version>5.0.1.Final</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 
 		<!-- PrimeFaces (biblioteca de componentes) -->
 		<dependency>
@@ -108,12 +108,8 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!--  <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>4.0.2.RELEASE</version>
-		</dependency>
--->
+		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-context</artifactId> 
+			<version>4.0.2.RELEASE</version> </dependency> -->
 
 		<!-- PrimeFaces (Todos os temas) -->
 		<dependency>
@@ -121,5 +117,12 @@
 			<artifactId>all-themes</artifactId>
 			<version>1.0.10</version>
 		</dependency>
-	</dependencies> 
+
+		<!-- JSTL -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+	</dependencies>
 </project>

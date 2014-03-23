@@ -19,8 +19,12 @@ public class Projetos {
 		this.manager = manager;
 	}
 	
+	public Projeto porId(int id) {
+		return manager.find(Projeto.class, id);
+	}
+	
 	public List<Projeto> todos() {
-		TypedQuery<Projeto> query = manager.createQuery("from Lancamento", Projeto.class);
+		TypedQuery<Projeto> query = manager.createQuery("FROM Projeto", Projeto.class);
 		
 		return query.getResultList();
 	}

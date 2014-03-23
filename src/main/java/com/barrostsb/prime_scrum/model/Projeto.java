@@ -21,7 +21,7 @@ public class Projeto {
 	private ScrumMaster scrumMaster;
 	private String nome;
 	private List<Desenvolvedor> listaDesenvolvedores;
-	private List<Sprint> listaSprint;
+//	private List<Sprint> listaSprint;
 //	private List<Historia> listaHistoria;
 
 	@Id
@@ -51,14 +51,14 @@ public class Projeto {
 		this.nome = nome;
 	}
 	
-	@OneToMany(mappedBy = "projeto", fetch=FetchType.LAZY)
-	public List<Sprint> getListaSprint() {
-		return listaSprint;
-	}
-	
-	public void setListaSprint(List<Sprint> listaSprint) {
-		this.listaSprint = listaSprint;
-	}
+//	@OneToMany(mappedBy = "projeto", fetch=FetchType.LAZY)
+//	public List<Sprint> getListaSprint() {
+//		return listaSprint;
+//	}
+//	
+//	public void setListaSprint(List<Sprint> listaSprint) {
+//		this.listaSprint = listaSprint;
+//	}
 	
 //	@OneToMany(mappedBy = "projeto", fetch=FetchType.LAZY)
 //	public List<Historia> getListaHistoria() {
