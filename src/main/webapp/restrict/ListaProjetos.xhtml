@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	template="/template/Layout.xhtml">
+	<!--  xmlns:c="http://java.sun.com/jsf/jstl/core"> -->
+
+	<f:metadata>
+		<f:viewAction action="#{projetoController.buscarTodosProjetos}" />
+	</f:metadata>
+	
+	
+	<ui:define name="content">
+		<p:fieldset legend="Projetos de ..."> 
+				<h:form id="formRing">
+					
+					<p:ring id="prjRing" value="#{projetoController.projetosBuscados}" var="projeto">
+						
+						<p:outputPanel style="text-align:center;" layout="block"> 
+							#{projeto.nome}             					 
+						</p:outputPanel>
+						
+						<p:outputPanel style="text-align:center;" layout="block">
+						 
+							<p:commandButton update=":formRing:detail" icon="ui-icon-search" title="View" oncomplete="PF('dlgDadosProjeto').show()">
+									<f:setPropertyActionListener value="#{projeto}" target="#{projetoController.projetoSelecionado}" />
+							</p:commandButton>
+							
+								<p:commandButton action="./GerenciaProjeto.jsf" image="ui-icon ui-icon-script">
+									<f:setPropertyActionListener value="#{projeto}" target="#{projetoController.projetoSelecionado}" />
+								</p:commandButton>
+							<p:commandButton icon="ui-icon-closethick">
+							</p:commandButton>
+						</p:outputPanel>
+					</p:ring>
+
+					<p:dialog id="dialog" widgetVar="dlgDadosProjeto" showEffect="puff"	hideEffect="fade" modal="true" width="125">
+
+						<p:outputPanel id="detail" style="text-align:center;" layout="block">
+
+							<h:panelGrid columns="2" cellpadding="5" rendered="#{not empty projetoController.projetoSelecionado}">
+
+								<h:outputText value="Nome: " />
+								<h:outputText id="prjNome"
+									value="#{projetoController.projetoSelecionado.nome}" />
+								<br/>
+								<h:outputText value="ID: " />
+								<h:outputText id="prjId"
+									value="#{projetoController.projetoSelecionado.id_projeto}" />
+
+							</h:panelGrid>
+						</p:outputPanel>
+
+					</p:dialog>
+				</h:form>
+			</p:fieldset>
+			
+	</ui:define>
+</ui:composition>
