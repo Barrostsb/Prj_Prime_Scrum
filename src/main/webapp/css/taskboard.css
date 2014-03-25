@@ -1,0 +1,9 @@
+.ui-dashboard-column.ui-sortable {
+	min-width: 175px;
+}
+
+.ui-dashboard .ui-panel.ui-widget.ui-widget-content.ui-corner-all{
+	width: 90px;
+	display: inline-block;
+	box-sizing: border-box;	
+}

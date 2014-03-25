@@ -1,6 +1,7 @@
 package com.barrostsb.prime_scrum.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -11,6 +12,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+
+import org.primefaces.event.DragDropEvent;
 
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.business.CadastroProjetos;
@@ -28,6 +31,42 @@ public class TarefaController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Tarefa tarefa = new Tarefa();
 	private List<Tarefa> tarefasBuscadas = null;
+	private List<Tarefa> tarefasTodo = null;
+	private List<Tarefa> tarefasInprocess = null;
+	private List<Tarefa> tarefasDone = null;
+	
+	
+    public TarefaController() {  
+    	tarefasBuscadas = new ArrayList<Tarefa>();
+    	getTodasTarefas();
+    	tarefasInprocess = new ArrayList<Tarefa>();  
+  
+    } 
+    
+	public List<Tarefa> getTarefasTodo() {
+		return tarefasTodo;
+	}
+
+	public void setTarefasTodo(List<Tarefa> tarefasTodo) {
+		this.tarefasTodo = tarefasTodo;
+	}
+
+	public List<Tarefa> getTarefasInprocess() {
+		return tarefasInprocess;
+	}
+
+	public void setTarefasInprocess(List<Tarefa> tarefasInprocess) {
+		this.tarefasInprocess = tarefasInprocess;
+	}
+
+	public List<Tarefa> getTarefasDone() {
+		return tarefasDone;
+	}
+
+	public void setTarefasDone(List<Tarefa> tarefasDone) {
+		this.tarefasDone = tarefasDone;
+	}
+
 	private List<Projeto> todosProjetos = null;
 
 	EntityManager manager = JpaUtils.getEntityManager();
@@ -89,6 +128,13 @@ public class TarefaController implements Serializable {
 		//			maneger.close();
 		//		}
 	}
+	
+    public void onTaskDrop(DragDropEvent ddEvent) {  
+        Tarefa car = ((Tarefa) ddEvent.getData());  
+  
+        tarefasInprocess.add(car);  
+        tarefasBuscadas.remove(car);  
+    } 
 
 
 	public String clear(){
@@ -105,6 +151,14 @@ public class TarefaController implements Serializable {
 			maneger.close();
 		}
 		return tarefasBuscadas;
+	}
+
+	public Tarefa getTarefaSelecionada() {
+		return tarefaSelecionada;
+	}
+
+	public void setTarefaSelecionada(Tarefa tarefaSelecionada) {
+		this.tarefaSelecionada = tarefaSelecionada;
 	}
 
 	public void setTodasTarefas(List<Tarefa> tarefaBuscadas) {

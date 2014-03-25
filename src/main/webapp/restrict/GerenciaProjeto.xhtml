@@ -1,9 +1,11 @@
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui" template="/template/Layout.xhtml">
 
+	
 	<f:metadata>
 		<f:viewAction action="#{tarefaController.buscarTodasTarefa}" />
 	</f:metadata>
@@ -33,10 +35,7 @@
 								value="#{tarefaController.tarefa.id_tarefa}" />
 
 
-
-							<h:outputLabel value="Projeto" />
-
-							<h:selectOneMenu value="#{tarefaController.tarefa.projeto}"
+						<!--  	<h:selectOneMenu value="#{tarefaController.tarefa.projeto}"
 								label="Projeto">
 
 								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
@@ -45,6 +44,7 @@
 									var="projeto" itemValue="#{projeto}"
 									itemLabel="#{projeto.nome}" />
 							</h:selectOneMenu>
+							-->
 
 							<h:outputLabel for="nomeTarefa" value="Nome.:" />
 
@@ -125,6 +125,8 @@
 
 
 			<p:tab title="TaskBoard">
+				
+				
 				<p:panel style="width:700px; margin-left:auto; margin-right:auto;">
 					<h:form id="form">
 
@@ -167,6 +169,151 @@
 						</h:panelGrid>
 					</h:form>
 				</p:panel>
+				
+				
+				
+
+
+
+<!--  
+				<h:form id="carForm">
+
+					<p:fieldset legend="To Do">
+
+						<p:dataGrid id="todo" var="tarefa"
+							value="#{tarefaController.todasTarefas}" columns="3">
+
+							<p:column>
+								<p:panel id="pnl" header="#{tarefa.nome}"
+									style="text-align:center">
+									<h:panelGrid columns="1" style="width:100%">
+									</h:panelGrid>
+								</p:panel>
+
+								<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar"
+									stack=".ui-panel" />
+
+							</p:column>
+
+						</p:dataGrid>
+
+					</p:fieldset>
+
+					<p:fieldset id="selectedCars" legend="In Process"
+						style="margin-top:20px">
+
+						<p:outputPanel id="dropArea">
+
+						<p:dataGrid id="dropArea" var="tarefa"  
+						                    value="#{tarefaController.tarefasInprocess}" columns="3"
+						                    rendered="#{not empty tarefaController.tarefasInprocess}">   
+
+							<p:panel id="pnl" header="#{tarefa.nome}"
+									style="text-align:center">
+									<h:panelGrid columns="1" style="width:100%">
+									</h:panelGrid>
+							</p:panel>
+								
+						</p:dataGrid>
+
+						</p:outputPanel>
+
+					</p:fieldset>
+
+					<p:droppable for="selectedCars" tolerance="touch"
+						activeStyleClass="ui-state-highlight" datasource="todo"
+						onDrop="handleDrop">
+						<p:ajax  update="dropArea todo" />  
+					</p:droppable>
+
+					<p:dialog header="Car Detail" widgetVar="carDialog"
+						resizable="false" draggable="false" width="200" showEffect="fade"
+						hideEffect="fade" modal="true">
+
+						<h:panelGrid id="display" columns="2" cellpadding="4">
+
+							<f:facet name="header">
+							</f:facet>
+
+							<h:outputText value="Model:" />
+							<h:outputText value="#{tarefaController.tarefaSelecionado.nome}" />
+
+						</h:panelGrid>
+					</p:dialog>
+				</h:form>
+-->				
+
+
+
+<h:form id="carForm">  
+  
+    <p:fieldset legend="AvailableCars">  
+  
+        <p:dataGrid id="availableCars" var="car"  
+                    value="#{tarefaController.todasTarefas}" columns="3">  
+  
+            <p:column>  
+  
+                <p:panel id="pnl" header="#{car.nome}" style="text-align:center">  
+                </p:panel>  
+  
+                <p:draggable for="pnl" revert="true"  
+                        handle=".ui-panel-titlebar" stack=".ui-panel"/>  
+  
+            </p:column>  
+  
+        </p:dataGrid>  
+  
+    </p:fieldset>  
+  
+    <p:fieldset id="selectedCars" legend="Selected Cars" style="margin-top:20px">  
+  
+        <p:outputPanel id="dropArea">  
+  
+            <h:outputText value="!!!Drop here!!!"  
+                    rendered="#{empty tarefaController.tarefasInprocess}"  
+                    style="font-size:24px;" />  
+  
+            <p:dataTable var="car" value="#{tarefaController.tarefasInprocess}"  
+                    rendered="#{not empty tarefaController.tarefasInprocess}">  
+  
+                <p:column headerText="Model">  
+                    <h:outputText value="#{car.nome}" />  
+                </p:column>  
+  
+                 <p:column style="width:32px">  
+                    <p:commandButton update=":carForm:display"  
+                        oncomplete="PF('carDialog').show()"  
+                        icon="ui-icon-search">  
+                        <f:setPropertyActionListener value="#{car}" 
+                        	target="#{tarefaController.tarefaSelecionado}" />  
+                    </p:commandButton>  
+                </p:column>  
+            </p:dataTable>  
+  
+        </p:outputPanel>  
+        
+  
+    </p:fieldset>  
+  
+    <p:droppable for="selectedCars" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="availableCars" onDrop="handleDrop">  
+        <p:ajax listener="#{tarefaController.OnTaskDrop}" update="dropArea availableCars" />  
+    </p:droppable>  
+  
+    <p:dialog header="Car Detail" widgetVar="carDialog" resizable="false" draggable="false"  
+              width="200" showEffect="fade" hideEffect="fade" modal="true">  
+  
+        <h:panelGrid id="display" columns="2" cellpadding="4">  
+  
+            <h:outputText value="Model:" />  
+            <h:outputText value="#{tarefaController.tarefaSelecionado.nome}"/>  
+  
+        </h:panelGrid>  
+    </p:dialog>  
+  
+  
+</h:form> 
+
 			</p:tab>
 			<p:tab title="Burndown">
 			</p:tab>
