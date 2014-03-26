@@ -1,5 +1,6 @@
 package com.barrostsb.prime_scrum.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.persistence.TypedQuery;
 
 import org.primefaces.event.DragDropEvent;
 
+import com.barrostsb.prime_scrum.JpaUtils.CreateTables;
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.business.CadastroProjetos;
 import com.barrostsb.prime_scrum.business.CadastroTarefas;
@@ -38,11 +40,41 @@ public class TarefaController implements Serializable {
 	
     public TarefaController() {  
     	tarefasBuscadas = new ArrayList<Tarefa>();
-    	getTodasTarefas();
+    	tarefasTodo = new ArrayList<Tarefa>();
     	tarefasInprocess = new ArrayList<Tarefa>();  
+    	tarefasDone= new ArrayList<Tarefa>();  
+    	createtaskBoard();
+    	System.out.println("todo "+ tarefasTodo);
+    	System.out.println("ip "+ tarefasInprocess);
+    	System.out.println("doneo "+ tarefasDone);
   
     } 
     
+	private void createtaskBoard() {
+		List<Tarefa> tarefas = getTodasTarefas();
+		
+	    for(Tarefa tarefa : tarefas) {
+	    	String op = tarefa.getTskBrdDesc();
+	    	
+	    	switch (op) {
+			case "todo":
+				tarefasTodo.add(tarefa);
+				break;
+			
+			case "inprocess":
+				tarefasInprocess.add(tarefa);
+				break;
+				
+			case "done":
+				tarefasDone.add(tarefa);
+				break;
+
+			default:
+				break;
+			}
+	    }
+	}
+
 	public List<Tarefa> getTarefasTodo() {
 		return tarefasTodo;
 	}
@@ -132,8 +164,11 @@ public class TarefaController implements Serializable {
     public void onTaskDrop(DragDropEvent ddEvent) {  
         Tarefa car = ((Tarefa) ddEvent.getData());  
   
-        tarefasInprocess.add(car);  
-        tarefasBuscadas.remove(car);  
+        tarefasTodo.add(car);  
+        tarefasBuscadas.remove(car); 
+        
+        System.out.println("tarefasBuscadas: " + tarefasBuscadas);
+        System.out.println("tarefastodo: " + tarefasTodo);
     } 
 
 
@@ -141,6 +176,57 @@ public class TarefaController implements Serializable {
 		tarefa = new Tarefa();
 		return "/restrict/CadastrarProjeto.jsf"; 
 	}
+	
+    public void onDropTodo(DragDropEvent event) {
+        Tarefa tarea = (Tarefa) event.getData();
+//        if (tarea.getDone() == '1') {
+//            log.log(Level.INFO, "DROP ON TODO:{0} {1}", new Object[]{tarea.getDone(), tarea.getDuracion()});
+//            tarea.setDone('0');
+            
+            tarefasBuscadas.remove(tarea);
+            tarefasTodo.add(tarea);
+            
+            System.out.println("ID" + tarea.getNome());
+            System.out.println("TODO "+ tarefasTodo );
+            System.out.println("IP "+ tarefasInprocess );
+            System.out.println("DOne "+ tarefasDone );
+//        }
+    }
+
+    public void onDropDoing(DragDropEvent event) {
+    	Tarefa tarea = (Tarefa) event.getData();
+//        if (tarea.getDone() == '0') {
+//            log.log(Level.INFO, "DROP ON DOING:{0} {1}", new Object[]{tarea.getDone(), tarea.getDuracion()});
+//            tarea.setDone('1');
+//            //TODO set usuario logueado
+//            
+    	   tarefasBuscadas.remove(tarea);
+           tarefasInprocess.add(tarea);
+           System.out.println("ID" + tarea.getNome());
+           System.out.println("TODO "+ tarefasTodo );
+           System.out.println("IP "+ tarefasInprocess );
+           System.out.println("DOne "+ tarefasDone );
+//        }
+    }
+
+    public void onDropDone(DragDropEvent event) {
+    	Tarefa tarea = (Tarefa) event.getData();
+//        Tarea tarea = (Tarea) event.getData();
+//        if (tarea.getDone() == '1') {
+//            log.log(Level.INFO, "DROP ON DONE:{0} {1}", new Object[]{tarea.getDone(), tarea.getDuracion()});
+//            tarea.setDone('2');
+//            tarea.setDuracion(BigInteger.valueOf(0));
+//            //TODO set fecha finalizacion, duracion=0 o no mostrarla directamente
+            
+            tarefasInprocess.remove(tarea);
+            tarefasDone.add(tarea);
+            System.out.println("ID" + tarea.getId_tarefa());
+            System.out.println("TODO "+ tarefasTodo );
+            System.out.println("IP "+ tarefasInprocess );
+            System.out.println("DOne "+ tarefasDone );
+//        }
+    }    
+    
 
 
 	public List<Tarefa> getTodasTarefas() {
@@ -180,6 +266,5 @@ public class TarefaController implements Serializable {
 	public void setTarefaSelecionado(Tarefa tarefaSelecionado) {
 		this.tarefaSelecionada = tarefaSelecionado;
 	}
-
 }
 

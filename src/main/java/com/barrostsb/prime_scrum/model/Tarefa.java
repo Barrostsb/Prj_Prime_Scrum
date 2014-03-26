@@ -23,6 +23,21 @@ public class Tarefa {
 	private int id_tarefa;
 	private Desenvolvedor desenvolvedor;
 	private String nome;
+	private String tskBrdDesc;
+	
+	public Tarefa(){
+		tskBrdDesc = "todo";
+	}
+	
+	@Column	
+	public String getTskBrdDesc() {
+		return tskBrdDesc;
+	}
+
+	public void setTskBrdDesc(String tskBrdDesc) {
+		this.tskBrdDesc = tskBrdDesc;
+	}
+
 	private int prioridade;
 	private float tempo_execucao;
 	private int dificuldade;

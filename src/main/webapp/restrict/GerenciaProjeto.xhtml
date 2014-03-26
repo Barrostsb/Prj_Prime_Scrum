@@ -1,11 +1,12 @@
-
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" template="/template/Layout.xhtml">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/template/Layout.xhtml">
 
-	
+
 	<f:metadata>
 		<f:viewAction action="#{tarefaController.buscarTodasTarefa}" />
 	</f:metadata>
@@ -16,6 +17,7 @@
 			<h:outputText id="prjId"
 				value="#{projetoController.projetoSelecionado.nome}" />
 		</p:panel>
+
 		<p:tabView id="tbvGerenciaDeProjeto">
 			<p:tab title="Dados Projeto">
 
@@ -33,18 +35,6 @@
 
 							<h:inputHidden id="idTarefa"
 								value="#{tarefaController.tarefa.id_tarefa}" />
-
-
-						<!--  	<h:selectOneMenu value="#{tarefaController.tarefa.projeto}"
-								label="Projeto">
-
-								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-
-								<f:selectItems value="#{tarefaController.todosProjetos}"
-									var="projeto" itemValue="#{projeto}"
-									itemLabel="#{projeto.nome}" />
-							</h:selectOneMenu>
-							-->
 
 							<h:outputLabel for="nomeTarefa" value="Nome.:" />
 
@@ -70,19 +60,20 @@
 
 				</p:fieldset>
 
+
 				<p:fieldset title="Requisitos">
 
 					<h:form id="formListaRequisitos">
-					
-							<p:dataGrid var="tarefa" value="#{tarefaController.todasTarefas}" columns="3"
-								rows="12" paginator="true"
-								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-								rowsPerPageTemplate="9,12,15">
 
-								<p:panel header="#{tarefa.nome}" style="text-align:center">
-									<h:panelGrid columns="1" style="width:100%">
+						<p:dataGrid var="tarefa" value="#{tarefaController.todasTarefas}"
+							columns="3" rows="12" paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="9,12,15">
 
-										<!--  <p:commandLink update=":form:carDetail"
+							<p:panel header="#{tarefa.nome}" style="text-align:center">
+								<h:panelGrid columns="1" style="width:100%">
+
+									<!--  <p:commandLink update=":form:carDetail"
 											oncomplete="PF('carDialog').show()" title="View Detail">
 											<h:outputText styleClass="ui-icon ui-icon-search"
 												style="margin:0 auto;" />
@@ -90,10 +81,10 @@
 												target="#{tarefaController.tarefaSelecionado}" />
 										</p:commandLink>
 										-->
-									</h:panelGrid>
-								</p:panel>
+								</h:panelGrid>
+							</p:panel>
 
-							</p:dataGrid>
+						</p:dataGrid>
 
 						<!--  	<p:dialog header="Car Detail" widgetVar="carDialog" modal="true">
 								<p:outputPanel id="carDetail" style="text-align:center;">
@@ -114,7 +105,7 @@
 								</p:outputPanel>
 							</p:dialog>
 -->
-						</h:form>
+					</h:form>
 				</p:fieldset>
 
 
@@ -125,194 +116,98 @@
 
 
 			<p:tab title="TaskBoard">
-				
-				
-				<p:panel style="width:700px; margin-left:auto; margin-right:auto;">
-					<h:form id="form">
+<div id="board">
+				<h:form id="taskForm">
 
-						<p:growl id="growl" showDetail="true" />
-						<h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid"
-							id="grid0">
-
-							<p:dashboard id="board" model="#{taskBoardController.model}">
-								
-								
-								<p:ajax  event="reorder"
-									listener="#{taskBoardController.handleReorder}" update="growl" />
-
-								<p:panel id="todo" header="TO DO" >
-								</p:panel>
-								<p:panel id="inprocess" header="IN PROCESS">
-								</p:panel>
-								<p:panel id="done" header="DONE">
-								</p:panel>
-								
-								<p:panel id="sports" header="Sports">
-								</p:panel>
-
-								<p:panel id="finance" header="Finance">
-									<h:outputText value="Finance Content" />
-								</p:panel>
-
-								<p:panel id="lifestyle" header="Lifestyle">
-									<h:outputText value="Lifestyle Content" />
-								</p:panel>
-
-								<p:panel id="weather" header="Weather">
-									<h:outputText value="Weather Content" />
-								</p:panel>
-
-								<p:panel id="politics" header="Politics">
-									<h:outputText value="Politics Content" />
-								</p:panel>
-							</p:dashboard>
-						</h:panelGrid>
-					</h:form>
-				</p:panel>
-				
-				
-				
-
-
-
-<!--  
-				<h:form id="carForm">
-
-					<p:fieldset legend="To Do">
-
-						<p:dataGrid id="todo" var="tarefa"
+					<p:fieldset id="todoColumn" legend="TO DO">
+						
+						<p:outputPanel id="dropAreaTodo">
+						
+						<p:dataGrid id="todoGrid" var="tarefa"
 							value="#{tarefaController.todasTarefas}" columns="3">
 
 							<p:column>
+
 								<p:panel id="pnl" header="#{tarefa.nome}"
 									style="text-align:center">
-									<h:panelGrid columns="1" style="width:100%">
-									</h:panelGrid>
+								<p:draggable for="pnl" opacity="0.5" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel" />
 								</p:panel>
-
-								<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar"
-									stack=".ui-panel" />
-
+								
+								
 							</p:column>
 
 						</p:dataGrid>
+						
+						</p:outputPanel>
 
 					</p:fieldset>
 
-					<p:fieldset id="selectedCars" legend="In Process"
+					<p:fieldset id="inprocessColumn" legend="In Process"
 						style="margin-top:20px">
 
-						<p:outputPanel id="dropArea">
+						<p:outputPanel id="dropAreaInprocess">
 
-						<p:dataGrid id="dropArea" var="tarefa"  
-						                    value="#{tarefaController.tarefasInprocess}" columns="3"
-						                    rendered="#{not empty tarefaController.tarefasInprocess}">   
+						<p:dataGrid id="inprocessGrid" var="tarefa" value="#{tarefaController.tarefasInprocess}"
+								rendered="#{not empty tarefaController.tarefasInprocess}">
 
-							<p:panel id="pnl" header="#{tarefa.nome}"
-									style="text-align:center">
-									<h:panelGrid columns="1" style="width:100%">
-									</h:panelGrid>
-							</p:panel>
+								<p:column>
+									<p:panel id="pnl" header="#{tarefa.nome}" style="text-align:center">
+									</p:panel>
+								</p:column>
 								
-						</p:dataGrid>
+								<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel" />
+									
+								<p:droppable for="pnl" handle=".ui-panel-titlebar" stack=".ui-panel"></p:droppable>
+								
+							</p:dataGrid>
+
+						</p:outputPanel>
+
+					</p:fieldset>
+					
+					<p:fieldset id="doneColumn" legend="Done !"	style="margin-top:20px">
+
+						<p:outputPanel id="dropAreaDone">
+
+						<p:dataGrid id="doneGrid" var="tarefa" value="#{tarefaController.tarefasDone}"
+								rendered="#{not empty tarefaController.tarefasDone}">
+
+								<p:column>
+									<p:panel id="pnl" header="#{tarefa.nome}" style="text-align:center">
+									</p:panel>
+								</p:column>
+								
+								<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel" />
+									
+								<p:droppable for="pnl" handle=".ui-panel-titlebar" stack=".ui-panel"></p:droppable>
+								
+							</p:dataGrid>
 
 						</p:outputPanel>
 
 					</p:fieldset>
 
-					<p:droppable for="selectedCars" tolerance="touch"
-						activeStyleClass="ui-state-highlight" datasource="todo"
-						onDrop="handleDrop">
-						<p:ajax  update="dropArea todo" />  
+					<p:droppable for="dropAreaTodo" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="dropAreaDone">
+						
+						<p:ajax listener="#{tarefaController.onDropTodo}" update="taskForm"  />
+						
 					</p:droppable>
-
-					<p:dialog header="Car Detail" widgetVar="carDialog"
-						resizable="false" draggable="false" width="200" showEffect="fade"
-						hideEffect="fade" modal="true">
-
-						<h:panelGrid id="display" columns="2" cellpadding="4">
-
-							<f:facet name="header">
-							</f:facet>
-
-							<h:outputText value="Model:" />
-							<h:outputText value="#{tarefaController.tarefaSelecionado.nome}" />
-
-						</h:panelGrid>
-					</p:dialog>
+					
+					<p:droppable for="dropAreaInprocess" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="todoGrid">
+					
+						<p:ajax listener="#{tarefaController.onDropDoing}" update="taskForm"  />
+						
+					</p:droppable>
+					
+					<p:droppable for="dropAreaDone" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="todoGrid">
+						
+						<p:ajax listener="#{tarefaController.onDropDone}" update="taskForm"  />
+						
+					</p:droppable>
+					
+					TODO fazer tarefa rodar a board toda
 				</h:form>
--->				
-
-
-
-<h:form id="carForm">  
-  
-    <p:fieldset legend="AvailableCars">  
-  
-        <p:dataGrid id="availableCars" var="car"  
-                    value="#{tarefaController.todasTarefas}" columns="3">  
-  
-            <p:column>  
-  
-                <p:panel id="pnl" header="#{car.nome}" style="text-align:center">  
-                </p:panel>  
-  
-                <p:draggable for="pnl" revert="true"  
-                        handle=".ui-panel-titlebar" stack=".ui-panel"/>  
-  
-            </p:column>  
-  
-        </p:dataGrid>  
-  
-    </p:fieldset>  
-  
-    <p:fieldset id="selectedCars" legend="Selected Cars" style="margin-top:20px">  
-  
-        <p:outputPanel id="dropArea">  
-  
-            <h:outputText value="!!!Drop here!!!"  
-                    rendered="#{empty tarefaController.tarefasInprocess}"  
-                    style="font-size:24px;" />  
-  
-            <p:dataTable var="car" value="#{tarefaController.tarefasInprocess}"  
-                    rendered="#{not empty tarefaController.tarefasInprocess}">  
-  
-                <p:column headerText="Model">  
-                    <h:outputText value="#{car.nome}" />  
-                </p:column>  
-  
-                 <p:column style="width:32px">  
-                    <p:commandButton update=":carForm:display"  
-                        oncomplete="PF('carDialog').show()"  
-                        icon="ui-icon-search">  
-                        <f:setPropertyActionListener value="#{car}" 
-                        	target="#{tarefaController.tarefaSelecionado}" />  
-                    </p:commandButton>  
-                </p:column>  
-            </p:dataTable>  
-  
-        </p:outputPanel>  
-        
-  
-    </p:fieldset>  
-  
-    <p:droppable for="selectedCars" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="availableCars" onDrop="handleDrop">  
-        <p:ajax listener="#{tarefaController.OnTaskDrop}" update="dropArea availableCars" />  
-    </p:droppable>  
-  
-    <p:dialog header="Car Detail" widgetVar="carDialog" resizable="false" draggable="false"  
-              width="200" showEffect="fade" hideEffect="fade" modal="true">  
-  
-        <h:panelGrid id="display" columns="2" cellpadding="4">  
-  
-            <h:outputText value="Model:" />  
-            <h:outputText value="#{tarefaController.tarefaSelecionado.nome}"/>  
-  
-        </h:panelGrid>  
-    </p:dialog>  
-  
-  
-</h:form> 
+</div>
 
 			</p:tab>
 			<p:tab title="Burndown">
