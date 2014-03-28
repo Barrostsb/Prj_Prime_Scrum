@@ -17,6 +17,10 @@ public class Tarefas {
 		this.manager.persist(tarefa);
 	}
 	
+	public void alterar(Tarefa tarefa) {
+		this.manager.merge(tarefa);
+	}
+	
 	public Tarefas(EntityManager manager) {
 		this.manager = manager;
 	}

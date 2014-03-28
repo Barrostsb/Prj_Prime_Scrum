@@ -14,4 +14,8 @@ public class CadastroTarefas {
 	public void salvar(Tarefa tarefa) throws BusinessException {
 		this.tarefas.adicionar(tarefa);
 	}
+	
+	public void alterar(Tarefa tarefa) throws BusinessException {
+		this.tarefas.alterar(tarefa);
+	}
 }

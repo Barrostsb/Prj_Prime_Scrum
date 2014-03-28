@@ -48,6 +48,24 @@ public class ProjetoController implements Serializable {
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 		} 
 	}
+	
+	public void alterar() {
+		EntityTransaction trx = manager.getTransaction();
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		try {
+			trx.begin();
+			CadastroProjetos cadastro = new CadastroProjetos(new Projetos(manager));
+			cadastro.alterar(this.projeto);
+			this.projeto = new Projeto();			
+			context.addMessage(null, new FacesMessage("Projeto alterado com sucesso!"));
+			trx.commit();
+		} catch (BusinessException e) {
+			trx.rollback();
+			FacesMessage mensagem = new FacesMessage(e.getMessage());
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+		} 
+	}
 
 	public void buscarTodosProjetos() {
 		Projetos prjs = new Projetos(manager);

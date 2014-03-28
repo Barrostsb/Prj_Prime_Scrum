@@ -72,7 +72,11 @@ public class TarefaController implements Serializable {
 			default:
 				break;
 			}
+	    	System.out.println(op);
 	    }
+        System.out.println("TODO "+ tarefasTodo );
+        System.out.println("IP "+ tarefasInprocess );
+        System.out.println("DOne "+ tarefasDone );
 	}
 
 	public List<Tarefa> getTarefasTodo() {
@@ -134,7 +138,26 @@ public class TarefaController implements Serializable {
 			CadastroTarefas cadastro = new CadastroTarefas(new Tarefas(manager));
 			cadastro.salvar(this.tarefa);
 			this.tarefa = new Tarefa();			
-			context.addMessage(null, new FacesMessage("Tarefa salvo com sucesso!"));
+			context.addMessage(null, new FacesMessage("Tarefa salva com sucesso!"));
+			trx.commit();
+		} catch (BusinessException e) {
+			trx.rollback();
+			FacesMessage mensagem = new FacesMessage(e.getMessage());
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+		}
+	}
+	
+	public void alterar(Tarefa tarefa) {
+		EntityManager manager = JpaUtils.getEntityManager();
+		EntityTransaction trx = manager.getTransaction();
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		try {
+			trx.begin();
+			CadastroTarefas cadastro = new CadastroTarefas(new Tarefas(manager));
+			cadastro.alterar(tarefa);
+			tarefa = new Tarefa();			
+			context.addMessage(null, new FacesMessage("Tarefa alterada com sucesso!"));
 			trx.commit();
 		} catch (BusinessException e) {
 			trx.rollback();
@@ -183,8 +206,10 @@ public class TarefaController implements Serializable {
 //            log.log(Level.INFO, "DROP ON TODO:{0} {1}", new Object[]{tarea.getDone(), tarea.getDuracion()});
 //            tarea.setDone('0');
             
-            tarefasBuscadas.remove(tarea);
-            tarefasTodo.add(tarea);
+//        tarea.setTskBrdDesc("todo");
+// 	   alterar(tarea);
+//            tarefasBuscadas.remove(tarea);
+//            tarefasTodo.add(tarea);
             
             System.out.println("ID" + tarea.getNome());
             System.out.println("TODO "+ tarefasTodo );
@@ -200,12 +225,15 @@ public class TarefaController implements Serializable {
 //            tarea.setDone('1');
 //            //TODO set usuario logueado
 //            
-    	   tarefasBuscadas.remove(tarea);
-           tarefasInprocess.add(tarea);
+    	   tarea.setTskBrdDesc("inprocess");
+    	   alterar(tarea);
+//    	   tarefasBuscadas.remove(tarea);
+//           tarefasInprocess.add(tarea);
            System.out.println("ID" + tarea.getNome());
            System.out.println("TODO "+ tarefasTodo );
            System.out.println("IP "+ tarefasInprocess );
            System.out.println("DOne "+ tarefasDone );
+           
 //        }
     }
 
@@ -218,9 +246,12 @@ public class TarefaController implements Serializable {
 //            tarea.setDuracion(BigInteger.valueOf(0));
 //            //TODO set fecha finalizacion, duracion=0 o no mostrarla directamente
             
-            tarefasInprocess.remove(tarea);
-            tarefasDone.add(tarea);
+//    	tarea.setTskBrdDesc("done");
+// 	   alterar(tarea);
+//            tarefasInprocess.remove(tarea);
+//            tarefasDone.add(tarea);
             System.out.println("ID" + tarea.getId_tarefa());
+            System.out.println("NOME" + tarea.getNome());
             System.out.println("TODO "+ tarefasTodo );
             System.out.println("IP "+ tarefasInprocess );
             System.out.println("DOne "+ tarefasDone );

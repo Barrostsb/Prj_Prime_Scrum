@@ -14,5 +14,9 @@ public class CadastroProjetos {
 	public void salvar(Projeto projeto) throws BusinessException {
 		this.projetos.adicionar(projeto);
 	}
+	
+	public void alterar(Projeto projeto) throws BusinessException {
+		this.projetos.update(projeto);
+	}
 
 }

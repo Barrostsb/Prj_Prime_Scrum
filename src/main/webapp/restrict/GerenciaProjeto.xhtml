@@ -25,8 +25,9 @@
 
 
 			<p:tab title="Lista de Requisitos">
+			
 				<p:fieldset title="Novo requisito">
-
+				
 					<h:form prependId="false" id="formTask">
 						<p:growl id="msg0" />
 						<h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid"
@@ -118,13 +119,13 @@
 			<p:tab title="TaskBoard">
 <div id="board">
 				<h:form id="taskForm">
-
+			<h:panelGrid columns="3"  styleClass="panelGrid" id="gridMain">
 					<p:fieldset id="todoColumn" legend="TO DO">
 						
-						<p:outputPanel id="dropAreaTodo">
+						<p:outputPanel id="dropAreaTodo" >
 						
 						<p:dataGrid id="todoGrid" var="tarefa"
-							value="#{tarefaController.todasTarefas}" columns="3">
+							value="#{tarefaController.tarefasTodo}" columns="3" style="width:33%">
 
 							<p:column>
 
@@ -142,13 +143,12 @@
 
 					</p:fieldset>
 
-					<p:fieldset id="inprocessColumn" legend="In Process"
-						style="margin-top:20px">
+					<p:fieldset id="inprocessColumn" legend="In Process">
 
 						<p:outputPanel id="dropAreaInprocess">
 
 						<p:dataGrid id="inprocessGrid" var="tarefa" value="#{tarefaController.tarefasInprocess}"
-								rendered="#{not empty tarefaController.tarefasInprocess}">
+								rendered="#{not empty tarefaController.tarefasInprocess}" style="width:33%">
 
 								<p:column>
 									<p:panel id="pnl" header="#{tarefa.nome}" style="text-align:center">
@@ -165,12 +165,12 @@
 
 					</p:fieldset>
 					
-					<p:fieldset id="doneColumn" legend="Done !"	style="margin-top:20px">
+					<p:fieldset id="doneColumn" legend="Done !">
 
-						<p:outputPanel id="dropAreaDone">
+						<p:outputPanel id="dropAreaDone" >
 
 						<p:dataGrid id="doneGrid" var="tarefa" value="#{tarefaController.tarefasDone}"
-								rendered="#{not empty tarefaController.tarefasDone}">
+								rendered="#{not empty tarefaController.tarefasDone}" >
 
 								<p:column>
 									<p:panel id="pnl" header="#{tarefa.nome}" style="text-align:center">
@@ -204,8 +204,7 @@
 						<p:ajax listener="#{tarefaController.onDropDone}" update="taskForm"  />
 						
 					</p:droppable>
-					
-					TODO fazer tarefa rodar a board toda
+					</h:panelGrid>
 				</h:form>
 </div>
 

@@ -15,6 +15,10 @@ public class Projetos {
 		this.manager.persist(projeto);
 	}
 	
+	public void update(Projeto projeto){
+		this.manager.merge(projeto);
+	}
+	
 	public Projetos(EntityManager manager) {
 		this.manager = manager;
 	}
