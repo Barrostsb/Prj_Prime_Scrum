@@ -117,24 +117,19 @@
 
 
 			<p:tab title="TaskBoard">
-<div id="board">
 				<h:form id="taskForm">
 			<h:panelGrid columns="3"  styleClass="panelGrid" id="gridMain">
 					<p:fieldset id="todoColumn" legend="TO DO">
 						
 						<p:outputPanel id="dropAreaTodo" >
 						
-						<p:dataGrid id="todoGrid" var="tarefa"
-							value="#{tarefaController.tarefasTodo}" columns="3" style="width:33%">
+						<p:dataGrid id="todoGrid" var="tarefa" value="#{tarefaController.tarefasTodo}" 
+								columns="3" style="width:33%">
 
 							<p:column>
-
-								<p:panel id="pnl" header="#{tarefa.nome}"
-									style="text-align:center">
-								<p:draggable for="pnl" opacity="0.5" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel" />
+								<p:panel id="pnl" header="#{tarefa.nome}" style="text-align:center">
+									<p:draggable for="pnl" opacity="0.5" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel" scope="doing"/>
 								</p:panel>
-								
-								
 							</p:column>
 
 						</p:dataGrid>
@@ -147,17 +142,14 @@
 
 						<p:outputPanel id="dropAreaInprocess">
 
-						<p:dataGrid id="inprocessGrid" var="tarefa" value="#{tarefaController.tarefasInprocess}"
-								rendered="#{not empty tarefaController.tarefasInprocess}" style="width:33%">
+							<p:dataGrid id="inprocessGrid" var="tarefa" value="#{tarefaController.tarefasInprocess}" 
+								columns="3" style="width:33%">
 
 								<p:column>
 									<p:panel id="pnl" header="#{tarefa.nome}" style="text-align:center">
+										<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel" scope="done"/>
 									</p:panel>
 								</p:column>
-								
-								<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel" />
-									
-								<p:droppable for="pnl" handle=".ui-panel-titlebar" stack=".ui-panel"></p:droppable>
 								
 							</p:dataGrid>
 
@@ -169,44 +161,34 @@
 
 						<p:outputPanel id="dropAreaDone" >
 
-						<p:dataGrid id="doneGrid" var="tarefa" value="#{tarefaController.tarefasDone}"
-								rendered="#{not empty tarefaController.tarefasDone}" >
+						<p:dataGrid id="doneGrid" var="tarefa" value="#{tarefaController.tarefasDone}" 
+							columns="3" style="width:33%" >
 
 								<p:column>
 									<p:panel id="pnl" header="#{tarefa.nome}" style="text-align:center">
+										<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel" scope="todo"/>
 									</p:panel>
 								</p:column>
 								
-								<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel" />
-									
-								<p:droppable for="pnl" handle=".ui-panel-titlebar" stack=".ui-panel"></p:droppable>
-								
-							</p:dataGrid>
+						</p:dataGrid>
 
 						</p:outputPanel>
 
 					</p:fieldset>
 
-					<p:droppable for="dropAreaTodo" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="dropAreaDone">
-						
+					<p:droppable for="dropAreaTodo" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="doneGrid" scope="todo">
 						<p:ajax listener="#{tarefaController.onDropTodo}" update="taskForm"  />
-						
 					</p:droppable>
 					
-					<p:droppable for="dropAreaInprocess" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="todoGrid">
-					
-						<p:ajax listener="#{tarefaController.onDropDoing}" update="taskForm"  />
-						
+					<p:droppable for="dropAreaInprocess" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="todoGrid"  scope="doing">
+						<p:ajax listener="#{tarefaController.onDropDoing}" update="taskForm" />
 					</p:droppable>
 					
-					<p:droppable for="dropAreaDone" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="todoGrid">
-						
+					<p:droppable for="dropAreaDone" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="inprocessGrid" scope="done">
 						<p:ajax listener="#{tarefaController.onDropDone}" update="taskForm"  />
-						
 					</p:droppable>
 					</h:panelGrid>
 				</h:form>
-</div>
 
 			</p:tab>
 			<p:tab title="Burndown">

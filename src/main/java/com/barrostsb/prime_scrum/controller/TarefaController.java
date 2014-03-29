@@ -40,17 +40,18 @@ public class TarefaController implements Serializable {
 	
     public TarefaController() {  
     	tarefasBuscadas = new ArrayList<Tarefa>();
-    	tarefasTodo = new ArrayList<Tarefa>();
-    	tarefasInprocess = new ArrayList<Tarefa>();  
-    	tarefasDone= new ArrayList<Tarefa>();  
+
     	createtaskBoard();
-    	System.out.println("todo "+ tarefasTodo);
-    	System.out.println("ip "+ tarefasInprocess);
-    	System.out.println("doneo "+ tarefasDone);
+//    	System.out.println("todo "+ tarefasTodo);
+//    	System.out.println("ip "+ tarefasInprocess);
+//    	System.out.println("doneo "+ tarefasDone);
   
     } 
     
 	private void createtaskBoard() {
+    	tarefasTodo = new ArrayList<Tarefa>();
+    	tarefasInprocess = new ArrayList<Tarefa>();  
+    	tarefasDone= new ArrayList<Tarefa>();  
 		List<Tarefa> tarefas = getTodasTarefas();
 		
 	    for(Tarefa tarefa : tarefas) {
@@ -206,8 +207,9 @@ public class TarefaController implements Serializable {
 //            log.log(Level.INFO, "DROP ON TODO:{0} {1}", new Object[]{tarea.getDone(), tarea.getDuracion()});
 //            tarea.setDone('0');
             
-//        tarea.setTskBrdDesc("todo");
-// 	   alterar(tarea);
+	 	   tarea.setTskBrdDesc("todo");
+	 	   alterar(tarea);
+	 	   createtaskBoard();
 //            tarefasBuscadas.remove(tarea);
 //            tarefasTodo.add(tarea);
             
@@ -219,17 +221,18 @@ public class TarefaController implements Serializable {
     }
 
     public void onDropDoing(DragDropEvent event) {
-    	Tarefa tarea = (Tarefa) event.getData();
+    	Tarefa tarefa = (Tarefa) event.getData();
 //        if (tarea.getDone() == '0') {
 //            log.log(Level.INFO, "DROP ON DOING:{0} {1}", new Object[]{tarea.getDone(), tarea.getDuracion()});
 //            tarea.setDone('1');
 //            //TODO set usuario logueado
 //            
-    	   tarea.setTskBrdDesc("inprocess");
-    	   alterar(tarea);
+    	   tarefa.setTskBrdDesc("inprocess");
+    	   alterar(tarefa);
+    	   createtaskBoard();
 //    	   tarefasBuscadas.remove(tarea);
 //           tarefasInprocess.add(tarea);
-           System.out.println("ID" + tarea.getNome());
+           System.out.println("ID" + tarefa.getNome());
            System.out.println("TODO "+ tarefasTodo );
            System.out.println("IP "+ tarefasInprocess );
            System.out.println("DOne "+ tarefasDone );
@@ -238,23 +241,21 @@ public class TarefaController implements Serializable {
     }
 
     public void onDropDone(DragDropEvent event) {
-    	Tarefa tarea = (Tarefa) event.getData();
-//        Tarea tarea = (Tarea) event.getData();
-//        if (tarea.getDone() == '1') {
-//            log.log(Level.INFO, "DROP ON DONE:{0} {1}", new Object[]{tarea.getDone(), tarea.getDuracion()});
-//            tarea.setDone('2');
-//            tarea.setDuracion(BigInteger.valueOf(0));
-//            //TODO set fecha finalizacion, duracion=0 o no mostrarla directamente
-            
-//    	tarea.setTskBrdDesc("done");
-// 	   alterar(tarea);
-//            tarefasInprocess.remove(tarea);
-//            tarefasDone.add(tarea);
-            System.out.println("ID" + tarea.getId_tarefa());
-            System.out.println("NOME" + tarea.getNome());
-            System.out.println("TODO "+ tarefasTodo );
-            System.out.println("IP "+ tarefasInprocess );
-            System.out.println("DOne "+ tarefasDone );
+    	Tarefa tarefa = (Tarefa) event.getData();
+//      if (tarea.getDone() == '0') {
+//          log.log(Level.INFO, "DROP ON DOING:{0} {1}", new Object[]{tarea.getDone(), tarea.getDuracion()});
+//          tarea.setDone('1');
+//          //TODO set usuario logueado
+//          
+  	   tarefa.setTskBrdDesc("done");
+  	   alterar(tarefa);
+  	   createtaskBoard();
+//  	   tarefasBuscadas.remove(tarea);
+//         tarefasInprocess.add(tarea);
+         System.out.println("ID" + tarefa.getNome());
+         System.out.println("TODO "+ tarefasTodo );
+         System.out.println("IP "+ tarefasInprocess );
+         System.out.println("DOne "+ tarefasDone );
 //        }
     }    
     
