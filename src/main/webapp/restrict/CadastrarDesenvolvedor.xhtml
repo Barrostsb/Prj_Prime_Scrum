@@ -28,12 +28,12 @@
 						<p:panel>
 							<p:commandButton value="Salvar"
 								action="#{desenvolvedorController.salvar}"
-								image="ui-icon ui-icon-disk" >
+								image="ui-icon ui-icon-disk" update=":tbv1:formDEV">
 							</p:commandButton>
 
 							<p:commandButton value="Cancelar"
 								actionListener="#{desenvolvedorController.clear}"
-								image="ui-icon ui-icon-close" update="@form">
+								image="ui-icon ui-icon-close" update=":tbv1:formDEV">
 							</p:commandButton>
 						</p:panel>
 					</h:panelGrid>

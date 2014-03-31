@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -129,6 +130,12 @@ public class TarefaController implements Serializable {
 		}
 	}
 
+	public void setProj(ActionEvent event){
+		  
+		tarefa.setProjeto((Projeto)event.getComponent().getAttributes().get("projeto"));
+		 
+	}
+	
 	public void salvar() {
 		EntityManager manager = JpaUtils.getEntityManager();
 		EntityTransaction trx = manager.getTransaction();

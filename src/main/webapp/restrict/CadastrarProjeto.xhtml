@@ -31,11 +31,11 @@
 						<p:panel>
 							<p:commandButton value="Salvar"
 								action="#{projetoController.salvar}"
-								image="ui-icon ui-icon-disk">
+								image="ui-icon ui-icon-disk" update=":formProjeto">
 							</p:commandButton>
 
 							<p:commandButton value="Limpar"
-								action="#{projetoController.clear}" image="ui-icon ui-icon-disk">
+								action="#{projetoController.clear}" image="ui-icon ui-icon-disk" update=":formProjeto">
 							</p:commandButton>
 
 						</p:panel>

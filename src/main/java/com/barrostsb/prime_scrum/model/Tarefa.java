@@ -26,6 +26,7 @@ public class Tarefa {
 	private String tskBrdDesc;
 	
 	public Tarefa(){
+		projeto = new Projeto();
 		tskBrdDesc = "todo";
 	}
 	

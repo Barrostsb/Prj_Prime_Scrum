@@ -26,7 +26,8 @@ public class Tarefas {
 	}
 
 	public List<Tarefa> todos() {
-		TypedQuery<Tarefa> query = manager.createQuery("from Tarefa", Tarefa.class);
+		TypedQuery<Tarefa> query = manager.createQuery("From Tarefa ", Tarefa.class);
+		System.out.println(query);
 		return query.getResultList();
 	}
 }

@@ -33,7 +33,7 @@
 						<h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid"
 							id="grid0">
 							<h:outputLabel />
-
+							
 							<h:inputHidden id="idTarefa"
 								value="#{tarefaController.tarefa.id_tarefa}" />
 
@@ -48,12 +48,13 @@
 							<p:panel>
 								<p:commandButton value="Salvar"
 									action="#{tarefaController.salvar}"
-									image="ui-icon ui-icon-disk">
+									image="ui-icon ui-icon-disk" actionListener="#{tarefaController.setProj}" update=":tbvGerenciaDeProjeto:formTask :tbvGerenciaDeProjeto:formListaRequisitos">
+									<!--  <f:attribute name="projeto" value="#{projetoController.projetoSelecionado}" />-->
 								</p:commandButton>
 
 								<p:commandButton value="Cancelar"
 									actionListener="#{tarefaController.clear}"
-									image="ui-icon ui-icon-close" update="@form">
+									image="ui-icon ui-icon-close" update=":tbvGerenciaDeProjeto:formTask">
 								</p:commandButton>
 							</p:panel>
 						</h:panelGrid>
