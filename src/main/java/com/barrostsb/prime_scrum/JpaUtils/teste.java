@@ -11,7 +11,6 @@ import com.barrostsb.prime_scrum.controller.ProjetoController;
 import com.barrostsb.prime_scrum.controller.ScrumMasterController;
 import com.barrostsb.prime_scrum.controller.TarefaController;
 import com.barrostsb.prime_scrum.controller.TaskBoardController;
-import com.barrostsb.prime_scrum.dao.ScrumMasterDAO;
 import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.model.ScrumMaster;
 import com.barrostsb.prime_scrum.model.Tarefa;

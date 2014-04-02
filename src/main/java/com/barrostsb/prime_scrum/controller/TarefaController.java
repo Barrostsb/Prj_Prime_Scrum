@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -13,7 +14,10 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.event.DragDropEvent;
 
@@ -37,9 +41,8 @@ public class TarefaController implements Serializable {
 	private List<Tarefa> tarefasTodo = null;
 	private List<Tarefa> tarefasInprocess = null;
 	private List<Tarefa> tarefasDone = null;
-	
-	
-    public TarefaController() {  
+
+	public TarefaController() {  
     	tarefasBuscadas = new ArrayList<Tarefa>();
 
     	createtaskBoard();
@@ -53,7 +56,7 @@ public class TarefaController implements Serializable {
     	tarefasTodo = new ArrayList<Tarefa>();
     	tarefasInprocess = new ArrayList<Tarefa>();  
     	tarefasDone= new ArrayList<Tarefa>();  
-		List<Tarefa> tarefas = getTodasTarefas();
+		List<Tarefa> tarefas = getTarefaPorProjeto();
 		
 	    for(Tarefa tarefa : tarefas) {
 	    	String op = tarefa.getTskBrdDesc();
@@ -270,14 +273,36 @@ public class TarefaController implements Serializable {
 
 	public List<Tarefa> getTodasTarefas() {
 		EntityManager maneger = JpaUtils.getEntityManager();
-		try {
-			tarefasBuscadas = maneger.createQuery("FROM Tarefa").getResultList();
-		} finally {
-			maneger.close();
-		}
+//		TypedQuery<Tarefa> query = manager.createQuery("From Tarefa ", Tarefa.class);
+
+//		try {
+//			tarefasBuscadas = maneger.createQuery("FROM Tarefa where id_projeto = :projeto").setParameter("projeto", 1).getResultList();
+			tarefasBuscadas = maneger.createQuery("FROM Tarefa", Tarefa.class).getResultList();
+//		} finally {
+//			maneger.close();
+//		}
+//		
+//		String jpql = "select c from tarefa c";
+//		tarefasBuscadas = manager.createQuery( jpql ).getResultList();
+		return tarefasBuscadas;
+//		return query.getResultList();
+	}
+	
+	public List<Tarefa> getTarefaPorProjeto() {
+		EntityManager maneger = JpaUtils.getEntityManager();
+		Projeto projeto;
+		
+		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpSession session = (HttpSession) request.getSession();
+		projeto = (Projeto) session.getAttribute("projetoSelecionado");
+		
+		tarefasBuscadas = maneger.createQuery("FROM Tarefa where id_projeto = :id_proj ", Tarefa.class)
+				.setParameter("id_proj", projeto.getId_projeto())
+				.getResultList();
 		return tarefasBuscadas;
 	}
-
+	
 	public Tarefa getTarefaSelecionada() {
 		return tarefaSelecionada;
 	}

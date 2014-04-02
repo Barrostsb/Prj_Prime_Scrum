@@ -24,7 +24,7 @@
 			</p:tab>
 
 
-			<p:tab title="Lista de Requisitos">
+			<p:tab title="BackLog">
 			
 				<p:fieldset title="Novo requisito">
 				
@@ -49,7 +49,7 @@
 								<p:commandButton value="Salvar"
 									action="#{tarefaController.salvar}"
 									image="ui-icon ui-icon-disk" actionListener="#{tarefaController.setProj}" update=":tbvGerenciaDeProjeto:formTask :tbvGerenciaDeProjeto:formListaRequisitos :tbvGerenciaDeProjeto:taskForm">
-									<!--  <f:attribute name="projeto" value="#{projetoController.projetoSelecionado}" />-->
+									  <f:attribute name="projeto" value="#{projetoController.projetoSelecionado}" />
 								</p:commandButton>
 
 								<p:commandButton value="Cancelar"
@@ -67,7 +67,7 @@
 
 					<h:form id="formListaRequisitos">
 
-						<p:dataGrid var="tarefa" value="#{tarefaController.todasTarefas}"
+						<p:dataGrid var="tarefa" value="#{tarefaController.tarefaPorProjeto}"
 							columns="3" rows="12" paginator="true"
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							rowsPerPageTemplate="9,12,15">
@@ -193,6 +193,13 @@
 
 			</p:tab>
 			<p:tab title="Burndown">
+			<h:panelGrid columns="2">  
+    <p:lineChart value="#{chartBean.linearModel}" legendPosition="e" zoom="true" animate="true"  
+                title="Linear Chart" minY="0" maxY="10" style="width:400px;" />  
+  
+    <p:barChart id="basic" value="#{chartBean.categoryModel}" legendPosition="ne"  
+                title="Basic Bar Chart" min="0" max="200" style="width:400px" animate="true"/>  
+</h:panelGrid> 
 			</p:tab>
 		</p:tabView>
 	</ui:define>

@@ -18,12 +18,30 @@ import javax.persistence.Table;
 @Table (name = "projeto")
 public class Projeto {
 	private int id_projeto;	
-	private ScrumMaster scrumMaster;
+//	private ScrumMaster scrumMaster;
+//	private List<Desenvolvedor> listaDesenvolvedores;
 	private String nome;
-	private List<Desenvolvedor> listaDesenvolvedores;
 //	private List<Sprint> listaSprint;
 //	private List<Historia> listaHistoria;
 
+//	@ManyToMany(mappedBy="listaProjetos", fetch=FetchType.LAZY)
+//	public List<Desenvolvedor> getListaDesenvolvedores() {
+//		return listaDesenvolvedores;
+//	}
+//	public void setListaDesenvolvedores(List<Desenvolvedor> listaDesenvolvedores) {
+//		this.listaDesenvolvedores = listaDesenvolvedores;
+//	}
+//	
+//	@ManyToOne
+//	@JoinColumn(name = "id_scrumMaster", referencedColumnName="id_pessoa")
+//	public ScrumMaster getScrumMaster() {
+//		return scrumMaster;
+//	}
+//	
+//	public void setScrumMaster(ScrumMaster scrumMaster) {
+//		this.scrumMaster = scrumMaster;
+//	}
+	
 	@Id
 	@GeneratedValue
 	public int getId_projeto() {
@@ -31,16 +49,6 @@ public class Projeto {
 	}
 	public void setId_projeto(int id_projeto) {
 		this.id_projeto = id_projeto;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name = "id_scrumMaster", referencedColumnName="id_pessoa")
-	public ScrumMaster getScrumMaster() {
-		return scrumMaster;
-	}
-	
-	public void setScrumMaster(ScrumMaster scrumMaster) {
-		this.scrumMaster = scrumMaster;
 	}
 	
 	@Column
@@ -68,13 +76,7 @@ public class Projeto {
 //		this.listaHistoria = listaHistoria;
 //	}
 	
-	@ManyToMany(mappedBy="listaProjetos", fetch=FetchType.LAZY)
-	public List<Desenvolvedor> getListaDesenvolvedores() {
-		return listaDesenvolvedores;
-	}
-	public void setListaDesenvolvedores(List<Desenvolvedor> listaDesenvolvedores) {
-		this.listaDesenvolvedores = listaDesenvolvedores;
-	}
+
 	
 	@Override
 	public int hashCode() {

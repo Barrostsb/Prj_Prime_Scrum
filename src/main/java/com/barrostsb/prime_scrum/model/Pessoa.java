@@ -15,9 +15,7 @@ import javax.persistence.Table;
 @Table (name = "pessoa")
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Pessoa implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
 	private int id_pessoa;

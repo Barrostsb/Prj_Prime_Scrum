@@ -21,7 +21,7 @@ public class Tarefa {
 //	private int sprint;
 //	private int historia;
 	private int id_tarefa;
-	private Desenvolvedor desenvolvedor;
+//	private Desenvolvedor desenvolvedor;
 	private String nome;
 	private String tskBrdDesc;
 	
@@ -87,22 +87,44 @@ public class Tarefa {
 //	}
 	
 	
-	@ManyToOne
-	@JoinColumn(name = "id_desenvolvedor", referencedColumnName="id_pessoa")
-	@ForeignKey(name="FK_DesenvolvedorTarefa")
-	public Desenvolvedor getDesenvolvedor() {
-		return desenvolvedor;
-	}
-	
-	public void setDesenvolvedor(Desenvolvedor desenvolvedor) {
-		this.desenvolvedor = desenvolvedor;
-	}
+//	@ManyToOne
+//	@JoinColumn(name = "id_desenvolvedor", referencedColumnName="id_pessoa")
+//	@ForeignKey(name="FK_DesenvolvedorTarefa")
+//	public Desenvolvedor getDesenvolvedor() {
+//		return desenvolvedor;
+//	}
+//	
+//	public void setDesenvolvedor(Desenvolvedor desenvolvedor) {
+//		this.desenvolvedor = desenvolvedor;
+//	}
 	
 	@Column
 	public String getNome() {
 		return nome;
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id_tarefa;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Tarefa other = (Tarefa) obj;
+		if (id_tarefa != other.id_tarefa)
+			return false;
+		return true;
+	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}

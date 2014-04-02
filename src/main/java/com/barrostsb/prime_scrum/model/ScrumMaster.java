@@ -14,14 +14,14 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "id_scrumMaster", referencedColumnName="id_pessoa")
 public class ScrumMaster extends Pessoa{
 	private static final long serialVersionUID = 1L;
-	private List<Projeto> listaProjetos;
+//	private List<Projeto> listaProjetos;
 
-	@OneToMany(mappedBy= "scrumMaster",  fetch=FetchType.LAZY)
-	public List<Projeto> getListaProjetos() {
-		return listaProjetos;
-	}
+//	@OneToMany(mappedBy= "scrumMaster",  fetch=FetchType.LAZY)
+//	public List<Projeto> getListaProjetos() {
+//		return listaProjetos;
+//	}
 	
-	public void setListaProjetos(List<Projeto> listaProjetos) {
-		this.listaProjetos = listaProjetos;
-	}
+//	public void setListaProjetos(List<Projeto> listaProjetos) {
+//		this.listaProjetos = listaProjetos;
+//	}
 }

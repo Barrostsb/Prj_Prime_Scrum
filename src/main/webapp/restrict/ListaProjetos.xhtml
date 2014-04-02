@@ -18,11 +18,12 @@
 					<p:ring id="prjRing" value="#{projetoController.projetosBuscados}" var="projeto">
 						
 						<p:outputPanel style="text-align:center;" layout="block"> 
-							#{projeto.nome}             					 
+							#{projeto.nome} 
 						</p:outputPanel>
 						
 						<p:outputPanel style="text-align:center;" layout="block">
 						 
+					
 							<p:commandButton update=":formRing:detail" icon="ui-icon-search" title="View" oncomplete="PF('dlgDadosProjeto').show()">
 									<f:setPropertyActionListener value="#{projeto}" target="#{projetoController.projetoSelecionado}" />
 							</p:commandButton>

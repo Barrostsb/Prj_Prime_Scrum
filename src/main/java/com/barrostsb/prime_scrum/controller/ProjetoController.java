@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpSession;
 
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.business.CadastroProjetos;
@@ -92,12 +93,15 @@ public class ProjetoController implements Serializable {
 
 
 	public List<Projeto> getProjetosBuscados() {
-		EntityManager maneger = JpaUtils.getEntityManager();
-		try {
-			projetosBuscados = maneger.createQuery("FROM Projeto").getResultList();
-		} finally {
-			maneger.close();
-		}
+//		EntityManager maneger = JpaUtils.getEntityManager();
+//		try {
+			projetosBuscados = manager.createQuery("FROM Projeto", Projeto.class).getResultList();
+//			TypedQuery<Projeto> query = maneger.createQuery("from Projeto", Projeto.class);
+//			projetosBuscados = query.getResultList();
+////			manager.close();
+//		} finally {
+//			maneger.close();
+//		}
 		return projetosBuscados;
 	}
 
@@ -119,6 +123,9 @@ public class ProjetoController implements Serializable {
 
 	public void setProjetoSelecionado(Projeto projetoSelecionado) {
 		this.projetoSelecionado = projetoSelecionado;
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("projetoSelecionado", projetoSelecionado);
 	}
 
 }
