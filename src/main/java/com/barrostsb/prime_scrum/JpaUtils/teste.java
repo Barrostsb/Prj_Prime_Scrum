@@ -10,7 +10,6 @@ import javax.sound.midi.ControllerEventListener;
 import com.barrostsb.prime_scrum.controller.ProjetoController;
 import com.barrostsb.prime_scrum.controller.ScrumMasterController;
 import com.barrostsb.prime_scrum.controller.TarefaController;
-import com.barrostsb.prime_scrum.controller.TaskBoardController;
 import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.model.ScrumMaster;
 import com.barrostsb.prime_scrum.model.Tarefa;
@@ -61,7 +60,7 @@ public class teste {
 //	            System.out.println(model.getNome());
 //	        }
 	       
-	    TaskBoardController pc2 = new TaskBoardController();
+//	    TaskBoardController pc2 = new TaskBoardController();
 	   
 	    
 		

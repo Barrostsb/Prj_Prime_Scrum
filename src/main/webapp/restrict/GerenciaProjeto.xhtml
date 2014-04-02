@@ -48,8 +48,8 @@
 							<p:panel>
 								<p:commandButton value="Salvar"
 									action="#{tarefaController.salvar}"
-									image="ui-icon ui-icon-disk" actionListener="#{tarefaController.setProj}" update=":tbvGerenciaDeProjeto:formTask :tbvGerenciaDeProjeto:formListaRequisitos :tbvGerenciaDeProjeto:taskForm">
-									  <f:attribute name="projeto" value="#{projetoController.projetoSelecionado}" />
+									image="ui-icon ui-icon-disk" actionListener="#{tarefaController.setProj}" update=":tbvGerenciaDeProjeto:formTask :tbvGerenciaDeProjeto:formListaRequisitos :tbvGerenciaDeProjeto:taskBoardForm">
+									 <!--   <f:attribute name="projeto" value="#{projetoController.projetoSelecionado}" />-->
 								</p:commandButton>
 
 								<p:commandButton value="Cancelar"
@@ -118,7 +118,7 @@
 
 
 			<p:tab title="TaskBoard">
-				<h:form id="taskForm">
+				<h:form id="taskBoardForm">
 			<h:panelGrid columns="3"  styleClass="panelGrid" id="gridMain">
 					<p:fieldset id="todoColumn" legend="TO DO">
 						
@@ -178,28 +178,24 @@
 					</p:fieldset>
 
 					<p:droppable for="dropAreaTodo" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="doneGrid" scope="todo">
-						<p:ajax listener="#{tarefaController.onDropTodo}" update="taskForm"  />
+						<p:ajax listener="#{tarefaController.onDropTodo}" update="taskBoardForm"  />
 					</p:droppable>
 					
 					<p:droppable for="dropAreaInprocess" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="todoGrid"  scope="doing">
-						<p:ajax listener="#{tarefaController.onDropDoing}" update="taskForm" />
+						<p:ajax listener="#{tarefaController.onDropDoing}" update="taskBoardForm" />
 					</p:droppable>
 					
 					<p:droppable for="dropAreaDone" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="inprocessGrid" scope="done">
-						<p:ajax listener="#{tarefaController.onDropDone}" update="taskForm"  />
+						<p:ajax listener="#{tarefaController.onDropDone}" update="taskBoardForm"  />
 					</p:droppable>
 					</h:panelGrid>
 				</h:form>
 
 			</p:tab>
 			<p:tab title="Burndown">
-			<h:panelGrid columns="2">  
-    <p:lineChart value="#{chartBean.linearModel}" legendPosition="e" zoom="true" animate="true"  
-                title="Linear Chart" minY="0" maxY="10" style="width:400px;" />  
+			    <p:lineChart value="#{burndownController.burnDownChart}" legendPosition="e" zoom="true" animate="true"  
+            	    title="Burndown Chart" style="width:1000px; text-align:center;" />  
   
-    <p:barChart id="basic" value="#{chartBean.categoryModel}" legendPosition="ne"  
-                title="Basic Bar Chart" min="0" max="200" style="width:400px" animate="true"/>  
-</h:panelGrid> 
 			</p:tab>
 		</p:tabView>
 	</ui:define>

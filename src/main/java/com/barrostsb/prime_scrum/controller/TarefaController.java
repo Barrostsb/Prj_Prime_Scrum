@@ -143,7 +143,7 @@ public class TarefaController implements Serializable {
 		EntityManager manager = JpaUtils.getEntityManager();
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
-
+		tarefa.setProjeto(getProjetoSelecionado());
 		try {
 			trx.begin();
 			CadastroTarefas cadastro = new CadastroTarefas(new Tarefas(manager));
@@ -290,17 +290,19 @@ public class TarefaController implements Serializable {
 	
 	public List<Tarefa> getTarefaPorProjeto() {
 		EntityManager maneger = JpaUtils.getEntityManager();
+		tarefasBuscadas = maneger.createQuery("FROM Tarefa where id_projeto = :id_proj ", Tarefa.class)
+				.setParameter("id_proj", getProjetoSelecionado().getId_projeto())
+				.getResultList();
+		return tarefasBuscadas;
+	}
+
+	private Projeto getProjetoSelecionado() {
 		Projeto projeto;
-		
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpSession session = (HttpSession) request.getSession();
 		projeto = (Projeto) session.getAttribute("projetoSelecionado");
-		
-		tarefasBuscadas = maneger.createQuery("FROM Tarefa where id_projeto = :id_proj ", Tarefa.class)
-				.setParameter("id_proj", projeto.getId_projeto())
-				.getResultList();
-		return tarefasBuscadas;
+		return projeto;
 	}
 	
 	public Tarefa getTarefaSelecionada() {

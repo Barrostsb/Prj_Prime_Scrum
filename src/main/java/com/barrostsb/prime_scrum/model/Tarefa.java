@@ -1,5 +1,7 @@
 package com.barrostsb.prime_scrum.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +26,17 @@ public class Tarefa {
 //	private Desenvolvedor desenvolvedor;
 	private String nome;
 	private String tskBrdDesc;
+	private Date dataTermino;
 	
+	@Column	
+	public Date getDataTermino() {
+		return dataTermino;
+	}
+
+	public void setDataTermino(Date dataTermino) {
+		this.dataTermino = dataTermino;
+	}
+
 	public Tarefa(){
 		projeto = new Projeto();
 		tskBrdDesc = "todo";
