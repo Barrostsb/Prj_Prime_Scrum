@@ -24,6 +24,7 @@ import com.barrostsb.prime_scrum.model.Tarefa;
 public class BurndownController extends TarefaController implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	private static final int HORAS_DO_DIA = 8;
 
 	private CartesianChartModel burndown;  
 
@@ -49,34 +50,45 @@ public class BurndownController extends TarefaController implements Serializable
 		progressoIdeal.setLabel("Progresso Ideal");
 		
 		Calendar calendar = Calendar.getInstance();  
-		calendar.setTime( new Date() );
-
+		calendar.setTime(new Date());
+		
+		progressoIdeal.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
 		while(tempoProjeto >= 0){
-			progressoIdeal.set(calendar.getTime(), tempoProjeto);
+			tempoProjeto -= HORAS_DO_DIA;			
+			progressoIdeal.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
 			calendar.add( Calendar.DAY_OF_MONTH , 1 );  
-			tempoProjeto -= 8;			
 		}
 		return progressoIdeal;
 	}
 
 	private float getTempoProjeto() {
 		float tempoProjeto = 0;
-		for(Tarefa tarefa : getTarefasDone()) {
+		for(Tarefa tarefa : getTarefaPorProjeto()) {
 			tempoProjeto += tarefa.getTempo_execucao();
 	    }
 		return tempoProjeto;
 	}  
-
+	
 	private LineChartSeries getProgressoAtual() {
 		LineChartSeries progressoAtual = new LineChartSeries();  
 		progressoAtual.setLabel("Progresso Atual");  
 		progressoAtual.setMarkerStyle("diamond");  
-
-		progressoAtual.set(1, 10);  
-		progressoAtual.set(2, 10);  
-		progressoAtual.set(3, 10);  
-		progressoAtual.set(4, 10);  
-		progressoAtual.set(5, 10);
+		float tempoProjeto = getTempoProjeto();
+		
+		Calendar calendar = Calendar.getInstance();  
+		progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
+		for(Tarefa tarefa : getTarefasDone()) {
+			tempoProjeto -= tarefa.getTempo_execucao();
+			calendar.setTime(tarefa.getDataTermino());
+			progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
+			System.out.println("Progresso  " + tempoProjeto);
+		}
+		
+//		progressoAtual.set(1, 10);  
+//		progressoAtual.set(2, 10);  
+//		progressoAtual.set(3, 10);  
+//		progressoAtual.set(4, 10);  
+//		progressoAtual.set(5, 10);
 		return progressoAtual;
 	}
 	

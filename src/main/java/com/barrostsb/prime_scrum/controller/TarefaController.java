@@ -3,6 +3,7 @@ package com.barrostsb.prime_scrum.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -212,18 +213,19 @@ public class TarefaController implements Serializable {
 	}
 	
     public void onDropTodo(DragDropEvent event) {
-        Tarefa tarea = (Tarefa) event.getData();
+        Tarefa tarefa = (Tarefa) event.getData();
 //        if (tarea.getDone() == '1') {
 //            log.log(Level.INFO, "DROP ON TODO:{0} {1}", new Object[]{tarea.getDone(), tarea.getDuracion()});
 //            tarea.setDone('0');
             
-	 	   tarea.setTskBrdDesc("todo");
-	 	   alterar(tarea);
+	 	   tarefa.setTskBrdDesc("todo");
+	 	   tarefa.setDataTermino(null);
+	 	   alterar(tarefa);
 	 	   createtaskBoard();
 //            tarefasBuscadas.remove(tarea);
 //            tarefasTodo.add(tarea);
             
-            System.out.println("ID" + tarea.getNome());
+            System.out.println("ID" + tarefa.getNome());
             System.out.println("TODO "+ tarefasTodo );
             System.out.println("IP "+ tarefasInprocess );
             System.out.println("DOne "+ tarefasDone );
@@ -238,6 +240,7 @@ public class TarefaController implements Serializable {
 //            //TODO set usuario logueado
 //            
     	   tarefa.setTskBrdDesc("inprocess");
+    	   tarefa.setDataTermino(null);
     	   alterar(tarefa);
     	   createtaskBoard();
 //    	   tarefasBuscadas.remove(tarea);
@@ -258,6 +261,7 @@ public class TarefaController implements Serializable {
 //          //TODO set usuario logueado
 //          
   	   tarefa.setTskBrdDesc("done");
+  	   tarefa.setDataTermino(new Date());
   	   alterar(tarefa);
   	   createtaskBoard();
 //  	   tarefasBuscadas.remove(tarea);
