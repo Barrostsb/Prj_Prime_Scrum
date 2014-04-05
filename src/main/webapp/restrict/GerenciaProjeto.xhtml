@@ -26,6 +26,7 @@
 
 			<p:tab title="BackLog">
 			
+			
 				<p:fieldset title="Novo requisito">
 				
 					<h:form prependId="false" id="formTask">
@@ -117,7 +118,7 @@
 			</p:tab>
 
 
-			<p:tab title="TaskBoard">
+			<p:tab title="TaskBoard" >
 				<h:form id="taskBoardForm">
 			<h:panelGrid columns="3"  styleClass="panelGrid" id="gridMain">
 					<p:fieldset id="todoColumn" legend="TO DO">
@@ -186,15 +187,17 @@
 					</p:droppable>
 					
 					<p:droppable for="dropAreaDone" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="inprocessGrid" scope="done">
-						<p:ajax listener="#{tarefaController.onDropDone}" update="taskBoardForm"  />
+						<p:ajax listener="#{tarefaController.onDropDone}" update="taskBoardForm :tbvGerenciaDeProjeto:burndownForm"   />
 					</p:droppable>
 					</h:panelGrid>
 				</h:form>
 
 			</p:tab>
 			<p:tab title="Burndown">
+			<h:form id="burndownForm">
 			    <p:lineChart value="#{burndownController.burnDownChart}" legendPosition="e" zoom="true" animate="true"  
-            	    title="Burndown Chart" style="width:1000px; text-align:center;" />  
+            	    title="Burndown Chart" style="width:100%; height:100%; text-align:center;" />  
+			</h:form>
   
 			</p:tab>
 		</p:tabView>

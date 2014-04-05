@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.event.DragDropEvent;
+import org.primefaces.event.TabChangeEvent;
 
 import com.barrostsb.prime_scrum.JpaUtils.CreateTables;
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
@@ -84,6 +85,12 @@ public class TarefaController implements Serializable {
         System.out.println("IP "+ tarefasInprocess );
         System.out.println("DOne "+ tarefasDone );
 	}
+	
+    public void onTabChange(TabChangeEvent event) {  
+        FacesMessage msg = new FacesMessage("Tab Changed", "Active Tab: " + event.getTab().getTitle());  
+  
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+    } 
 
 	public List<Tarefa> getTarefasTodo() {
 		return tarefasTodo;

@@ -14,15 +14,37 @@
 						id="grid0">
 
 						<h:outputLabel />
-						<h:inputHidden id="idpessoa" value="#{desenvolvedorController.desenvolvedor.id_pessoa}" />
+						<h:inputHidden id="idDesenvolvedor" value="#{desenvolvedorController.desenvolvedor.id_pessoa}" />
 							
-						<h:outputLabel for="nomePessoa" value="Nome.:" />
+						<h:outputLabel for="nomeDesenvolvedor" value="Nome.:" />
 
 						<p:inputText id="nomePessoa" size="40"
 							value="#{desenvolvedorController.desenvolvedor.nome}"
 							onkeyup="this.value = this.value.toUpperCase()" required="true"
 							requiredMessage="O Campo Nome é Obrigatório!">
 						</p:inputText>
+												
+						<h:outputLabel for="loginDesenvolvedor" value="login.:" />
+						<p:inputText id="loginDesenvolvedor" size="40"
+							value="#{desenvolvedorController.desenvolvedor.login}"
+							required="true"
+							requiredMessage="O Campo Login é Obrigatório!">
+						</p:inputText>
+						
+						<h:outputLabel for="senhaDesenvolvedor" value="Senha.:" />
+						<p:password id="senhaDesenvolvedor" size="40"
+							value="#{desenvolvedorController.desenvolvedor.senha}" match="confirmarSenha"
+							required="true"
+							requiredMessage="O Campo Senha é Obrigatório!"
+							validatorMessage="As senhas devem ser iguais!">
+						</p:password>
+						
+						<h:outputLabel for="confirmarSenha" value="Confirmar Senha.:" />
+						<p:password id="confirmarSenha" size="40"
+							value="#{desenvolvedorController.desenvolvedor.senha}"
+							required="true"
+							requiredMessage="O Campo de confirmação de senha é Obrigatório!">
+						</p:password>
 
 
 						<p:panel>
