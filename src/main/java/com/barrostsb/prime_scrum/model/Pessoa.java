@@ -20,11 +20,12 @@ public class Pessoa implements Serializable{
 	
 	private int id_pessoa;
 	private String nome;
+	private String login;
+	private String senha;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_pessoa", nullable = false)
-	
+	@Column(name="id_pessoa", nullable = false)	
 	public int getId_pessoa() {
 		return id_pessoa;
 	}
@@ -40,6 +41,24 @@ public class Pessoa implements Serializable{
 	
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	@Column(name = "login", length = 25 , unique = true) 
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	@Column(name = "senha", length = 40)
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@Override

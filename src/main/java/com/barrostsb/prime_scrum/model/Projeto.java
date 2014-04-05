@@ -18,29 +18,39 @@ import javax.persistence.Table;
 @Table (name = "projeto")
 public class Projeto {
 	private int id_projeto;	
-//	private ScrumMaster scrumMaster;
-//	private List<Desenvolvedor> listaDesenvolvedores;
+	private ScrumMaster scrumMaster;
+	private Cliente cliente;
+	private List<Desenvolvedor> listaDesenvolvedores;
 	private String nome;
 //	private List<Sprint> listaSprint;
 //	private List<Historia> listaHistoria;
 
-//	@ManyToMany(mappedBy="listaProjetos", fetch=FetchType.LAZY)
-//	public List<Desenvolvedor> getListaDesenvolvedores() {
-//		return listaDesenvolvedores;
-//	}
-//	public void setListaDesenvolvedores(List<Desenvolvedor> listaDesenvolvedores) {
-//		this.listaDesenvolvedores = listaDesenvolvedores;
-//	}
-//	
-//	@ManyToOne
-//	@JoinColumn(name = "id_scrumMaster", referencedColumnName="id_pessoa")
-//	public ScrumMaster getScrumMaster() {
-//		return scrumMaster;
-//	}
-//	
-//	public void setScrumMaster(ScrumMaster scrumMaster) {
-//		this.scrumMaster = scrumMaster;
-//	}
+	@ManyToMany(mappedBy="listaProjetos", fetch=FetchType.LAZY)
+	public List<Desenvolvedor> getListaDesenvolvedores() {
+		return listaDesenvolvedores;
+	}
+	public void setListaDesenvolvedores(List<Desenvolvedor> listaDesenvolvedores) {
+		this.listaDesenvolvedores = listaDesenvolvedores;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "scrumMaster", referencedColumnName="id_pessoa")
+	public ScrumMaster getScrumMaster() {
+		return scrumMaster;
+	}
+	
+	public void setScrumMaster(ScrumMaster scrumMaster) {
+		this.scrumMaster = scrumMaster;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "cliente", referencedColumnName="id_pessoa")
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 	
 	@Id
 	@GeneratedValue

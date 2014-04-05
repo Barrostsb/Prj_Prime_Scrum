@@ -75,6 +75,7 @@ public class BurndownController extends TarefaController implements Serializable
 		progressoAtual.setMarkerStyle("diamond");  
 		float tempoProjeto = getTempoProjeto();
 		
+		//TODO tornar dinamico com inicio do projeto
 		Calendar calendar = Calendar.getInstance();  
 		progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
 		for(Tarefa tarefa : getTarefasDone()) {
