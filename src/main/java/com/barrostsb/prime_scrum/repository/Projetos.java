@@ -19,6 +19,10 @@ public class Projetos {
 		this.manager.merge(projeto);
 	}
 	
+	public void delete(Projeto projeto){
+		this.manager.remove(projeto);
+	}
+	
 	public Projetos(EntityManager manager) {
 		this.manager = manager;
 	}

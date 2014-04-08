@@ -18,5 +18,9 @@ public class CadastroProjetos {
 	public void alterar(Projeto projeto) throws BusinessException {
 		this.projetos.update(projeto);
 	}
+	
+	public void deletar(Projeto projeto) throws BusinessException {
+		this.projetos.delete(projeto);
+	}
 
 }

@@ -8,9 +8,11 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
@@ -18,13 +20,17 @@ import com.barrostsb.prime_scrum.business.CadastroProjetos;
 import com.barrostsb.prime_scrum.exception.BusinessException;
 import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.repository.Projetos;
+import com.barrotsb.prime_scrum.facesUtils.FacesUtil;
 
 @ManagedBean(name = "projetoController")
 @ApplicationScoped
 public class ProjetoController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-		
+	private static final String NAO_INCICADO = "Não Iniciado";	
+	private static final String EM_DESENVOLVIMENTO = "Em Desenvolvimento";	
+	private static final String CONLCUIDO = "Concluido";	
+	
 	private Projeto projeto = new Projeto();
 	private List<Projeto> projetosBuscados = null;
 
@@ -60,6 +66,23 @@ public class ProjetoController implements Serializable {
 			cadastro.alterar(this.projeto);
 			this.projeto = new Projeto();			
 			context.addMessage(null, new FacesMessage("Projeto alterado com sucesso!"));
+			trx.commit();
+		} catch (BusinessException e) {
+			trx.rollback();
+			FacesMessage mensagem = new FacesMessage(e.getMessage());
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+		} 
+	}
+	public void deletar(ActionEvent event) {
+		EntityTransaction trx = manager.getTransaction();
+		FacesContext context = FacesContext.getCurrentInstance();
+		Projeto projetoSelecionado = (Projeto) FacesUtil.getActionAttribute(event, "projetoSelecionado");
+		
+		try {
+			trx.begin();
+			CadastroProjetos cadastro = new CadastroProjetos(new Projetos(manager));
+			cadastro.deletar(projetoSelecionado);
+			context.addMessage(null, new FacesMessage("Projeto excluído com sucesso!"));
 			trx.commit();
 		} catch (BusinessException e) {
 			trx.rollback();

@@ -1,5 +1,6 @@
 package com.barrostsb.prime_scrum.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,6 +18,8 @@ import javax.persistence.Table;
 @Entity
 @Table (name = "projeto")
 public class Projeto {
+	private static final String NAO_INCICADO = "Não Iniciado";
+	
 	private int id_projeto;	
 	private ScrumMaster scrumMaster;
 	private Cliente cliente;
@@ -24,7 +27,21 @@ public class Projeto {
 	private String nome;
 //	private List<Sprint> listaSprint;
 //	private List<Historia> listaHistoria;
+	private Date dataInicio;
+	private String status = NAO_INCICADO;
 
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	@ManyToMany(mappedBy="listaProjetos", fetch=FetchType.LAZY)
 	public List<Desenvolvedor> getListaDesenvolvedores() {
 		return listaDesenvolvedores;

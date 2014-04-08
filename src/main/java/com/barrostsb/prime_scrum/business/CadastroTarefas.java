@@ -18,4 +18,8 @@ public class CadastroTarefas {
 	public void alterar(Tarefa tarefa) throws BusinessException {
 		this.tarefas.alterar(tarefa);
 	}
+	
+	public void deletar(Tarefa tarefa) throws BusinessException {
+		this.tarefas.deletar(tarefa);
+	}
 }

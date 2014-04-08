@@ -26,6 +26,8 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>afternoon</param-value>
 	</context-param>
+	
+	
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

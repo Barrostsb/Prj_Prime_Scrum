@@ -32,6 +32,7 @@ import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.model.Tarefa;
 import com.barrostsb.prime_scrum.repository.Projetos;
 import com.barrostsb.prime_scrum.repository.Tarefas;
+import com.barrotsb.prime_scrum.facesUtils.FacesUtil;
 
 @ManagedBean(name = "tarefaController")
 @ViewScoped
@@ -183,6 +184,24 @@ public class TarefaController implements Serializable {
 			FacesMessage mensagem = new FacesMessage(e.getMessage());
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 		}
+	}
+	
+	public void deletar(ActionEvent event) {
+		EntityTransaction trx = manager.getTransaction();
+		FacesContext context = FacesContext.getCurrentInstance();
+		Tarefa tarefaSelecionada = (Tarefa) FacesUtil.getActionAttribute(event, "tarefaSelecionada");
+		
+		try {
+			trx.begin();
+			CadastroTarefas cadastro = new CadastroTarefas(new Tarefas(manager));
+			cadastro.deletar(tarefaSelecionada);
+			context.addMessage(null, new FacesMessage("Projeto excluído com sucesso!"));
+			trx.commit();
+		} catch (BusinessException e) {
+			trx.rollback();
+			FacesMessage mensagem = new FacesMessage(e.getMessage());
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+		} 
 	}
 
 	public void buscarTodasTarefa() {

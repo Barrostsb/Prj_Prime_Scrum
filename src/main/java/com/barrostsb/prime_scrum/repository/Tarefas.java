@@ -22,6 +22,10 @@ public class Tarefas {
 		this.manager.merge(tarefa);
 	}
 	
+	public void deletar(Tarefa tarefa) {
+		this.manager.remove(tarefa);
+	}
+	
 	public Tarefas(EntityManager manager) {
 		this.manager = manager;
 	}
