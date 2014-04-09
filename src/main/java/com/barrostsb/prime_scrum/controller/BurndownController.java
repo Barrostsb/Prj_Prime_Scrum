@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.model.Tarefa;
 
 @ManagedBean(name = "burndownController")
+@ViewScoped
 public class BurndownController extends TarefaController implements Serializable{
 
 	private static final long serialVersionUID = 1L;

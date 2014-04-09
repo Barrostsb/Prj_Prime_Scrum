@@ -23,7 +23,7 @@ import com.barrostsb.prime_scrum.repository.Projetos;
 import com.barrotsb.prime_scrum.facesUtils.FacesUtil;
 
 @ManagedBean(name = "projetoController")
-@ApplicationScoped
+@SessionScoped
 public class ProjetoController implements Serializable {
 
 	private static final long serialVersionUID = 1L;

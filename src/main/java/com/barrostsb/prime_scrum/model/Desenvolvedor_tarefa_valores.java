@@ -2,6 +2,7 @@ package com.barrostsb.prime_scrum.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class Desenvolvedor_tarefa_valores {
 	  @Column(name="tarefaId",insertable=false,  updatable=false)
 	  private int tarefaId;
 	  
-	  @ManyToOne
+	  @ManyToOne(cascade = CascadeType.ALL)
 	  @JoinColumn(name="devId")
 	  private Desenvolvedor desenvolvedor;
 

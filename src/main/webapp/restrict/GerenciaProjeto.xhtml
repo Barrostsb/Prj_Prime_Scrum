@@ -80,30 +80,37 @@
 							<p:panel header="#{tarefa.nome}" style="text-align:center">
 								<h:panelGrid columns="3" style="width:100%">
 
-									<p:commandButton update=":tbvGerenciaDeProjeto:formListaRequisitos:dialog"	icon="ui-icon-search" title="View"
+									<p:commandButton
+										update=":tbvGerenciaDeProjeto:formListaRequisitos:dialog"
+										icon="ui-icon-search" title="View"
 										oncomplete="PF('dlgDadostarefa').show();">
-										<f:setPropertyActionListener value="#{tarefa}" target="#{tarefaController.tarefaSelecionada}" />
+										<f:setPropertyActionListener value="#{tarefa}"
+											target="#{tarefaController.tarefaSelecionada}" />
 									</p:commandButton>
 
 									<p:growl id="grow" showDetail="true" />
 
-								 	<p:commandButton icon="ui-icon-closethick" actionListener="#{tarefaController.deletar}" update="grow">
+									<p:commandButton icon="ui-icon-closethick"
+										actionListener="#{tarefaController.deletar}" update="grow">
 										<f:attribute name="projetoSelecionada" value="#{tarefa}" />
 										<p:confirm header="Confirmação"
 											message="Deseja realmente excluir esta tarefa?"
 											icon="ui-icon-alert" />
 
-										<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-											<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-											<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+										<p:confirmDialog global="true" showEffect="fade"
+											hideEffect="explode">
+											<p:commandButton value="Sim" type="button"
+												styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+											<p:commandButton value="Não" type="button"
+												styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 										</p:confirmDialog>
-									</p:commandButton> 
+									</p:commandButton>
 									<!--  <p:commandLink update=":form:carDetail"
 											oncomplete="PF('carDialog').show()" title="View Detail">
 											<h:outputText styleClass="ui-icon ui-icon-search"
 												style="margin:0 auto;" />
 											<f:setPropertyActionListener value="#{tarefa}"
-												target="#{tarefaController.tarefaSelecionado}" />
+												target="#{tarefaController.tarefaSelecionada}" />
 										</p:commandLink>
 										-->
 								</h:panelGrid>
@@ -111,9 +118,8 @@
 
 						</p:dataGrid>
 
-					 	<p:dialog id="dialog" widgetVar="dlgDadostarefa" showEffect="clip"
-							hideEffect="clip" modal="true" appendToBody="true" width="200"
-							height="100">
+						<p:dialog id="dialog" widgetVar="dlgDadostarefa" showEffect="clip"
+							hideEffect="clip" modal="true" appendTo="@(body)" width = "350" height = "250">
 
 							<p:outputPanel id="detail" style="text-align:center;"
 								layout="block">
@@ -125,10 +131,31 @@
 									<h:outputText id="trfNome"
 										value="#{tarefaController.tarefaSelecionada.nome}" />
 
+
+									<h:outputText value="Prioridade:" />
+									<p:rating
+										value="#{tarefaController.tarefaSelecionada.prioridade}" />
+
+
+									<h:outputText value="Dificuldade:" />
+									<h:panelGrid columns="1" style="margin-bottom:10px">
+										<p:inputText id="txtDificuldade"
+											value="#{tarefaController.tarefaSelecionada.dificuldade}" />
+										<p:slider for="txtDificuldade" step="10" />
+									</h:panelGrid>
+
+									<h:outputLabel for="spinnerStep" value="Tempo de Execução: " />
+									
+									<p:spinner id="spinnerStep" value="#{tarefaController.tarefaSelecionada.tempo_execucao}" stepFactor="0.5" prefix="Dias: " min="0" />
+										
 								</h:panelGrid>
+									<p:commandButton value="Alterar Dados" 
+									 image="ui-icon-check"  
+									 action="#{tarefaController.atualizarDados}"
+									 immediate="true" process="@this"/>
 							</p:outputPanel>
 
-						</p:dialog> 
+						</p:dialog>
 					</h:form>
 				</p:fieldset>
 
@@ -147,7 +174,7 @@
 							<p:outputPanel id="dropAreaTodo">
 
 								<p:dataGrid id="todoGrid" var="tarefa"
-									value="#{tarefaController.tarefasTodo}" columns="3"
+									value="#{taskBoardController.tarefasTodo}" columns="3"
 									style="width:33%">
 
 									<p:column>
@@ -169,7 +196,7 @@
 							<p:outputPanel id="dropAreaInprocess">
 
 								<p:dataGrid id="inprocessGrid" var="tarefa"
-									value="#{tarefaController.tarefasInprocess}" columns="3"
+									value="#{taskBoardController.tarefasInprocess}" columns="3"
 									style="width:33%">
 
 									<p:column>
@@ -191,7 +218,7 @@
 							<p:outputPanel id="dropAreaDone">
 
 								<p:dataGrid id="doneGrid" var="tarefa"
-									value="#{tarefaController.tarefasDone}" columns="3"
+									value="#{taskBoardController.tarefasDone}" columns="3"
 									style="width:33%">
 
 									<p:column>
@@ -211,21 +238,21 @@
 						<p:droppable for="dropAreaTodo" tolerance="touch"
 							activeStyleClass="ui-state-highlight" datasource="doneGrid"
 							scope="todo">
-							<p:ajax listener="#{tarefaController.onDropTodo}"
+							<p:ajax listener="#{taskBoardController.onDropTodo}"
 								update="taskBoardForm" />
 						</p:droppable>
 
 						<p:droppable for="dropAreaInprocess" tolerance="touch"
 							activeStyleClass="ui-state-highlight" datasource="todoGrid"
 							scope="doing">
-							<p:ajax listener="#{tarefaController.onDropDoing}"
+							<p:ajax listener="#{taskBoardController.onDropDoing}"
 								update="taskBoardForm" />
 						</p:droppable>
 
 						<p:droppable for="dropAreaDone" tolerance="touch"
 							activeStyleClass="ui-state-highlight" datasource="inprocessGrid"
 							scope="done">
-							<p:ajax listener="#{tarefaController.onDropDone}"
+							<p:ajax listener="#{taskBoardController.onDropDone}"
 								update="taskBoardForm :tbvGerenciaDeProjeto:burndownForm" />
 						</p:droppable>
 					</h:panelGrid>

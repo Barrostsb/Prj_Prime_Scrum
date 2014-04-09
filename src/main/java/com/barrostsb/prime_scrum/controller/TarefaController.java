@@ -9,6 +9,8 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.event.DragDropEvent;
+import org.primefaces.event.RateEvent;
 import org.primefaces.event.TabChangeEvent;
 
 import com.barrostsb.prime_scrum.JpaUtils.CreateTables;
@@ -35,7 +38,7 @@ import com.barrostsb.prime_scrum.repository.Tarefas;
 import com.barrotsb.prime_scrum.facesUtils.FacesUtil;
 
 @ManagedBean(name = "tarefaController")
-@ViewScoped
+@SessionScoped
 public class TarefaController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -165,6 +168,7 @@ public class TarefaController implements Serializable {
 			FacesMessage mensagem = new FacesMessage(e.getMessage());
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 		}
+		System.out.println("teste salve");
 	}
 	
 	public void alterar(Tarefa tarefa) {
@@ -336,11 +340,18 @@ public class TarefaController implements Serializable {
 	}
 	
 	public Tarefa getTarefaSelecionada() {
+//		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+//		HttpServletRequest request = (HttpServletRequest) req;
+//		HttpSession session = (HttpSession) request.getSession();
+//		tarefaSelecionada = (Tarefa) session.getAttribute("tarefaSelecionada");
 		return tarefaSelecionada;
 	}
 
 	public void setTarefaSelecionada(Tarefa tarefaSelecionada) {
 		this.tarefaSelecionada = tarefaSelecionada;
+//		FacesContext fc = FacesContext.getCurrentInstance();
+//		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//		session.setAttribute("tarefaSelecionada", tarefaSelecionada);
 	}
 
 	public void setTodasTarefas(List<Tarefa> tarefaBuscadas) {
@@ -348,6 +359,7 @@ public class TarefaController implements Serializable {
 	}
 
 	public Tarefa getTarefa() {
+		
 		return tarefa;
 	}
 
@@ -355,12 +367,17 @@ public class TarefaController implements Serializable {
 		this.tarefa = tarefa;
 	}
 
-	public Tarefa getTarefaSelecionado() {
-		return tarefaSelecionada;
+	public void atualizarDados(){
+//		Tarefa tarefa;
+//		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+//		HttpServletRequest request = (HttpServletRequest) req;
+//		HttpSession session = (HttpSession) request.getSession();
+//		tarefa = (Tarefa) session.getAttribute("tarefaSelecionada");
+//		
+		alterar(tarefa);
+		System.out.println("FUNCIONANDO!!     " + tarefa.getNome() +"     "+ tarefa.getPrioridade());
 	}
+	
 
-	public void setTarefaSelecionado(Tarefa tarefaSelecionado) {
-		this.tarefaSelecionada = tarefaSelecionado;
-	}
 }
 
