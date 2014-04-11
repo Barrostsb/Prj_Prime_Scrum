@@ -23,7 +23,8 @@ import com.barrostsb.prime_scrum.model.Tarefa;
 
 @ManagedBean(name = "burndownController")
 @ViewScoped
-public class BurndownController extends TarefaController implements Serializable{
+
+public class BurndownController extends TaskBoardController implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private static final int HORAS_DO_DIA = 8;

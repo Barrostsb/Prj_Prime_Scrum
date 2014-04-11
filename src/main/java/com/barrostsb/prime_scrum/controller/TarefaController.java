@@ -1,34 +1,24 @@
 package com.barrostsb.prime_scrum.controller;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.event.DragDropEvent;
 import org.primefaces.event.RateEvent;
 import org.primefaces.event.TabChangeEvent;
 
-import com.barrostsb.prime_scrum.JpaUtils.CreateTables;
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
-import com.barrostsb.prime_scrum.business.CadastroProjetos;
 import com.barrostsb.prime_scrum.business.CadastroTarefas;
 import com.barrostsb.prime_scrum.exception.BusinessException;
 import com.barrostsb.prime_scrum.model.Projeto;
@@ -38,87 +28,16 @@ import com.barrostsb.prime_scrum.repository.Tarefas;
 import com.barrotsb.prime_scrum.facesUtils.FacesUtil;
 
 @ManagedBean(name = "tarefaController")
-@SessionScoped
+@ViewScoped
 public class TarefaController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Tarefa tarefa = new Tarefa();
 	private List<Tarefa> tarefasBuscadas = null;
-	private List<Tarefa> tarefasTodo = null;
-	private List<Tarefa> tarefasInprocess = null;
-	private List<Tarefa> tarefasDone = null;
 
 	public TarefaController() {  
-    	tarefasBuscadas = new ArrayList<Tarefa>();
-
-    	createtaskBoard();
-//    	System.out.println("todo "+ tarefasTodo);
-//    	System.out.println("ip "+ tarefasInprocess);
-//    	System.out.println("doneo "+ tarefasDone);
-  
-    } 
-    
-	private void createtaskBoard() {
-    	tarefasTodo = new ArrayList<Tarefa>();
-    	tarefasInprocess = new ArrayList<Tarefa>();  
-    	tarefasDone= new ArrayList<Tarefa>();  
-		List<Tarefa> tarefas = getTarefaPorProjeto();
-		
-	    for(Tarefa tarefa : tarefas) {
-	    	String op = tarefa.getTskBrdDesc();
-	    	
-	    	switch (op) {
-			case "todo":
-				tarefasTodo.add(tarefa);
-				break;
-			
-			case "inprocess":
-				tarefasInprocess.add(tarefa);
-				break;
-				
-			case "done":
-				tarefasDone.add(tarefa);
-				break;
-
-			default:
-				break;
-			}
-	    	System.out.println(op);
-	    }
-        System.out.println("TODO "+ tarefasTodo );
-        System.out.println("IP "+ tarefasInprocess );
-        System.out.println("DOne "+ tarefasDone );
-	}
-	
-    public void onTabChange(TabChangeEvent event) {  
-        FacesMessage msg = new FacesMessage("Tab Changed", "Active Tab: " + event.getTab().getTitle());  
-  
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-    } 
-
-	public List<Tarefa> getTarefasTodo() {
-		return tarefasTodo;
-	}
-
-	public void setTarefasTodo(List<Tarefa> tarefasTodo) {
-		this.tarefasTodo = tarefasTodo;
-	}
-
-	public List<Tarefa> getTarefasInprocess() {
-		return tarefasInprocess;
-	}
-
-	public void setTarefasInprocess(List<Tarefa> tarefasInprocess) {
-		this.tarefasInprocess = tarefasInprocess;
-	}
-
-	public List<Tarefa> getTarefasDone() {
-		return tarefasDone;
-	}
-
-	public void setTarefasDone(List<Tarefa> tarefasDone) {
-		this.tarefasDone = tarefasDone;
-	}
+		tarefasBuscadas = new ArrayList<Tarefa>();
+	} 
 
 	private List<Projeto> todosProjetos = null;
 
@@ -146,11 +65,9 @@ public class TarefaController implements Serializable {
 	}
 
 	public void setProj(ActionEvent event){
-		  
 		tarefa.setProjeto((Projeto)event.getComponent().getAttributes().get("projeto"));
-		 
 	}
-	
+
 	public void salvar() {
 		EntityManager manager = JpaUtils.getEntityManager();
 		EntityTransaction trx = manager.getTransaction();
@@ -168,14 +85,13 @@ public class TarefaController implements Serializable {
 			FacesMessage mensagem = new FacesMessage(e.getMessage());
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 		}
-		System.out.println("teste salve");
 	}
-	
+
 	public void alterar(Tarefa tarefa) {
 		EntityManager manager = JpaUtils.getEntityManager();
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
-		
+
 		try {
 			trx.begin();
 			CadastroTarefas cadastro = new CadastroTarefas(new Tarefas(manager));
@@ -189,17 +105,17 @@ public class TarefaController implements Serializable {
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 		}
 	}
-	
+
 	public void deletar(ActionEvent event) {
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
 		Tarefa tarefaSelecionada = (Tarefa) FacesUtil.getActionAttribute(event, "tarefaSelecionada");
-		
+
 		try {
 			trx.begin();
 			CadastroTarefas cadastro = new CadastroTarefas(new Tarefas(manager));
 			cadastro.deletar(tarefaSelecionada);
-			context.addMessage(null, new FacesMessage("Projeto excluído com sucesso!"));
+			context.addMessage(null, new FacesMessage("Tarefa excluído com sucesso!"));
 			trx.commit();
 		} catch (BusinessException e) {
 			trx.rollback();
@@ -209,119 +125,24 @@ public class TarefaController implements Serializable {
 	}
 
 	public void buscarTodasTarefa() {
-		
+
 		Tarefas tarefas = new Tarefas(manager);
 		tarefas.todos();
-
-//		EntityManager manager = JpaUtils.getEntityManager();
-//		TypedQuery<Tarefa> query = manager.createQuery("FROM Tarefa", Tarefa.class);
-//		this.tarefasBuscadas = query.getResultList();
-//		manager.close();
-
-		//		EntityManager maneger = JpaUtils.getEntityManager();
-		//		try {
-		//			projetosBuscados = maneger.createQuery("FROM Projeto").getResultList();
-		//		} finally {
-		//			maneger.close();
-		//		}
 	}
-	
-    public void onTaskDrop(DragDropEvent ddEvent) {  
-        Tarefa car = ((Tarefa) ddEvent.getData());  
-  
-        tarefasTodo.add(car);  
-        tarefasBuscadas.remove(car); 
-        
-        System.out.println("tarefasBuscadas: " + tarefasBuscadas);
-        System.out.println("tarefastodo: " + tarefasTodo);
-    } 
 
 
 	public String clear(){
 		tarefa = new Tarefa();
 		return "/restrict/CadastrarProjeto.jsf"; 
 	}
-	
-    public void onDropTodo(DragDropEvent event) {
-        Tarefa tarefa = (Tarefa) event.getData();
-//        if (tarea.getDone() == '1') {
-//            log.log(Level.INFO, "DROP ON TODO:{0} {1}", new Object[]{tarea.getDone(), tarea.getDuracion()});
-//            tarea.setDone('0');
-            
-	 	   tarefa.setTskBrdDesc("todo");
-	 	   tarefa.setDataTermino(null);
-	 	   alterar(tarefa);
-	 	   createtaskBoard();
-//            tarefasBuscadas.remove(tarea);
-//            tarefasTodo.add(tarea);
-            
-            System.out.println("ID" + tarefa.getNome());
-            System.out.println("TODO "+ tarefasTodo );
-            System.out.println("IP "+ tarefasInprocess );
-            System.out.println("DOne "+ tarefasDone );
-//        }
-    }
-
-    public void onDropDoing(DragDropEvent event) {
-    	Tarefa tarefa = (Tarefa) event.getData();
-//        if (tarea.getDone() == '0') {
-//            log.log(Level.INFO, "DROP ON DOING:{0} {1}", new Object[]{tarea.getDone(), tarea.getDuracion()});
-//            tarea.setDone('1');
-//            //TODO set usuario logueado
-//            
-    	   tarefa.setTskBrdDesc("inprocess");
-    	   tarefa.setDataTermino(null);
-    	   alterar(tarefa);
-    	   createtaskBoard();
-//    	   tarefasBuscadas.remove(tarea);
-//           tarefasInprocess.add(tarea);
-           System.out.println("ID" + tarefa.getNome());
-           System.out.println("TODO "+ tarefasTodo );
-           System.out.println("IP "+ tarefasInprocess );
-           System.out.println("DOne "+ tarefasDone );
-           
-//        }
-    }
-
-    public void onDropDone(DragDropEvent event) {
-    	Tarefa tarefa = (Tarefa) event.getData();
-//      if (tarea.getDone() == '0') {
-//          log.log(Level.INFO, "DROP ON DOING:{0} {1}", new Object[]{tarea.getDone(), tarea.getDuracion()});
-//          tarea.setDone('1');
-//          //TODO set usuario logueado
-//          
-  	   tarefa.setTskBrdDesc("done");
-  	   tarefa.setDataTermino(new Date());
-  	   alterar(tarefa);
-  	   createtaskBoard();
-//  	   tarefasBuscadas.remove(tarea);
-//         tarefasInprocess.add(tarea);
-         System.out.println("ID" + tarefa.getNome());
-         System.out.println("TODO "+ tarefasTodo );
-         System.out.println("IP "+ tarefasInprocess );
-         System.out.println("DOne "+ tarefasDone );
-//        }
-    }    
-    
 
 
 	public List<Tarefa> getTodasTarefas() {
 		EntityManager maneger = JpaUtils.getEntityManager();
-//		TypedQuery<Tarefa> query = manager.createQuery("From Tarefa ", Tarefa.class);
-
-//		try {
-//			tarefasBuscadas = maneger.createQuery("FROM Tarefa where id_projeto = :projeto").setParameter("projeto", 1).getResultList();
-			tarefasBuscadas = maneger.createQuery("FROM Tarefa", Tarefa.class).getResultList();
-//		} finally {
-//			maneger.close();
-//		}
-//		
-//		String jpql = "select c from tarefa c";
-//		tarefasBuscadas = manager.createQuery( jpql ).getResultList();
+		tarefasBuscadas = maneger.createQuery("FROM Tarefa", Tarefa.class).getResultList();
 		return tarefasBuscadas;
-//		return query.getResultList();
 	}
-	
+
 	public List<Tarefa> getTarefaPorProjeto() {
 		EntityManager maneger = JpaUtils.getEntityManager();
 		tarefasBuscadas = maneger.createQuery("FROM Tarefa where id_projeto = :id_proj ", Tarefa.class)
@@ -338,7 +159,7 @@ public class TarefaController implements Serializable {
 		projeto = (Projeto) session.getAttribute("projetoSelecionado");
 		return projeto;
 	}
-	
+
 	public Tarefa getTarefaSelecionada() {
 //		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 //		HttpServletRequest request = (HttpServletRequest) req;
@@ -348,10 +169,10 @@ public class TarefaController implements Serializable {
 	}
 
 	public void setTarefaSelecionada(Tarefa tarefaSelecionada) {
-		this.tarefaSelecionada = tarefaSelecionada;
 //		FacesContext fc = FacesContext.getCurrentInstance();
 //		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 //		session.setAttribute("tarefaSelecionada", tarefaSelecionada);
+		this.tarefaSelecionada = tarefaSelecionada;
 	}
 
 	public void setTodasTarefas(List<Tarefa> tarefaBuscadas) {
@@ -359,7 +180,7 @@ public class TarefaController implements Serializable {
 	}
 
 	public Tarefa getTarefa() {
-		
+
 		return tarefa;
 	}
 
@@ -368,16 +189,12 @@ public class TarefaController implements Serializable {
 	}
 
 	public void atualizarDados(){
-//		Tarefa tarefa;
-//		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-//		HttpServletRequest request = (HttpServletRequest) req;
-//		HttpSession session = (HttpSession) request.getSession();
-//		tarefa = (Tarefa) session.getAttribute("tarefaSelecionada");
-//		
-		alterar(tarefa);
-		System.out.println("FUNCIONANDO!!     " + tarefa.getNome() +"     "+ tarefa.getPrioridade());
+//		Tarefa tarefaSelecionada = (Tarefa) FacesUtil.getActionAttribute(event, "tarefaAtualizada");
+//		Integer tarefaSelecionada = (Integer) FacesUtil.getActionAttribute(event, "tarefaAtualizada");
+//		tarefaSelecionada.setPrioridade(5);
+		alterar(tarefaSelecionada);
+		System.out.println("prioridadeAlterada  " + tarefaSelecionada.getPrioridade());
+//		System.out.println("prioridade  "+ prioridade);
 	}
-	
-
 }
 

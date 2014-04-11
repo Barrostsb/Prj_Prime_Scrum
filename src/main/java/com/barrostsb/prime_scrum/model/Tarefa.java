@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -56,6 +57,7 @@ public class Tarefa {
 
 
 	private int prioridade;
+
 	private float tempo_execucao;
 	private int dificuldade;
 	
@@ -176,6 +178,8 @@ public class Tarefa {
 	public void setTskBrdDesc(String tskBrdDesc) {
 		this.tskBrdDesc = tskBrdDesc;
 	}
+	
+	
 	
 	@Override
 	public int hashCode() {

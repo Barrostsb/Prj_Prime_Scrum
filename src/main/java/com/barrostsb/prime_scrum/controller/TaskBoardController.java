@@ -17,7 +17,7 @@ import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.model.Tarefa;
 
-@ManagedBean
+@ManagedBean (name = "taskBoardController")
 @ViewScoped
 public class TaskBoardController {
 	public List<Tarefa> getTarefasBuscadas() {

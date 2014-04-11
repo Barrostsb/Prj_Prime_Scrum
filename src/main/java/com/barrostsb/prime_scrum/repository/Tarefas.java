@@ -23,7 +23,7 @@ public class Tarefas {
 	}
 	
 	public void deletar(Tarefa tarefa) {
-		this.manager.remove(tarefa);
+		this.manager.remove(manager.find(Tarefa.class, tarefa.getId_tarefa()));
 	}
 	
 	public Tarefas(EntityManager manager) {
