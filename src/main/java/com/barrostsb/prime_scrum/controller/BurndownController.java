@@ -28,6 +28,7 @@ public class BurndownController extends TaskBoardController implements Serializa
 
 	private static final long serialVersionUID = 1L;
 	private static final int HORAS_DO_DIA = 8;
+	private static final int PROJETO_CONCLUIDO = 0;
 
 	private CartesianChartModel burndown;  
 
@@ -55,17 +56,22 @@ public class BurndownController extends TaskBoardController implements Serializa
 		Calendar calendar = Calendar.getInstance();  
 		calendar.setTime(new Date());
 		
-		progressoIdeal.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
-		while(tempoProjeto >= 0){
-			tempoProjeto -= HORAS_DO_DIA;			
+//		progressoIdeal.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
+		while(tempoProjeto > 0){
 			progressoIdeal.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
+			tempoProjeto -= HORAS_DO_DIA;			
 			calendar.add( Calendar.DAY_OF_MONTH , 1 );  
 		}
+		if ((tempoProjeto <= 0) && (tempoProjeto > -8)){
+			tempoProjeto = PROJETO_CONCLUIDO;
+			progressoIdeal.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
+		}
+		
 		return progressoIdeal;
 	}
 
 	private float getTempoProjeto() {
-		float tempoProjeto = 0;
+		float tempoProjeto = PROJETO_CONCLUIDO;
 		for(Tarefa tarefa : getTarefaPorProjeto()) {
 			tempoProjeto += tarefa.getTempo_execucao();
 	    }
@@ -85,7 +91,7 @@ public class BurndownController extends TaskBoardController implements Serializa
 			tempoProjeto -= tarefa.getTempo_execucao();
 			calendar.setTime(tarefa.getDataTermino());
 			progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
-			System.out.println("Progresso  " + tempoProjeto);
+//			System.out.println("Progresso  " + tempoProjeto);
 		}
 		
 //		progressoAtual.set(1, 10);  
