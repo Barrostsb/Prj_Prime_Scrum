@@ -2,46 +2,65 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" template="/template/Layout.xhtml"
-	>
+	xmlns:p="http://primefaces.org/ui" template="/template/Layout.xhtml">
 	<!--  xmlns:c="http://java.sun.com/jsf/jstl/core"> -->
-	
+
 	<ui:define name="content">
-	
-		<p:fieldset legend="Adicionar Novo projeto">  
-				<h:form prependId="false" id="formProjeto">
-					<p:growl id="msg0" />
-					<h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid"
-						id="grid0">
 
-						<h:outputLabel />
-						<h:inputHidden id="idprojeto"
-							value="#{projetoController.projeto.id_projeto}" />
+		<p:fieldset legend="Adicionar Novo projeto">
+			<h:form prependId="false" id="formProjeto">
+				<p:growl id="msg0" />
+				<h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid"
+					id="grid0">
 
-						<h:outputLabel for="nomeProjeto" value="Nome.:" />
+					<h:outputLabel />
+					<h:inputHidden id="idprojeto"
+						value="#{projetoController.projeto.id_projeto}" />
 
-						<p:inputText id="nomeProjeto" size="40"
-							value="#{projetoController.projeto.nome}"
-							onkeyup="this.value = this.value.toUpperCase()" required="true"
-							requiredMessage="O Campo Nome é Obrigatório!">
-						</p:inputText>
+					<h:outputLabel for="nomeProjeto" value="Nome.:" />
+
+					<p:inputText id="nomeProjeto" size="40"
+						value="#{projetoController.projeto.nome}"
+						onkeyup="this.value = this.value.toUpperCase()" required="true"
+						requiredMessage="O Campo Nome é Obrigatório!">
+					</p:inputText>
 
 
+					<h:outputLabel value="Desenvolvedores" />
 
-						<p:panel>
-							<p:commandButton value="Salvar"
-								action="#{projetoController.salvar}"
-								image="ui-icon ui-icon-disk" update=":formProjeto">
-							</p:commandButton>
+				<!-- 	 <p:selectCheckboxMenu value="#{projetoController.projeto.listaDesenvolvedores}"
+						label="Defina os desenvolvedores" filter="true" filterText="Filter"
+						filterMatchMode="startsWith" panelStyle="width:220px" converter="pessoaConverter">
+						<f:selectItems value="#{projetoController.todosDesenvolvedores}" 
+						var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
+					</p:selectCheckboxMenu>
+					
+					    <p:separator style="margin-bottom:10px"/>  
+  
+				    <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" />  
+				  
+				    <p:dialog  appendTo="@(body)" header="Selected Movies" modal="true" showEffect="fade" hideEffect="fade" widgetVar="dlg" resizable="false">  
+				        <p:dataList id="display" value="#{projetoController.projeto.listaDesenvolvedores}" var="movie">  
+				            #{movie}  
+				        </p:dataList>  
+				    </p:dialog>   -->
 
-							<p:commandButton value="Limpar"
-								action="#{projetoController.clear}" image="ui-icon ui-icon-disk" update=":formProjeto">
-							</p:commandButton>
 
-						</p:panel>
-					</h:panelGrid>
-				</h:form>
+					<p:panel>
+						<p:commandButton value="Salvar"
+							action="#{projetoController.salvar}" image="ui-icon ui-icon-disk"
+							update=":formProjeto">
+						</p:commandButton>
+
+						<p:commandButton value="Limpar"
+							action="#{projetoController.clear}" image="ui-icon ui-icon-disk"
+							update=":formProjeto">
+						</p:commandButton>
+
+					</p:panel>
+				</h:panelGrid>
+			</h:form>
 		</p:fieldset>
-	
+
 	</ui:define>
 </ui:composition>

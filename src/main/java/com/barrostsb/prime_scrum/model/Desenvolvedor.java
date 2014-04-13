@@ -3,6 +3,7 @@ package com.barrostsb.prime_scrum.model;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table (name = "desenvolvedor")
-//@PrimaryKeyJoinColumn(name = "id_desenvolvedor", referencedColumnName="id_pessoa")
+@PrimaryKeyJoinColumn(name = "id_desenvolvedor", referencedColumnName="id_pessoa")
 public class Desenvolvedor extends Pessoa{
 		
 	private static final long serialVersionUID = 1L;
@@ -41,8 +42,13 @@ public class Desenvolvedor extends Pessoa{
 	
 	
 	
-	@ManyToMany
-	@JoinTable(name = "desenvolvedor_projeto", joinColumns = @JoinColumn(name = "id_desenvolvedor"), inverseJoinColumns = @JoinColumn(name = "id_projeto"))
+//	@ManyToMany
+//	@JoinTable(name = "desenvolvedor_projeto", joinColumns = @JoinColumn(name = "id_desenvolvedor"), inverseJoinColumns = @JoinColumn(name = "id_projeto"))
+	
+	@ManyToMany(cascade={ CascadeType.ALL, CascadeType.MERGE })  
+    @JoinTable(name="desenvolvedor_projeto",   
+            joinColumns= @JoinColumn(name="desenvolvedor_id" , referencedColumnName="id_desenvolvedor"),   
+            inverseJoinColumns = @JoinColumn(name="projeto_id" , referencedColumnName="id_projeto"))
 	public List<Projeto> getListaProjetos() {
 		return listaProjetos;
 	}

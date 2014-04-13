@@ -3,12 +3,14 @@ package com.barrostsb.prime_scrum.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,6 +26,7 @@ public class Projeto {
 	private ScrumMaster scrumMaster;
 	private Cliente cliente;
 	private List<Desenvolvedor> listaDesenvolvedores;
+
 	private String nome;
 //	private List<Sprint> listaSprint;
 //	private List<Historia> listaHistoria;
@@ -42,7 +45,17 @@ public class Projeto {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	@ManyToMany(mappedBy="listaProjetos", fetch=FetchType.LAZY)
+	
+//	
+	
+	
+	
+//	@ManyToMany(mappedBy="listaProjetos", fetch=FetchType.LAZY)
+	
+	@ManyToMany(cascade={ CascadeType.ALL, CascadeType.MERGE })  
+    @JoinTable(name="desenvolvedor_projeto",   
+    		joinColumns = @JoinColumn(name="projeto_id" , referencedColumnName="id_projeto"),
+    		inverseJoinColumns = @JoinColumn(name="desenvolvedor_id" , referencedColumnName="id_desenvolvedor"))  
 	public List<Desenvolvedor> getListaDesenvolvedores() {
 		return listaDesenvolvedores;
 	}
@@ -51,7 +64,7 @@ public class Projeto {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "scrumMaster", referencedColumnName="id_pessoa")
+	@JoinColumn(name = "scrumMaster", referencedColumnName="id_scrumMaster")
 	public ScrumMaster getScrumMaster() {
 		return scrumMaster;
 	}
@@ -61,7 +74,7 @@ public class Projeto {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "cliente", referencedColumnName="id_pessoa")
+	@JoinColumn(name = "cliente", referencedColumnName="id_cliente")
 	public Cliente getCliente() {
 		return cliente;
 	}

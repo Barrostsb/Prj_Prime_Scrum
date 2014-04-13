@@ -18,7 +18,9 @@ import javax.servlet.http.HttpSession;
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.business.CadastroProjetos;
 import com.barrostsb.prime_scrum.exception.BusinessException;
+import com.barrostsb.prime_scrum.model.Desenvolvedor;
 import com.barrostsb.prime_scrum.model.Projeto;
+import com.barrostsb.prime_scrum.model.Tarefa;
 import com.barrostsb.prime_scrum.repository.Projetos;
 import com.barrotsb.prime_scrum.facesUtils.FacesUtil;
 
@@ -33,6 +35,7 @@ public class ProjetoController implements Serializable {
 	
 	private Projeto projeto = new Projeto();
 	private List<Projeto> projetosBuscados = null;
+	private List<Desenvolvedor> desenvolvedores;
 
 	private Projeto projetoSelecionado;
 
@@ -149,6 +152,20 @@ public class ProjetoController implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("projetoSelecionado", projetoSelecionado);
+	}
+	
+	public List<Desenvolvedor> getTodosDesenvolvedores() {
+		EntityManager maneger = JpaUtils.getEntityManager();
+		desenvolvedores = maneger.createQuery("FROM Desenvolvedor", Desenvolvedor.class).getResultList();
+		return desenvolvedores;
+	}
+	
+	public List<Desenvolvedor> getDesenvolvedorPorProjeto() {
+		EntityManager maneger = JpaUtils.getEntityManager();
+		desenvolvedores = maneger.createQuery("FROM Desenvolvedor where id_projeto = :id_proj ", Desenvolvedor.class)
+				.setParameter("id_proj", getProjetoSelecionado().getId_projeto())
+				.getResultList();
+		return desenvolvedores;
 	}
 
 }

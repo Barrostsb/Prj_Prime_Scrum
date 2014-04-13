@@ -44,20 +44,30 @@
 								onkeyup="this.value = this.value.toUpperCase()" required="true"
 								requiredMessage="O Campo Nome é Obrigatório!">
 							</p:inputText>
-							
+
+							<h:outputLabel value="Desenvolvedor" />
+							<p:selectOneMenu
+								value="#{tarefaController.tarefa.desenvolvedor}" converter="pessoaConverter" label="Desenvolvedor">
+								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+								<f:selectItems value="#{projetoController.todosDesenvolvedores}"
+									var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
+							</p:selectOneMenu>
+
 							<h:outputText value="Prioridade:" />
-									<p:rating value="#{tarefaController.tarefa.prioridade}" />
+							<p:rating value="#{tarefaController.tarefa.prioridade}" />
 
-									<h:outputText value="Dificuldade:" />
-									<h:panelGrid columns="1" style="margin-bottom:10px">
-										<p:inputText  id="txtDificuldade"
-											value="#{tarefaController.tarefa.dificuldade}" />
-										<p:slider for="txtDificuldade" step="10"  />
-									</h:panelGrid>
+							<h:outputText value="Dificuldade:" />
+							<h:panelGrid columns="1" style="margin-bottom:10px">
+								<p:inputText id="txtDificuldade"
+									value="#{tarefaController.tarefa.dificuldade}" />
+								<p:slider for="txtDificuldade" step="10" />
+							</h:panelGrid>
 
-									<h:outputLabel for="spinnerStep" value="Tempo de Execução: " />
-									
-									<p:spinner id="spinnerStep"  value="#{tarefaController.tarefa.tempo_execucao}" stepFactor="0.5" prefix="Dias: " min="0" />
+							<h:outputLabel for="spinnerStep" value="Tempo de Execução: " />
+
+							<p:spinner id="spinnerStep"
+								value="#{tarefaController.tarefa.tempo_execucao}"
+								stepFactor="0.5" prefix="Dias: " min="0" />
 
 							<p:panel>
 								<p:commandButton value="Salvar"
@@ -91,12 +101,11 @@
 							rowsPerPageTemplate="9,12,15">
 
 							<p:panel header="#{tarefa.nome}" style="text-align:center">
-								
-								
+
+
 								<h:panelGrid columns="3" style="width:100%">
 
-									<p:commandButton
-										update=":tbvGerenciaDeProjeto:dialog"
+									<p:commandButton update=":tbvGerenciaDeProjeto:dialog"
 										icon="ui-icon-search" title="View"
 										oncomplete="PF('dlgDadostarefa').show();">
 										<f:setPropertyActionListener value="#{tarefa}"
@@ -124,41 +133,46 @@
 							</p:panel>
 
 						</p:dataGrid>
-</h:form>
-						<p:dialog id="dialog" widgetVar="dlgDadostarefa" showEffect="clip"
-							hideEffect="clip" modal="true" appendTo="@(body)" width = "350" height = "250">
+					</h:form>
+					<p:dialog id="dialog" widgetVar="dlgDadostarefa" showEffect="clip"
+						hideEffect="clip" modal="true" appendTo="@(body)" width="350"
+						height="250">
 
-<h:form id="formDialog">
+						<h:form id="formDialog">
 							<p:outputPanel id="detail" style="text-align:center;"
 								layout="block">
 
 								<h:panelGrid columns="2" cellpadding="5">
 
 									<h:outputText value="Nome: " />
-									<p:inputText id="trfNome" value="#{tarefaController.tarefaSelecionada.nome}" />
+									<p:inputText id="trfNome"
+										value="#{tarefaController.tarefaSelecionada.nome}" />
 
 									<h:outputText value="Prioridade:" />
-									<p:rating value="#{tarefaController.tarefaSelecionada.prioridade}" />
-										
+									<p:rating
+										value="#{tarefaController.tarefaSelecionada.prioridade}" />
+
 									<h:outputText value="Dificuldade:" />
 									<h:panelGrid columns="1" style="margin-bottom:10px">
-										<p:inputText  id="txtDificuldade" value="#{tarefaController.tarefaSelecionada.dificuldade}" />
-										<p:slider for="txtDificuldade" step="10"  />
+										<p:inputText id="txtDificuldade"
+											value="#{tarefaController.tarefaSelecionada.dificuldade}" />
+										<p:slider for="txtDificuldade" step="10" />
 									</h:panelGrid>
 
 									<h:outputLabel for="spinnerStep" value="Tempo de Execução: " />
-									<p:spinner id="spinnerStep"  value="#{tarefaController.tarefaSelecionada.tempo_execucao}" stepFactor="0.5" prefix="Dias: " min="0" />
-										
+									<p:spinner id="spinnerStep"
+										value="#{tarefaController.tarefaSelecionada.tempo_execucao}"
+										stepFactor="0.5" prefix="Dias: " min="0" />
+
 								</h:panelGrid>
-								<p:commandButton value="Alterar Dados" 
-									 image="ui-icon-check"  
-									 action="#{tarefaController.atualizarDados}"
-									 update=":tbvGerenciaDeProjeto:formListaRequisitos"
-									 process="@form"/>
-									 
+								<p:commandButton value="Alterar Dados" image="ui-icon-check"
+									action="#{tarefaController.atualizarDados}"
+									update=":tbvGerenciaDeProjeto:formListaRequisitos"
+									process="@form" />
+
 							</p:outputPanel>
-					</h:form>
-						</p:dialog>
+						</h:form>
+					</p:dialog>
 				</p:fieldset>
 
 

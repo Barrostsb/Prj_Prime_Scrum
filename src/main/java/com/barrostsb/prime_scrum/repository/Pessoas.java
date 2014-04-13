@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
+import com.barrostsb.prime_scrum.model.Desenvolvedor;
 import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.model.ScrumMaster;
 
@@ -31,8 +33,24 @@ public class Pessoas {
 		return query.getResultList();
 	}
 	
+	public Pessoa ScrumMasterPorId(Long id) {
+		return manager.find(ScrumMaster.class, id);
+	}
+	
 	public List<Pessoa> todosDesenvolvedores() {
-		TypedQuery<Pessoa> query = manager.createQuery("from Lancamento", Pessoa.class);
+		TypedQuery<Pessoa> query = manager.createQuery("from Desenvolvedor where id_pessoa = id_desenvolvedor", Pessoa.class);
 		return query.getResultList();
+	}
+	
+	public Pessoa PessoaPorId(int id) {
+		return manager.find(Pessoa.class, id);
+	}
+	
+	public Pessoa PessoaPorLogin(String login) {
+		return (Pessoa) manager.createQuery("from Pessoa where login = '" + login +"'").getSingleResult();// find(Pessoa.class, login);
+	}
+	
+	public Pessoa DesenvolvedorPorId(Long id) {
+		return manager.find(Desenvolvedor.class, id);
 	}
 }

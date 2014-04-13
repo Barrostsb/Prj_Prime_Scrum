@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table (name = "scrumMaster")
-//@PrimaryKeyJoinColumn(name = "id_scrumMaster", referencedColumnName="id_pessoa")
+@PrimaryKeyJoinColumn(name = "id_scrumMaster", referencedColumnName="id_pessoa")
 public class ScrumMaster extends Pessoa{
 	private static final long serialVersionUID = 1L;
 //	private List<Projeto> listaProjetos;
