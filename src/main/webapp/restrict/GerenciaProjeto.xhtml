@@ -27,6 +27,14 @@
 						<h:outputText value="Nome: " />
 						<p:inputText id="prjNome"
 							value="#{projetoController.projetoSelecionado.nome}" />
+							
+						<h:outputLabel value="Cliente" />
+							<p:selectOneMenu value="#{projetoController.projetoSelecionado.cliente}"
+								converter="clienteConverter" label="Cliente" style="width:150px;">
+								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+								<f:selectItems value="#{projetoController.todosClientes}"
+									var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
+							</p:selectOneMenu>
 
 						<h:outputText value="Desenvolvedores: " />
 						<p:selectCheckboxMenu

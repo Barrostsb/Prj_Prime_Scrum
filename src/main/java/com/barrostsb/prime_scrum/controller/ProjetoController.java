@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.business.CadastroProjetos;
 import com.barrostsb.prime_scrum.exception.BusinessException;
+import com.barrostsb.prime_scrum.model.Cliente;
 import com.barrostsb.prime_scrum.model.Desenvolvedor;
 import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.model.Tarefa;
@@ -36,6 +37,7 @@ public class ProjetoController implements Serializable {
 	private Projeto projeto = new Projeto();
 	private List<Projeto> projetosBuscados = null;
 	private List<Desenvolvedor> desenvolvedores;
+	private List<Cliente> clientes;
 
 	private Projeto projetoSelecionado;
 
@@ -158,6 +160,12 @@ public class ProjetoController implements Serializable {
 		EntityManager maneger = JpaUtils.getEntityManager();
 		desenvolvedores = maneger.createQuery("FROM Desenvolvedor", Desenvolvedor.class).getResultList();
 		return desenvolvedores;
+	}
+	
+	public List<Cliente> getTodosClientes() {
+		EntityManager maneger = JpaUtils.getEntityManager();
+		clientes = maneger.createQuery("FROM Cliente", Cliente.class).getResultList();
+		return clientes;
 	}
 	
 	public List<Desenvolvedor> getDesenvolvedorPorProjeto() {
