@@ -66,8 +66,8 @@ public class ProjetoController implements Serializable {
 		try {
 			trx.begin();
 			CadastroProjetos cadastro = new CadastroProjetos(new Projetos(manager));
-			cadastro.alterar(this.projeto);
-			this.projeto = new Projeto();			
+			cadastro.alterar(projetoSelecionado);
+			//this.projeto = new Projeto();			
 			context.addMessage(null, new FacesMessage("Projeto alterado com sucesso!"));
 			trx.commit();
 		} catch (BusinessException e) {

@@ -21,6 +21,31 @@
 		<p:tabView id="tbvGerenciaDeProjeto">
 			<p:tab title="Dados Projeto">
 
+				<h:form id="formDadosProjeto">
+					<h:panelGrid columns="2" cellpadding="5">
+
+						<h:outputText value="Nome: " />
+						<p:inputText id="prjNome"
+							value="#{projetoController.projetoSelecionado.nome}" />
+
+						<h:outputText value="Desenvolvedores: " />
+						<p:selectCheckboxMenu
+							value="#{projetoController.projeto.listaDesenvolvedores}"
+							label="Defina os desenvolvedores" filter="true"
+							filterText="Filter" filterMatchMode="startsWith"
+							panelStyle="width:220px" converter="pessoaConverter">
+							<f:selectItems value="#{projetoController.todosDesenvolvedores}"
+								var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
+						</p:selectCheckboxMenu>
+					</h:panelGrid>
+
+					<p:commandButton value="Alterar Projeto"
+						action="#{projetoController.alterar}" image="ui-icon ui-icon-disk"
+						process="@form">
+					</p:commandButton>
+				</h:form>
+
+
 			</p:tab>
 
 			<p:tab title="BackLog">
@@ -46,8 +71,8 @@
 							</p:inputText>
 
 							<h:outputLabel value="Desenvolvedor" />
-							<p:selectOneMenu
-								value="#{tarefaController.tarefa.desenvolvedor}" converter="pessoaConverter" label="Desenvolvedor">
+							<p:selectOneMenu value="#{tarefaController.tarefa.desenvolvedor}"
+								converter="pessoaConverter" label="Desenvolvedor" style="width:150px;">
 								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
 								<f:selectItems value="#{projetoController.todosDesenvolvedores}"
 									var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
@@ -136,7 +161,7 @@
 					</h:form>
 					<p:dialog id="dialog" widgetVar="dlgDadostarefa" showEffect="clip"
 						hideEffect="clip" modal="true" appendTo="@(body)" width="350"
-						height="250">
+						height="270">
 
 						<h:form id="formDialog">
 							<p:outputPanel id="detail" style="text-align:center;"
@@ -147,6 +172,17 @@
 									<h:outputText value="Nome: " />
 									<p:inputText id="trfNome"
 										value="#{tarefaController.tarefaSelecionada.nome}" />
+
+									<h:outputLabel value="Desenvolvedor" />
+									<p:selectOneMenu
+										value="#{tarefaController.tarefaSelecionada.desenvolvedor}"
+										converter="pessoaConverter" label="Desenvolvedor">
+										<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+										<f:selectItems
+											value="#{projetoController.todosDesenvolvedores}"
+											var="pessoa" itemValue="#{pessoa}"
+											itemLabel="#{pessoa.login}" />
+									</p:selectOneMenu>
 
 									<h:outputText value="Prioridade:" />
 									<p:rating

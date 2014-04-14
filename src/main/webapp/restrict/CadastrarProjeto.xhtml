@@ -25,27 +25,6 @@
 						requiredMessage="O Campo Nome é Obrigatório!">
 					</p:inputText>
 
-
-					<h:outputLabel value="Desenvolvedores" />
-
-				<!-- 	 <p:selectCheckboxMenu value="#{projetoController.projeto.listaDesenvolvedores}"
-						label="Defina os desenvolvedores" filter="true" filterText="Filter"
-						filterMatchMode="startsWith" panelStyle="width:220px" converter="pessoaConverter">
-						<f:selectItems value="#{projetoController.todosDesenvolvedores}" 
-						var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
-					</p:selectCheckboxMenu>
-					
-					    <p:separator style="margin-bottom:10px"/>  
-  
-				    <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" />  
-				  
-				    <p:dialog  appendTo="@(body)" header="Selected Movies" modal="true" showEffect="fade" hideEffect="fade" widgetVar="dlg" resizable="false">  
-				        <p:dataList id="display" value="#{projetoController.projeto.listaDesenvolvedores}" var="movie">  
-				            #{movie}  
-				        </p:dataList>  
-				    </p:dialog>   -->
-
-
 					<p:panel>
 						<p:commandButton value="Salvar"
 							action="#{projetoController.salvar}" image="ui-icon ui-icon-disk"
