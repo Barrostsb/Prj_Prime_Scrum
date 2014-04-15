@@ -1,0 +1,54 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>
+		<ui:insert name="titulo">
+			Prime_Scrum
+		</ui:insert>
+	</title>
+	<link rel="shortcut icon" href="../images/primescrum.ico" />
+	<!--  <h:outputStylesheet name="style.css" />-->
+	<link href="../css/taskboard.css" type="text/css" rel="stylesheet"/>
+</h:head>
+<h:body>
+
+	<p:layout fullPage="true">
+
+		<p:layoutUnit position="north" size="75" header="Prime Scrum"
+			resizable="false" closable="false" collapsible="false">
+		</p:layoutUnit>
+
+		<p:layoutUnit position="west" size="190" header="Menu"
+			resizable="false" closable="false" collapsible="false">
+			<h:form>
+				<p:growl id="menuprincipal" />
+				<p:menu style="width:95%">
+						<p:menuitem value="Dados Pessoais"	 ajax="false" icon="" />
+
+						<p:menuitem value="Projetos que participo"	action="/restrict/desenvolvedor/ListaProjetos.jsf" ajax="false" icon="" />
+					
+				</p:menu>
+			</h:form>
+			<!--  <ui:include src="./tiles/LeftMenu.xhtml" /> -->
+		</p:layoutUnit>
+
+		<!--    <p:layoutUnit position="east" size="200" header="Help" resizable="true" closable="true" collapsible="true" effect="drop">
+                <h:outputText value="Right unit content." />
+            </p:layoutUnit> -->
+
+		<p:layoutUnit position="center">
+			<!-- <ui:include src="./tiles/TabView.xhtml" />-->
+			<ui:insert name="content">Put default content here, if any.</ui:insert>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" size="45" resizable="false"
+			closable="false" collapsible="false">
+
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>

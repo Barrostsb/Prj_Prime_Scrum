@@ -1,0 +1,204 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/template/LayoutCliente.xhtml">
+
+
+	<f:metadata>
+		<f:viewAction action="#{tarefaController.buscarTodasTarefa}" />
+	</f:metadata>
+
+
+	<ui:define name="content">
+		<p:panel id="prjHeader" header="Projeto">
+			<h:outputText id="prjId"
+				value="#{projetoController.projetoSelecionado.nome}" />
+		</p:panel>
+
+		<p:tabView id="tbvGerenciaDeProjeto">
+			<p:tab title="Dados Projeto">
+
+				<h:form id="formDadosProjeto">
+					<h:panelGrid columns="2" cellpadding="5">
+
+						<h:outputText value="Nome: " />
+						<p:outputLabel id="prjNome"
+							value="#{projetoController.projetoSelecionado.nome}" />
+							
+						<h:outputLabel value="Cliente" />
+							<p:outputLabel value="#{projetoController.projetoSelecionado.cliente.nome}"
+								/>
+
+						<h:outputText value="Desenvolvedores: " />
+						<p:selectCheckboxMenu
+							value="#{projetoController.projeto.listaDesenvolvedores}"
+							label="Defina os desenvolvedores" filter="true"
+							filterText="Filter" filterMatchMode="startsWith"
+							panelStyle="width:220px" converter="pessoaConverter">
+							<f:selectItems value="#{projetoController.todosDesenvolvedores}"
+								var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
+						</p:selectCheckboxMenu>
+					</h:panelGrid>
+
+	
+				</h:form>
+
+
+			</p:tab>
+
+			<p:tab title="BackLog">
+
+				<p:fieldset title="Requisitos">
+
+					<h:form id="formListaRequisitos">
+
+						<p:dataGrid var="tarefa"
+							value="#{tarefaController.tarefaPorProjeto}" columns="3"
+							rows="12" paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="9,12,15">
+
+							<p:panel header="#{tarefa.nome}" style="text-align:center">
+
+
+								<h:panelGrid columns="1" style="width:100%">
+
+									<p:commandButton update=":tbvGerenciaDeProjeto:dialog"
+										icon="ui-icon-plus" title="View"
+										oncomplete="PF('dlgDadostarefa').show();">
+										<f:setPropertyActionListener value="#{tarefa}"
+											target="#{tarefaController.tarefaSelecionada}" />
+									</p:commandButton>
+
+									<p:growl id="grow" showDetail="true" />
+
+								</h:panelGrid>
+							</p:panel>
+
+						</p:dataGrid>
+					</h:form>
+					<p:dialog id="dialog" widgetVar="dlgDadostarefa" showEffect="clip"
+						hideEffect="clip" modal="true" appendTo="@(body)" width="270"
+						height="170">
+
+						<h:form id="formDialog">
+							<p:outputPanel id="detail" style="text-align:center;"
+								layout="block">
+
+								<h:panelGrid columns="2" cellpadding="5">
+
+									<h:outputText value="Nome: " />
+									<p:outputLabel id="trfNome"
+										value="#{tarefaController.tarefaSelecionada.nome}" />
+
+									<h:outputLabel value="Desenvolvedor" />
+									<p:outputLabel
+										value="#{tarefaController.tarefaSelecionada.desenvolvedor.nome}"
+									/>
+
+									<h:outputText value="Prioridade:" />
+									<p:rating value="#{tarefaController.tarefaSelecionada.prioridade}" readonly="true"/>
+
+									<h:outputText value="Dificuldade:" />
+									<p:outputLabel id="txtDificuldade"
+											value="#{tarefaController.tarefaSelecionada.dificuldade}" />
+
+									<h:outputLabel for="txtTempo_ex" value="Tempo de Execução: " />
+									<p:outputLabel id="txtTempo_ex" value="Horas: ">
+										#{tarefaController.tarefaSelecionada.tempo_execucao}
+									</p:outputLabel>
+								</h:panelGrid>
+							</p:outputPanel>
+						</h:form>
+					</p:dialog>
+				</p:fieldset>
+
+
+
+			</p:tab>
+			<p:tab title="Sprints">
+			</p:tab>
+
+
+			<p:tab title="TaskBoard">
+				<h:form id="taskBoardForm">
+					<h:panelGrid columns="3" styleClass="panelGrid" id="gridMain">
+						<p:fieldset id="todoColumn" legend="TO DO">
+
+							<p:outputPanel id="dropAreaTodo">
+
+								<p:dataGrid id="todoGrid" var="tarefa"
+									value="#{taskBoardController.tarefasTodo}" columns="3"
+									style="width:33%">
+
+									<p:column>
+										<p:panel id="pnl" header="#{tarefa.nome}"
+											style="text-align:center">
+										</p:panel>
+									</p:column>
+
+								</p:dataGrid>
+
+							</p:outputPanel>
+
+						</p:fieldset>
+
+						<p:fieldset id="inprocessColumn" legend="In Process">
+
+							<p:outputPanel id="dropAreaInprocess">
+
+								<p:dataGrid id="inprocessGrid" var="tarefa"
+									value="#{taskBoardController.tarefasInprocess}" columns="3"
+									style="width:33%">
+
+									<p:column>
+										<p:panel id="pnl" header="#{tarefa.nome}"
+											style="text-align:center">
+										</p:panel>
+									</p:column>
+
+								</p:dataGrid>
+
+							</p:outputPanel>
+
+						</p:fieldset>
+
+						<p:fieldset id="doneColumn" legend="Done !">
+
+							<p:outputPanel id="dropAreaDone">
+
+								<p:dataGrid id="doneGrid" var="tarefa"
+									value="#{taskBoardController.tarefasDone}" columns="3"
+									style="width:33%">
+
+									<p:column>
+										<p:panel id="pnl" header="#{tarefa.nome}"
+											style="text-align:center">
+										</p:panel>
+									</p:column>
+
+								</p:dataGrid>
+
+							</p:outputPanel>
+
+						</p:fieldset>
+
+					</h:panelGrid>
+				</h:form>
+
+			</p:tab>
+			<p:tab title="Burndown">
+				<h:form id="burndownForm">
+					<p:lineChart value="#{burndownController.burnDownChart}"
+						legendPosition="e" zoom="true" animate="true"
+						title="Burndown Chart"
+						style="width:100%; height:100%; text-align:center;" />
+				</h:form>
+
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+</ui:composition>

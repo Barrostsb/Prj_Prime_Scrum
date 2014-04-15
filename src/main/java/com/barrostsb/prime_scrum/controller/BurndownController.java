@@ -89,7 +89,10 @@ public class BurndownController extends TaskBoardController implements Serializa
 		progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
 		for(Tarefa tarefa : getTarefasDone()) {
 			tempoProjeto -= tarefa.getTempo_execucao();
+			
+			//TODO ver com data de termino tornar dinamico os dois lines
 			calendar.setTime(tarefa.getDataTermino());
+			System.out.println(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR));
 			progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
 //			System.out.println("Progresso  " + tempoProjeto);
 		}
