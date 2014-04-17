@@ -41,17 +41,6 @@
 						
 						<p:growl id="grow" showDetail="true" /> 
 						
-						<p:commandButton icon="ui-icon-trash" actionListener="#{projetoController.deletar}"  onclick="" update="grow" >
-							<f:attribute name="projetoSelecionado" value="#{projeto}" />
-							<p:confirm header="Confirmação" message="Deseja realmente excluir o projeto?" icon="ui-icon-alert" />
-								
-							<p:ajax listener="#{projetoController.deletar}"	update="@form" />
-								
-							<p:confirmDialog global="true" showEffect="fade" hideEffect="explode" >
-								<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  update="@form"  />
-								<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-							</p:confirmDialog>
-						</p:commandButton>
 						
 					</p:outputPanel>
 				</p:ring>

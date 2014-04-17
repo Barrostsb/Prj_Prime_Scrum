@@ -31,6 +31,8 @@ public class Projeto {
 //	private List<Sprint> listaSprint;
 //	private List<Historia> listaHistoria;
 	private Date dataInicio;
+	private Date dataTermino;
+	
 	private String status = NAO_INCICADO;
 
 	public Date getDataInicio() {
@@ -43,7 +45,30 @@ public class Projeto {
 		return status;
 	}
 	public void setStatus(String status) {
+		
+		if (status.equals("Não Iniciado")){
+			setDataInicio(null);
+			setDataTermino(null);
+		}
+		
+		if (status.equals("Em Desenvolvimento")){
+			setDataInicio(new Date());
+			setDataTermino(null);
+		}
+		
+		if (status.equals("Concluído")){
+			setDataTermino(new Date());
+		}
+		
 		this.status = status;
+	}
+	
+	public Date getDataTermino() {
+		return dataTermino;
+	}
+	
+	public void setDataTermino(Date dataTermino) {
+		this.dataTermino = dataTermino;
 	}
 	
 //	

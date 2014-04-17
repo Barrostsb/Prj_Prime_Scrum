@@ -30,7 +30,7 @@
 							
 						<h:outputLabel value="Cliente" />
 							<p:selectOneMenu value="#{projetoController.projetoSelecionado.cliente}"
-								converter="clienteConverter" label="Cliente" style="width:150px;">
+								converter="clienteConverter" label="Cliente" style="width:150px;" filter="true">
 								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
 								<f:selectItems value="#{projetoController.todosClientes}"
 									var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
@@ -45,6 +45,16 @@
 							<f:selectItems value="#{projetoController.todosDesenvolvedores}"
 								var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
 						</p:selectCheckboxMenu>
+						
+						<h:outputLabel value="Status" />
+						<p:selectOneMenu value="#{projetoController.projetoSelecionado.status}"
+								label="Defina o status"  style="width:150px;" >
+								<f:selectItem itemLabel="Selecione" noSelectionOption="true" style="width:150px;" />
+								<f:selectItem itemLabel="Não Iniciado"  itemValue="Não Iniciado"   />
+								<f:selectItem itemLabel="Em Desenvolvimento" itemValue="Em Desenvolvimento"/>
+								<f:selectItem itemLabel="Concluído" itemValue="Concluído"  />
+							</p:selectOneMenu>
+
 					</h:panelGrid>
 
 					<p:commandButton value="Alterar Projeto"
@@ -80,7 +90,7 @@
 
 							<h:outputLabel value="Desenvolvedor" />
 							<p:selectOneMenu value="#{tarefaController.tarefa.desenvolvedor}"
-								converter="pessoaConverter" label="Desenvolvedor" style="width:150px;">
+								converter="pessoaConverter" label="Desenvolvedor" style="width:150px;" filter="true">
 								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
 								<f:selectItems value="#{projetoController.todosDesenvolvedores}"
 									var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
