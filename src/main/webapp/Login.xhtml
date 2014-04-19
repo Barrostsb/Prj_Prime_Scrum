@@ -27,13 +27,12 @@
 		
 			<p:panelGrid columns="2">
 				<f:facet name="header">Prime Scrum Login</f:facet>
-				<h:outputText value="Login : "></h:outputText>
-				<p:inputText value="#{loginController.username}" id="username" required="true"
-					requiredMessage="Please Enter Username!" message="fc">
+				<h:outputText for="j_username" value="Login : "></h:outputText>
+				<p:inputText id="j_username" value="#{loginController.username}"  required="true"  requiredMessage="Please Enter Username!" message="fc">
 					<f:validateLength minimum="1" />
 				</p:inputText>
-				<h:outputText value="Senha : "></h:outputText>
-				<p:password value="#{loginController.password}" id="password" required="true"
+				<h:outputText for="j_password" value="Senha : "></h:outputText>
+				<p:password id="j_password" value="#{loginController.password}"  required="true"
 					requiredMessage="Please Enter password!">
 					<f:validateLength minimum="1" />
 				</p:password>

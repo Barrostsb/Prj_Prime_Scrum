@@ -37,6 +37,8 @@ public class Pessoas {
 		return manager.find(ScrumMaster.class, id);
 	}
 	
+
+	
 	public List<Pessoa> todosDesenvolvedores() {
 		TypedQuery<Pessoa> query = manager.createQuery("from Desenvolvedor where id_pessoa = id_desenvolvedor", Pessoa.class);
 		return query.getResultList();
