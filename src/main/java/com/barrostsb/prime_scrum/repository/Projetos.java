@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.model.Projeto;
 
 public class Projetos {
@@ -33,7 +34,25 @@ public class Projetos {
 	
 	public List<Projeto> todos() {
 		TypedQuery<Projeto> query = manager.createQuery("FROM Projeto", Projeto.class);
-		
+		return query.getResultList();
+	}
+	
+	public List<Projeto> projetosPorSM(int id) {
+		TypedQuery<Projeto> query = manager.createQuery("from Projeto  where scrumMaster = " + id,
+														Projeto.class);
+		return query.getResultList();
+	}
+	
+	//TODO
+	public List<Projeto> projetosPorDev(int id) {
+		TypedQuery<Projeto> query = manager.createQuery("from Projeto  where desenvolvedor = " + id,
+				Projeto.class);
+		return query.getResultList();
+	}
+	
+	public List<Projeto> projetosPorCliente(int id) {
+		TypedQuery<Projeto> query = manager.createQuery("from Projeto  where cliente = " + id,
+				Projeto.class);
 		return query.getResultList();
 	}
 }

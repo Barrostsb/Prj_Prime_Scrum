@@ -20,7 +20,9 @@ import com.barrostsb.prime_scrum.business.CadastroProjetos;
 import com.barrostsb.prime_scrum.exception.BusinessException;
 import com.barrostsb.prime_scrum.model.Cliente;
 import com.barrostsb.prime_scrum.model.Desenvolvedor;
+import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.model.Projeto;
+import com.barrostsb.prime_scrum.model.ScrumMaster;
 import com.barrostsb.prime_scrum.model.Tarefa;
 import com.barrostsb.prime_scrum.repository.Projetos;
 import com.barrotsb.prime_scrum.facesUtils.FacesUtil;
@@ -30,9 +32,6 @@ import com.barrotsb.prime_scrum.facesUtils.FacesUtil;
 public class ProjetoController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static final String NAO_INCICADO = "Não Iniciado";	
-	private static final String EM_DESENVOLVIMENTO = "Em Desenvolvimento";	
-	private static final String CONLCUIDO = "Concluido";	
 	
 	private Projeto projeto = new Projeto();
 	private List<Projeto> projetosBuscados = null;
@@ -50,6 +49,10 @@ public class ProjetoController implements Serializable {
 		try {
 			trx.begin();
 			CadastroProjetos cadastro = new CadastroProjetos(new Projetos(manager));
+			
+			Pessoa pessoa = getUsuarioLogado();
+			projeto.setScrumMaster((ScrumMaster) pessoa);
+			
 			cadastro.salvar(this.projeto);
 			this.projeto = new Projeto();			
 			context.addMessage(null, new FacesMessage("Projeto salvo com sucesso!"));
@@ -59,6 +62,16 @@ public class ProjetoController implements Serializable {
 			FacesMessage mensagem = new FacesMessage(e.getMessage());
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 		} 
+	}
+
+	private Pessoa getUsuarioLogado() {
+		Pessoa pessoa;
+		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpSession session = (HttpSession) request.getSession();
+		pessoa = (Pessoa) session.getAttribute("usuarioLogado");
+		System.out.println("USUARIO LOGADO:  "+pessoa.getLogin());
+		return pessoa;
 	}
 	
 	public void alterar() {
@@ -111,6 +124,18 @@ public class ProjetoController implements Serializable {
 		//		} finally {
 		//			maneger.close();
 		//		}
+	}
+	
+	public List<Projeto> getProjetosPorSM(){
+		Projetos prjs = new Projetos(manager);
+		projetosBuscados = prjs.projetosPorSM(getUsuarioLogado().getId_pessoa());
+		return projetosBuscados;
+	}
+	
+	public List<Projeto> getProjetosPorCliente(){
+		Projetos prjs = new Projetos(manager);
+		projetosBuscados = prjs.projetosPorCliente(getUsuarioLogado().getId_pessoa());
+		return projetosBuscados;
 	}
 	
 

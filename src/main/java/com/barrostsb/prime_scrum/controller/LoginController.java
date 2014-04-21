@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
@@ -26,6 +27,9 @@ public class LoginController{
 	}
 
 	public void setUsuarioLogado(Pessoa usuarioLogado) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("usuarioLogado", usuarioLogado);
 		this.usuarioLogado = usuarioLogado;
 	}
 
@@ -65,6 +69,7 @@ public class LoginController{
         EntityManager manager = JpaUtils.getEntityManager();
         Pessoas pessoas = new Pessoas(manager);
         if(username != null  && password != null ) {
+    		
         	if(pessoas.todos().contains(pessoas.PessoaPorLogin(username))){
         		setUsuarioLogado(pessoas.PessoaPorLogin(username));
         		if (password.equals(usuarioLogado.getSenha())){
@@ -97,8 +102,11 @@ public class LoginController{
 					}
         		
         		}
-        	} 
-        	msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);  
+        		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);  
+        	}else {  
+            	loggedIn = false;  
+            	msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials"); 
+            } 
         } else {  
         	loggedIn = false;  
         	msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials"); 

@@ -32,6 +32,8 @@ public class ScrumMasterController implements Serializable {
 		try {
 			trx.begin();
 			CadastroPessoas cadastro = new CadastroPessoas(new Pessoas(manager));
+			scrumMaster.setPermissao("ROLE_ADM");
+
 			cadastro.salvar(this.scrumMaster);
 			this.scrumMaster = new Pessoa();			
 			context.addMessage(null, new FacesMessage("Scrum Master salvo com sucesso!"));

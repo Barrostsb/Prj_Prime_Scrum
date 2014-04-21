@@ -16,6 +16,7 @@
 		
 		<class>com.barrostsb.prime_scrum.model.Pessoa </class> 
 		<class>com.barrostsb.prime_scrum.model.Desenvolvedor</class> 
+		<class>com.barrostsb.prime_scrum.model.Desenvolvedor_tarefa</class> 
 		<class>com.barrostsb.prime_scrum.model.ScrumMaster</class> 
 		<class>com.barrostsb.prime_scrum.model.Cliente</class> 
 		<class>com.barrostsb.prime_scrum.model.Projeto</class> 

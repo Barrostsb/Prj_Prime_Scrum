@@ -31,8 +31,9 @@ public class DesenvolvedorController implements Serializable {
 		try {
 			trx.begin();
 			CadastroPessoas cadastro = new CadastroPessoas(new Pessoas(manager));
+			desenvolvedor.setPermissao("ROLE_DEV");
 			cadastro.salvar(this.desenvolvedor);
-			this.desenvolvedor = new Pessoa();			
+			this.desenvolvedor = new Pessoa();
 			context.addMessage(null, new FacesMessage("Desenvolvedor salvo com sucesso!"));
 			trx.commit();
 		} catch (BusinessException e) {

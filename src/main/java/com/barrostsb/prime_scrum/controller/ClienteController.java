@@ -33,6 +33,7 @@ public class ClienteController implements Serializable {
 		try {
 			trx.begin();
 			CadastroPessoas cadastro = new CadastroPessoas(new Pessoas(manager));
+			cliente.setPermissao("ROLE_CLIENTE");
 			cadastro.salvar(this.cliente);
 			this.cliente = new Pessoa();			
 			context.addMessage(null, new FacesMessage("Cliente salvo com sucesso!"));

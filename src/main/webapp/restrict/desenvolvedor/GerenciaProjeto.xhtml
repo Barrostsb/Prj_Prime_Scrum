@@ -27,10 +27,10 @@
 						<h:outputText value="Nome: " />
 						<p:outputLabel id="prjNome"
 							value="#{projetoController.projetoSelecionado.nome}" />
-							
+
 						<h:outputLabel value="Cliente" />
-							<p:outputLabel value="#{projetoController.projetoSelecionado.cliente.nome}"
-								/>
+						<p:outputLabel
+							value="#{projetoController.projetoSelecionado.cliente.nome}" />
 
 						<h:outputText value="Desenvolvedores: " />
 						<p:selectCheckboxMenu
@@ -43,7 +43,7 @@
 						</p:selectCheckboxMenu>
 					</h:panelGrid>
 
-	
+
 				</h:form>
 
 
@@ -81,8 +81,8 @@
 						</p:dataGrid>
 					</h:form>
 					<p:dialog id="dialog" widgetVar="dlgDadostarefa" showEffect="clip"
-						hideEffect="clip" modal="true" appendTo="@(body)" width="270"
-						height="170">
+						hideEffect="clip" modal="true" appendTo="@(body)" width="350"
+						height="250">
 
 						<h:form id="formDialog">
 							<p:outputPanel id="detail" style="text-align:center;"
@@ -91,26 +91,34 @@
 								<h:panelGrid columns="2" cellpadding="5">
 
 									<h:outputText value="Nome: " />
-									<p:outputLabel id="trfNome"
+									<p:inputText id="trfNome"
 										value="#{tarefaController.tarefaSelecionada.nome}" />
 
-									<h:outputLabel value="Desenvolvedor" />
-									<p:outputLabel
-										value="#{tarefaController.tarefaSelecionada.desenvolvedor.nome}"
-									/>
-
 									<h:outputText value="Prioridade:" />
-									<p:rating value="#{tarefaController.tarefaSelecionada.prioridade}" readonly="true"/>
+									<p:rating
+										value="#{desenvolvedorTarefaController.tarefa.prioridade}" />
 
 									<h:outputText value="Dificuldade:" />
-									<p:outputLabel id="txtDificuldade"
-											value="#{tarefaController.tarefaSelecionada.dificuldade}" />
+									<h:panelGrid columns="1" style="margin-bottom:10px">
+										<p:inputText id="txtDificuldade"
+											value="#{desenvolvedorTarefaController.tarefa.dificuldade}" />
+										<p:slider for="txtDificuldade" step="10" />
+									</h:panelGrid>
 
-									<h:outputLabel for="txtTempo_ex" value="Tempo de Execução: " />
-									<p:outputLabel id="txtTempo_ex" value="Horas: ">
-										#{tarefaController.tarefaSelecionada.tempo_execucao}
-									</p:outputLabel>
+									<h:outputLabel for="spinnerStep" value="Tempo de Execução: " />
+									<p:spinner id="spinnerStep"
+										value="#{desenvolvedorTarefaController.tarefa.tempo_execucao}"
+										stepFactor="0.5" prefix="Horas: " min="0" />
+
 								</h:panelGrid>
+								<p:commandButton value="Alterar Dados" image="ui-icon-check"
+									actionListener="#{desenvolvedorTarefaController.salvarDados}"
+									update=":tbvGerenciaDeProjeto:formListaRequisitos"
+									process="@form" >
+									
+									<f:attribute name="tarefaSelecionada" value="#{tarefaController.tarefaSelecionada}" />
+									<f:attribute name="tarefaSelecionadaDev" value="#{tarefaController.tarefaSelecionada.desenvolvedor}" />
+								</p:commandButton>
 							</p:outputPanel>
 						</h:form>
 					</p:dialog>
