@@ -1,5 +1,6 @@
 package com.barrostsb.prime_scrum.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,12 @@ import javax.servlet.http.HttpSession;
 
 @Entity
 @Table (name = "projeto")
-public class Projeto {
+public class Projeto implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final String NAO_INCICADO = "Não Iniciado";
 	
 	private int id_projeto;	
@@ -74,16 +80,13 @@ public class Projeto {
 		this.dataTermino = dataTermino;
 	}
 	
-//	
-	
-	
 	
 //	@ManyToMany(mappedBy="listaProjetos", fetch=FetchType.LAZY)
 	
 	@ManyToMany(cascade={ CascadeType.ALL, CascadeType.MERGE })  
     @JoinTable(name="desenvolvedor_projeto",   
     		joinColumns = @JoinColumn(name="projeto_id" , referencedColumnName="id_projeto"),
-    		inverseJoinColumns = @JoinColumn(name="desenvolvedor_id" , referencedColumnName="id_desenvolvedor"))  
+    		inverseJoinColumns = @JoinColumn(name="desenvolvedor_id" , referencedColumnName="id_desenvolvedor"))
 	public List<Desenvolvedor> getListaDesenvolvedores() {
 		return listaDesenvolvedores;
 	}

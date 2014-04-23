@@ -44,7 +44,7 @@ public class BurndownController extends TaskBoardController implements Serializa
 	private void createBurnDownChart() {  
 		burndown = new CartesianChartModel(); 
 
-		burndown.addSeries(getProgressoIdeal());  
+		//burndown.addSeries(getProgressoIdeal());  
 		burndown.addSeries(getProgressoAtual());  
 	}
 	
@@ -91,17 +91,12 @@ public class BurndownController extends TaskBoardController implements Serializa
 			tempoProjeto -= tarefa.getTempo_execucao();
 			
 			//TODO ver com data de termino tornar dinamico os dois lines
+			//TODO ORDENAR POR DATA
 			calendar.setTime(tarefa.getDataTermino());
 			System.out.println(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR));
 			progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
 //			System.out.println("Progresso  " + tempoProjeto);
 		}
-		
-//		progressoAtual.set(1, 10);  
-//		progressoAtual.set(2, 10);  
-//		progressoAtual.set(3, 10);  
-//		progressoAtual.set(4, 10);  
-//		progressoAtual.set(5, 10);
 		return progressoAtual;
 	}
 	

@@ -27,14 +27,16 @@
 						<h:outputText value="Nome: " />
 						<p:inputText id="prjNome"
 							value="#{projetoController.projetoSelecionado.nome}" />
-							
+
 						<h:outputLabel value="Cliente" />
-							<p:selectOneMenu value="#{projetoController.projetoSelecionado.cliente}"
-								converter="clienteConverter" label="Cliente" style="width:150px;" filter="true">
-								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-								<f:selectItems value="#{projetoController.todosClientes}"
-									var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
-							</p:selectOneMenu>
+						<p:selectOneMenu
+							value="#{projetoController.projetoSelecionado.cliente}"
+							converter="clienteConverter" label="Cliente" style="width:150px;"
+							filter="true">
+							<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+							<f:selectItems value="#{projetoController.todosClientes}"
+								var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
+						</p:selectOneMenu>
 
 						<h:outputText value="Desenvolvedores: " />
 						<p:selectCheckboxMenu
@@ -45,15 +47,18 @@
 							<f:selectItems value="#{projetoController.todosDesenvolvedores}"
 								var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
 						</p:selectCheckboxMenu>
-						
+
 						<h:outputLabel value="Status" />
-						<p:selectOneMenu value="#{projetoController.projetoSelecionado.status}"
-								label="Defina o status"  style="width:150px;" >
-								<f:selectItem itemLabel="Selecione" noSelectionOption="true" style="width:150px;" />
-								<f:selectItem itemLabel="Não Iniciado"  itemValue="Não Iniciado"   />
-								<f:selectItem itemLabel="Em Desenvolvimento" itemValue="Em Desenvolvimento"/>
-								<f:selectItem itemLabel="Concluído" itemValue="Concluído"  />
-							</p:selectOneMenu>
+						<p:selectOneMenu
+							value="#{projetoController.projetoSelecionado.status}"
+							label="Defina o status" style="width:150px;">
+							<f:selectItem itemLabel="Selecione" noSelectionOption="true"
+								style="width:150px;" />
+							<f:selectItem itemLabel="Não Iniciado" itemValue="Não Iniciado" />
+							<f:selectItem itemLabel="Em Desenvolvimento"
+								itemValue="Em Desenvolvimento" />
+							<f:selectItem itemLabel="Concluído" itemValue="Concluído" />
+						</p:selectOneMenu>
 
 					</h:panelGrid>
 
@@ -90,7 +95,8 @@
 
 							<h:outputLabel value="Desenvolvedor" />
 							<p:selectOneMenu value="#{tarefaController.tarefa.desenvolvedor}"
-								converter="pessoaConverter" label="Desenvolvedor" style="width:150px;" filter="true">
+								converter="pessoaConverter" label="Desenvolvedor"
+								style="width:150px;" filter="true">
 								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
 								<f:selectItems value="#{projetoController.todosDesenvolvedores}"
 									var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
@@ -151,6 +157,7 @@
 									<p:commandButton update=":tbvGerenciaDeProjeto:dialog"
 										icon="ui-icon-pencil" title="View"
 										oncomplete="PF('dlgDadostarefa').show();">
+										<f:attribute name="tarefaSelecionada" value="#{tarefa}" />
 										<f:setPropertyActionListener value="#{tarefa}"
 											target="#{tarefaController.tarefaSelecionada}" />
 									</p:commandButton>
@@ -178,8 +185,8 @@
 						</p:dataGrid>
 					</h:form>
 					<p:dialog id="dialog" widgetVar="dlgDadostarefa" showEffect="clip"
-						hideEffect="clip" modal="true" appendTo="@(body)" width="350"
-						height="270">
+						hideEffect="clip" modal="true" appendTo="@(body)" width="600"
+						height="370">
 
 						<h:form id="formDialog">
 							<p:outputPanel id="detail" style="text-align:center;"
@@ -225,7 +232,38 @@
 									process="@form" />
 
 							</p:outputPanel>
+							
+							
+							
+							
+							<p:dataTable var="tarefa" value="#{tarefaController.dadosTarefaDev}">
+								
+								
+								<p:column headerText="Desenvolvedor">
+									<h:outputText value="#{tarefa.devNome}" />
+								</p:column>
+								
+								<p:column headerText="Tarefa">
+									<h:outputText value="#{tarefa.tarefaNome}" />
+								</p:column>
+								
+								<p:column headerText="Prioridade">
+									<p:rating value="#{tarefa.prioridade}" readonly="true"/>
+								</p:column>
+								
+								<p:column headerText="Dificuldade">
+									<h:outputText value="#{tarefa.dificuldade}" />
+								</p:column>
+								
+								<p:column headerText="Tempo de Execução">
+									<h:outputText value="#{tarefa.tempo_execucao}" />
+								</p:column>
+							</p:dataTable>
+
 						</h:form>
+
+
+
 					</p:dialog>
 				</p:fieldset>
 

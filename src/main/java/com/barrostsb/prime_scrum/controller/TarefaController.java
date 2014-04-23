@@ -12,15 +12,19 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.primefaces.event.RateEvent;
 import org.primefaces.event.TabChangeEvent;
 
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.business.CadastroTarefas;
 import com.barrostsb.prime_scrum.exception.BusinessException;
+import com.barrostsb.prime_scrum.model.Desenvolvedor_tarefa;
 import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.model.Tarefa;
 import com.barrostsb.prime_scrum.repository.Projetos;
@@ -34,6 +38,9 @@ public class TarefaController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Tarefa tarefa = new Tarefa();
 	private List<Tarefa> tarefasBuscadas = null;
+	private List<Desenvolvedor_tarefa> tarefaDevBuscadas = null;
+	private Tarefa tarefaSelecionada;
+	private int idTarefaSelecionada;
 
 	public TarefaController() {  
 		tarefasBuscadas = new ArrayList<Tarefa>();
@@ -51,7 +58,6 @@ public class TarefaController implements Serializable {
 		this.todosProjetos = todosProjetos;
 	}
 
-	private Tarefa tarefaSelecionada;
 
 
 	public void prepararCadastro() {
@@ -148,7 +154,27 @@ public class TarefaController implements Serializable {
 		tarefasBuscadas = maneger.createQuery("FROM Tarefa where id_projeto = :id_proj ", Tarefa.class)
 				.setParameter("id_proj", getProjetoSelecionado().getId_projeto())
 				.getResultList();
+		//System.out.println("Tarefa Selecionada!>>>>>>>>>>>  "+ tarefaSelecionada.getNome() + "     "+ tarefaSelecionada.getId_tarefa());
 		return tarefasBuscadas;
+	}
+	
+	public List<Desenvolvedor_tarefa> getDadosTarefaDev() {
+		EntityManager manager = JpaUtils.getEntityManager();
+//		FacesContext context = FacesContext.getCurrentInstance();
+//		Tarefa tarefaSelecionada = (Tarefa) FacesUtil.getActionAttribute(event, "tarefaSelecionada");
+//		Session session = (Session) manager.getDelegate();  
+//		Criteria criteria = session.createCriteria(Desenvolvedor_tarefa.class);  
+//		tarefaDevBuscadas = criteria.list(); 
+		
+//		TypedQuery<Desenvolvedor_tarefa> query = manager.createQuery("Desenvolvedor_tarefa where id_tarefa = :tarefa = " + 3,//tarefaSelecionada.getId_tarefa(),
+//		Desenvolvedor_tarefa.class);
+//		tarefaDevBuscadas = query.getResultList();
+		
+//		EntityManager manager = JpaUtils.getEntityManager();
+		tarefaDevBuscadas = manager.createQuery("FROM desenvolvedor_tarefa where id_tarefa = "+ idTarefaSelecionada, Desenvolvedor_tarefa.class)
+			//	.setParameter("tarefa",/*tarefaSelecionada.getId_tarefa()*/3)
+				.getResultList();
+		return tarefaDevBuscadas;
 	}
 
 	private Projeto getProjetoSelecionado() {
@@ -173,6 +199,7 @@ public class TarefaController implements Serializable {
 //		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 //		session.setAttribute("tarefaSelecionada", tarefaSelecionada);
 		this.tarefaSelecionada = tarefaSelecionada;
+		idTarefaSelecionada = this.tarefaSelecionada.getId_tarefa();
 	}
 
 	public void setTodasTarefas(List<Tarefa> tarefaBuscadas) {

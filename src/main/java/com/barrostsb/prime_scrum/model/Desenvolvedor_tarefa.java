@@ -18,13 +18,13 @@ import com.sun.faces.facelets.util.DevTools;
 
 @Entity(name = "desenvolvedor_tarefa")
 @IdClass(DevTaskVal_PK.class)
-public class Desenvolvedor_tarefa implements Serializable{
+public class Desenvolvedor_tarefa{
 	
 	@Id
-	@Column(name="devId",insertable=false, updatable=false)
+	@Column(name="id_desenvolvedor",insertable=false, updatable=false)
 	private int devId;
 	@Id
-	@Column(name="tarefaId",insertable=false,  updatable=false)
+	@Column(name="id_tarefa",insertable=false,  updatable=false)
 	private int tarefaId;
 	@Column(name = "tempo_execucao")
 	private float tempo_execucao;

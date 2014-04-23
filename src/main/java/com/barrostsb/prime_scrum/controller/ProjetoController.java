@@ -45,6 +45,8 @@ public class ProjetoController implements Serializable {
 	public void salvar() {
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
+		
+		System.out.println(desenvolvedores);
 
 		try {
 			trx.begin();
@@ -77,6 +79,10 @@ public class ProjetoController implements Serializable {
 	public void alterar() {
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
+		
+		for(Desenvolvedor dev : desenvolvedores){
+			System.out.println(">>>>>>>>>>>>>>>   " + dev.getNome());
+		}
 		
 		try {
 			trx.begin();
@@ -129,6 +135,12 @@ public class ProjetoController implements Serializable {
 	public List<Projeto> getProjetosPorSM(){
 		Projetos prjs = new Projetos(manager);
 		projetosBuscados = prjs.projetosPorSM(getUsuarioLogado().getId_pessoa());
+		return projetosBuscados;
+	}
+	
+	public List<Projeto> getProjetosPorDev(){
+		Projetos prjs = new Projetos(manager);
+		projetosBuscados = prjs.projetosPorDev(getUsuarioLogado().getId_pessoa());
 		return projetosBuscados;
 	}
 	
