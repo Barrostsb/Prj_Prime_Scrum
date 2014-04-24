@@ -45,6 +45,27 @@ public class ScrumMasterController implements Serializable {
 		}
 	}
 	
+	public void alterar() {
+		EntityManager manager = JpaUtils.getEntityManager();
+		EntityTransaction trx = manager.getTransaction();
+		FacesContext context = FacesContext.getCurrentInstance();
+				
+		try {
+			trx.begin();
+			CadastroPessoas cadastro = new CadastroPessoas(new Pessoas(manager));
+			scrumMaster.setPermissao("ROLE_ADM");
+
+			cadastro.salvar(this.scrumMaster);
+			this.scrumMaster = new Pessoa();			
+			context.addMessage(null, new FacesMessage("Scrum Master salvo com sucesso!"));
+			trx.commit();
+		} catch (BusinessException e) {
+			trx.rollback();
+			FacesMessage mensagem = new FacesMessage(e.getMessage());
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+		}
+	}
+	
 	public String clear(){
 		scrumMaster = new Pessoa();
 		return "/restrict/CadastrarScrumMaster.jsf"; 

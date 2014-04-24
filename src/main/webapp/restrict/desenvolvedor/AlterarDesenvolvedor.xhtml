@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/template/LayoutDev.xhtml">
+	<!--    xmlns:c="http://java.sun.com/jsf/jstl/core" -->
+
+	<ui:define name="content">
+		<p:tabView id="tbv1">
+			<p:tab title="Scrum Master">
+				<h:form prependId="false" id="formSM">
+					<p:growl id="msg0" />
+					<h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid"
+						id="grid0">
+
+						<h:outputLabel />
+						<h:inputHidden id="idScrumMaster" value="#{loginController.usuarioLogado.id_pessoa}" />
+							
+						<h:outputLabel for="nomeScrumMaster" value="Nome.:" />
+
+						<p:inputText id="nomeScrumMaster" size="40"
+							value="#{loginController.usuarioLogado.nome}"
+							onkeyup="this.value = this.value.toUpperCase()" required="true"
+							requiredMessage="O Campo Nome é Obrigatório!">
+						</p:inputText>
+						
+						<h:outputLabel for="loginScrumMaster" value="login.:" />
+						<p:inputText id="loginScrumMaster" size="40"
+							value="#{loginController.usuarioLogado.login}"
+							required="true"
+							requiredMessage="O Campo Login é Obrigatório!">
+						</p:inputText>
+						
+						<h:outputLabel for="senhaScrumMaster" value="Senha.:" />
+						<p:password id="senhaScrumMaster" size="40"
+							value="#{loginController.usuarioLogado.senha}" match="confirmarSenha"
+							required="true"
+							requiredMessage="O Campo Senha é Obrigatório!"
+							validatorMessage="As senhas devem ser iguais!">
+						</p:password>
+						
+						<h:outputLabel for="confirmarSenha" value="Confirmar Senha.:" />
+						<p:password id="confirmarSenha" size="40"
+							value="#{loginController.usuarioLogado.senha}"
+							required="true"
+							requiredMessage="O Campo de confirmação de senha é Obrigatório!">
+						</p:password>
+
+
+						<p:panel>
+							<p:commandButton value="Alterar"
+								action="#{loginController.alterar}"
+								image="ui-icon ui-icon-disk" update=":tbv1:formSM">
+							</p:commandButton>
+
+							<p:commandButton value="Cancelar"
+								actionListener="#{scrumMasterController.clear}"
+								image="ui-icon ui-icon-close" update=":tbv1:formSM">
+							</p:commandButton>
+						</p:panel>
+					</h:panelGrid>
+				</h:form>
+			</p:tab>
+		</p:tabView>
+
+	</ui:define>
+
+</ui:composition>

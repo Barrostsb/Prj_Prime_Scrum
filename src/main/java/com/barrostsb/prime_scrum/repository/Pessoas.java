@@ -18,6 +18,10 @@ public class Pessoas {
 		this.manager.persist(pessoa);
 	}
 	
+	public void alterar(Pessoa pessoa) {
+		this.manager.merge(pessoa);
+	}
+	
 	public Pessoas(EntityManager manager) {
 		this.manager = manager;
 	}

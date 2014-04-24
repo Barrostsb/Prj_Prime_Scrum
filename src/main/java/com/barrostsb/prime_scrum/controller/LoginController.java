@@ -4,18 +4,23 @@ import java.io.IOException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
+import com.barrostsb.prime_scrum.business.CadastroPessoas;
+import com.barrostsb.prime_scrum.exception.BusinessException;
 import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.repository.Pessoas;
 
 @ManagedBean (name = "loginController")
+@SessionScoped
 public class LoginController{
   
     private String username;        
@@ -31,6 +36,46 @@ public class LoginController{
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		session.setAttribute("usuarioLogado", usuarioLogado);
 		this.usuarioLogado = usuarioLogado;
+	}
+	
+	public void alterar() {
+//		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+//		HttpServletRequest request = (HttpServletRequest) req;
+//		HttpSession session = (HttpSession) request.getSession();
+//		usuarioLogado = (Pessoa) session.getAttribute("usuarioLogado");
+//		
+//		EntityManager manager = JpaUtils.getEntityManager();
+//		EntityTransaction trx = manager.getTransaction();
+//		FacesContext context = FacesContext.getCurrentInstance();
+//				
+//		try {
+//			trx.begin();
+//			CadastroPessoas cadastro = new CadastroPessoas(new Pessoas(manager));
+//			cadastro.alterar(usuarioLogado);
+//			context.addMessage(null, new FacesMessage("Dados alterados  com sucesso!"));
+//			trx.commit();
+//		} catch (BusinessException e) {
+//			trx.rollback();
+//			FacesMessage mensagem = new FacesMessage(e.getMessage());
+//			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+//		}
+//		
+		
+		EntityManager manager = JpaUtils.getEntityManager();
+		EntityTransaction trx = manager.getTransaction();
+		FacesContext context = FacesContext.getCurrentInstance();
+				
+		try {
+			trx.begin();
+			CadastroPessoas cadastro = new CadastroPessoas(new Pessoas(manager));
+			cadastro.alterar(this.usuarioLogado);
+			context.addMessage(null, new FacesMessage("Dados alterados  com sucesso!"));
+			trx.commit();
+		} catch (BusinessException e) {
+			trx.rollback();
+			FacesMessage mensagem = new FacesMessage(e.getMessage());
+			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+		}
 	}
 
 	public String getUsername() {  

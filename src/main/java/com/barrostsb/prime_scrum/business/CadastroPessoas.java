@@ -14,4 +14,8 @@ public class CadastroPessoas {
 	public void salvar(Pessoa pessoa) throws BusinessException {
 		this.pessoas.adicionar(pessoa);
 	}
+	
+	public void alterar(Pessoa pessoa) throws BusinessException {
+		this.pessoas.alterar(pessoa);
+	}
 }
