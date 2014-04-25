@@ -1,7 +1,11 @@
 package com.barrostsb.prime_scrum.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -83,17 +87,27 @@ public class BurndownController extends TaskBoardController implements Serializa
 		progressoAtual.setLabel("Progresso Atual");  
 		progressoAtual.setMarkerStyle("diamond");  
 		float tempoProjeto = getTempoProjeto();
-		
 		//TODO tornar dinamico com inicio do projeto
-		Calendar calendar = Calendar.getInstance();  
-		progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
+		Calendar calendar = Calendar.getInstance(); 
+		
+		Comparator comparator = new Comparator(){    
+			public int compare(Object o1, Object o2) {
+				Tarefa t1 = (Tarefa) o1;
+				Tarefa t2 = (Tarefa) o2;
+				return t1.getDataTermino().compareTo(t2.getDataTermino());
+			}  
+		};    
+		
+		Collections.sort(getTarefasDone(), comparator); 
+		
+		//progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
 		for(Tarefa tarefa : getTarefasDone()) {
 			tempoProjeto -= tarefa.getTempo_execucao();
 			
 			//TODO ver com data de termino tornar dinamico os dois lines
 			//TODO ORDENAR POR DATA
 			calendar.setTime(tarefa.getDataTermino());
-			System.out.println(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR));
+//			System.out.println(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR));
 			progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
 //			System.out.println("Progresso  " + tempoProjeto);
 		}
