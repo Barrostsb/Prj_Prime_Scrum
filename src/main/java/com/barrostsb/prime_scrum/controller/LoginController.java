@@ -160,4 +160,18 @@ public class LoginController{
         FacesContext.getCurrentInstance().addMessage(null, msg);  
         context.addCallbackParam("loggedIn", loggedIn);  
     }  
+    
+    public void logout(ActionEvent actionEvent) {  
+//    	RequestContext context = RequestContext.getCurrentInstance();  
+//    	FacesMessage msg = null;  
+//    	boolean loggedIn = false; 
+//    	EntityManager manager = JpaUtils.getEntityManager();
+//    	Pessoas pessoas = new Pessoas(manager);
+//    	setUsuarioLogado(pessoas.PessoaPorLogin(null));
+    	try {
+    		FacesContext.getCurrentInstance().getExternalContext().redirect("/Prime_Scrum/index.jsp");
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    }
 }

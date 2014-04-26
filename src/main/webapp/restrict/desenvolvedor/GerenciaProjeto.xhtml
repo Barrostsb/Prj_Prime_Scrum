@@ -90,8 +90,8 @@
 
 								<h:panelGrid columns="2" cellpadding="5">
 
-									<h:outputText value="Nome: " />
-									<p:inputText id="trfNome"
+									<h:outputText value="Nome da Tarefa: " />
+									<h:outputText id="trfNome"
 										value="#{tarefaController.tarefaSelecionada.nome}" />
 
 									<h:outputText value="Prioridade:" />
@@ -111,7 +111,7 @@
 										stepFactor="0.5" prefix="Horas: " min="0" />
 
 								</h:panelGrid>
-								<p:commandButton value="Alterar Dados" image="ui-icon-check"
+								<p:commandButton value="Enviar Dados" image="ui-icon-check"
 									actionListener="#{desenvolvedorTarefaController.salvarDados}"
 									update=":tbvGerenciaDeProjeto:formListaRequisitos"
 									process="@form" >
@@ -145,8 +145,11 @@
 									<p:column>
 										<p:panel id="pnl" header="#{tarefa.nome}"
 											style="text-align:center">
-											<p:draggable for="pnl" opacity="0.5" revert="true"
-												handle=".ui-panel-titlebar" stack=".ui-panel" scope="doing" />
+											<c:if test="#{loginController.usuarioLogado.id_pessoa} == #{tarefa.desenvolvedor}">
+											</c:if>
+												<p:draggable for="pnl" opacity="0.5" revert="true"
+													handle=".ui-panel-titlebar" stack=".ui-panel" scope="doing" />
+											
 										</p:panel>
 									</p:column>
 

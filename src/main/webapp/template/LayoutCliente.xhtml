@@ -19,7 +19,9 @@
 	<p:layout fullPage="true">
 
 		<p:layoutUnit position="north" size="75" header="Prime Scrum"
-			resizable="false" closable="false" collapsible="false">
+			resizable="false" closable="false" collapsible="false" style="text-align:center">
+			<p:outputLabel value="Bem vindo "> #{loginController.usuarioLogado.nome} </p:outputLabel>
+			<p:commandButton value="Sair"  actionListener="#{loginController.logout}"  type="submit"	icon="ui-icon-check" style="margin:0"/>
 		</p:layoutUnit>
 
 		<p:layoutUnit position="west" size="190" header="Menu"

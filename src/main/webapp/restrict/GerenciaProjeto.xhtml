@@ -33,7 +33,7 @@
 							value="#{projetoController.projetoSelecionado.cliente}"
 							converter="clienteConverter" label="Cliente" style="width:150px;"
 							filter="true">
-							<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+							<f:selectItem  noSelectionOption="true" />
 							<f:selectItems value="#{projetoController.todosClientes}"
 								var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
 						</p:selectOneMenu>
@@ -52,7 +52,7 @@
 						<p:selectOneMenu
 							value="#{projetoController.projetoSelecionado.status}"
 							label="Defina o status" style="width:150px;">
-							<f:selectItem itemLabel="Selecione" noSelectionOption="true"
+							<f:selectItem  noSelectionOption="true"
 								style="width:150px;" />
 							<f:selectItem itemLabel="Não Iniciado" itemValue="Não Iniciado" />
 							<f:selectItem itemLabel="Em Desenvolvimento"
@@ -97,7 +97,7 @@
 							<p:selectOneMenu value="#{tarefaController.tarefa.desenvolvedor}"
 								converter="pessoaConverter" label="Desenvolvedor"
 								style="width:150px;" filter="true">
-								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+								<f:selectItem noSelectionOption="true"  />
 								<f:selectItems value="#{projetoController.todosDesenvolvedores}"
 									var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
 							</p:selectOneMenu>
@@ -202,7 +202,7 @@
 									<p:selectOneMenu
 										value="#{tarefaController.tarefaSelecionada.desenvolvedor}"
 										converter="pessoaConverter" label="Desenvolvedor">
-										<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+										<f:selectItem  noSelectionOption="true" />
 										<f:selectItems
 											value="#{projetoController.todosDesenvolvedores}"
 											var="pessoa" itemValue="#{pessoa}"

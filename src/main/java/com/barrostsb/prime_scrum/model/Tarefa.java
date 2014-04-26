@@ -86,7 +86,7 @@ public class Tarefa {
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "id_desenvolvedor", referencedColumnName="id_desenvolvedor")
+	@JoinColumn(name = "id_desenvolvedor", referencedColumnName="id_desenvolvedor", nullable= true)
 	@ForeignKey(name="FK_DesenvolvedorTarefa")
 	public Desenvolvedor getDesenvolvedor() {
 		return desenvolvedor;

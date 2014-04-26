@@ -22,6 +22,7 @@ import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartSeries;
 
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
+import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.model.Tarefa;
 
@@ -48,8 +49,14 @@ public class BurndownController extends TaskBoardController implements Serializa
 	private void createBurnDownChart() {  
 		burndown = new CartesianChartModel(); 
 
-		//burndown.addSeries(getProgressoIdeal());  
-		burndown.addSeries(getProgressoAtual());  
+		if(getTarefasDone().size() > 0 ){
+			burndown.addSeries(getProgressoAtual());  
+			burndown.addSeries(getProgressoIdeal());
+		}else{
+			burndown.addSeries(getProgressoIdeal());
+			burndown.addSeries(getProgressoAtual());
+		}
+		
 	}
 	
 	private LineChartSeries getProgressoIdeal() {
@@ -60,11 +67,11 @@ public class BurndownController extends TaskBoardController implements Serializa
 		Calendar calendar = Calendar.getInstance();  
 		calendar.setTime(new Date());
 		
-//		progressoIdeal.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
+		progressoIdeal.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
 		while(tempoProjeto > 0){
 			progressoIdeal.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
 			tempoProjeto -= HORAS_DO_DIA;			
-			calendar.add( Calendar.DAY_OF_MONTH , 1 );  
+			calendar.add( Calendar.DAY_OF_MONTH , 1 ); 
 		}
 		if ((tempoProjeto <= 0) && (tempoProjeto > -8)){
 			tempoProjeto = PROJETO_CONCLUIDO;
@@ -75,7 +82,8 @@ public class BurndownController extends TaskBoardController implements Serializa
 	}
 
 	private float getTempoProjeto() {
-		float tempoProjeto = PROJETO_CONCLUIDO;
+//		float tempoProjeto = PROJETO_CONCLUIDO;
+		float tempoProjeto = 0;
 		for(Tarefa tarefa : getTarefaPorProjeto()) {
 			tempoProjeto += tarefa.getTempo_execucao();
 	    }
@@ -87,29 +95,51 @@ public class BurndownController extends TaskBoardController implements Serializa
 		progressoAtual.setLabel("Progresso Atual");  
 		progressoAtual.setMarkerStyle("diamond");  
 		float tempoProjeto = getTempoProjeto();
+		
 		//TODO tornar dinamico com inicio do projeto
 		Calendar calendar = Calendar.getInstance(); 
 		
-		Comparator comparator = new Comparator(){    
-			public int compare(Object o1, Object o2) {
-				Tarefa t1 = (Tarefa) o1;
-				Tarefa t2 = (Tarefa) o2;
-				return t1.getDataTermino().compareTo(t2.getDataTermino());
-			}  
-		};    
-		
-		Collections.sort(getTarefasDone(), comparator); 
 		
 		//progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
-		for(Tarefa tarefa : getTarefasDone()) {
-			tempoProjeto -= tarefa.getTempo_execucao();
+		progressoAtual.set("Inicio", getTempoProjeto());
+		if(getTarefasDone().size() > 0){
+			Comparator comparator = new Comparator(){    
+				public int compare(Object o1, Object o2) {
+					Tarefa t1 = (Tarefa) o1;
+					Tarefa t2 = (Tarefa) o2;
+					return t1.getDataTermino().compareTo(t2.getDataTermino());
+				}  
+			}; 
+			Collections.sort(getTarefasDone(), comparator); 
 			
-			//TODO ver com data de termino tornar dinamico os dois lines
-			//TODO ORDENAR POR DATA
-			calendar.setTime(tarefa.getDataTermino());
-//			System.out.println(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR));
-			progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
-//			System.out.println("Progresso  " + tempoProjeto);
+			
+			for(Tarefa tarefa : getTarefasDone()) {
+				tempoProjeto -= tarefa.getTempo_execucao();
+				
+				//TODO ver com data de termino tornar dinamico os dois lines
+				//TODO ORDENAR POR DATA
+				calendar.setTime(tarefa.getDataTermino());
+	//			System.out.println(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR));
+				progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
+	//			System.out.println("Progresso  " + tempoProjeto);
+			}
+			
+			
+			for (int aux = 0; aux < 5; aux ++){
+				calendar.add( Calendar.DAY_OF_MONTH , 1 );
+				progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH ) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), null);
+			}
+			
+			//TODO fim da lista
+//			int iteratorAux = 0;
+
+//
+//			for(Calendar listaFim : listaDataIdeal.subList(iteratorAux, listaDataIdeal.size())) {
+//				progressoAtual.set(listaFim.get(Calendar.DAY_OF_MONTH) +"/"+listaFim.get(Calendar.MONTH)+"/"+listaFim.get(Calendar.YEAR), null);
+//			}
+		}
+		else{
+			progressoAtual.set("Inicio", getTempoProjeto());
 		}
 		return progressoAtual;
 	}
