@@ -39,9 +39,10 @@
 				<f:facet name="footer">
 					<p:commandButton value="Entrar" update="msgs"  actionListener="#{loginController.login}"  type="submit"	icon="ui-icon-check" style="margin:0">
 					</p:commandButton>
+					<p:commandLink value="Cadastrar" oncomplete="PF('dlgNewSm').show();">
+					</p:commandLink>
 				</f:facet>
 			</p:panelGrid>
-		
 	</h:form>
 			</ui:insert>
 		</p:layoutUnit>
@@ -50,6 +51,63 @@
 			closable="false" collapsible="false">
 
 		</p:layoutUnit>
+		
+		<p:dialog id="dialog" widgetVar="dlgNewSm" showEffect="clip"
+						hideEffect="clip" modal="true" appendTo="@(body)" width="600"
+						height="370">
+
+						<h:form id="formDialog">
+							<h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid"
+						id="grid0">
+
+						<h:outputLabel />
+						<h:inputHidden id="idScrumMaster" value="#{scrumMasterController.scrumMaster.id_pessoa}" />
+							
+						<h:outputLabel for="nomeScrumMaster" value="Nome.:" />
+
+						<p:inputText id="nomeScrumMaster" size="40"
+							value="#{scrumMasterController.scrumMaster.nome}"
+							onkeyup="this.value = this.value.toUpperCase()" required="true"
+							requiredMessage="O Campo Nome é Obrigatório!">
+						</p:inputText>
+						
+						<h:outputLabel for="loginScrumMaster" value="login.:" />
+						<p:inputText id="loginScrumMaster" size="40"
+							value="#{scrumMasterController.scrumMaster.login}"
+							required="true"
+							requiredMessage="O Campo Login é Obrigatório!">
+						</p:inputText>
+						
+						<h:outputLabel for="senhaScrumMaster" value="Senha.:" />
+						<p:password id="senhaScrumMaster" size="40"
+							value="#{scrumMasterController.scrumMaster.senha}" match="confirmarSenha"
+							required="true"
+							requiredMessage="O Campo Senha é Obrigatório!"
+							validatorMessage="As senhas devem ser iguais!">
+						</p:password>
+						
+						<h:outputLabel for="confirmarSenha" value="Confirmar Senha.:" />
+						<p:password id="confirmarSenha" size="40"
+							value="#{scrumMasterController.scrumMaster.senha}"
+							required="true"
+							requiredMessage="O Campo de confirmação de senha é Obrigatório!">
+						</p:password>
+
+
+						<p:panel>
+							<p:commandButton value="Salvar"
+								action="#{scrumMasterController.salvar}"
+								image="ui-icon ui-icon-disk" update="@form">
+							</p:commandButton>
+
+							<p:commandButton value="Cancelar"
+								actionListener="#{scrumMasterController.clear}"
+								image="ui-icon ui-icon-close" update="@form">
+							</p:commandButton>
+						</p:panel>
+					</h:panelGrid>
+						</h:form>
+					</p:dialog>
 	</p:layout>
 </h:body>
 </html>

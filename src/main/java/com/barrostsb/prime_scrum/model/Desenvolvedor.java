@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import antlr.collections.impl.LList;
+
 
 @Entity
 @Table (name = "desenvolvedor")
@@ -50,6 +52,9 @@ public class Desenvolvedor extends Pessoa{
             joinColumns= @JoinColumn(name="desenvolvedor_id" , referencedColumnName="id_desenvolvedor"),   
             inverseJoinColumns = @JoinColumn(name="projeto_id" , referencedColumnName="id_projeto"))
 	public List<Projeto> getListaProjetos() {
+//		for(Projeto dev : listaProjetos){
+//			System.out.println("lista de desenvolvedores" + dev.getNome());
+//		}
 		return listaProjetos;
 	}
 	

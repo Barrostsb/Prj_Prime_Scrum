@@ -26,8 +26,8 @@ public class LoginController{
     private String username;        
     private String password;
     private Pessoa usuarioLogado;
-      
-    public Pessoa getUsuarioLogado() {
+
+	public Pessoa getUsuarioLogado() {
 		return usuarioLogado;
 	}
 

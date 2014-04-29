@@ -88,6 +88,10 @@ public class Projeto implements Serializable{
     		joinColumns = @JoinColumn(name="projeto_id" , referencedColumnName="id_projeto"),
     		inverseJoinColumns = @JoinColumn(name="desenvolvedor_id" , referencedColumnName="id_desenvolvedor"))
 	public List<Desenvolvedor> getListaDesenvolvedores() {
+//		for(Desenvolvedor dev : listaDesenvolvedores){
+//			System.out.println("lista de desenvolvedores" + dev.getNome());
+//		}
+		
 		return listaDesenvolvedores;
 	}
 	public void setListaDesenvolvedores(List<Desenvolvedor> listaDesenvolvedores) {

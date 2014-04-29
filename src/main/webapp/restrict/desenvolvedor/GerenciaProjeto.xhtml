@@ -143,12 +143,16 @@
 									style="width:33%">
 
 									<p:column>
+									
 										<p:panel id="pnl" header="#{tarefa.nome}"
 											style="text-align:center">
-											<c:if test="#{loginController.usuarioLogado.id_pessoa} == #{tarefa.desenvolvedor}">
-											</c:if>
+											
+											<c:set var="valor" value="#{tarefa.desenvolvedor.id_pessoa}"></c:set>
+											<c:if test="#{loginController.usuarioLogado.id_pessoa != tarefa.desenvolvedor.id_pessoa}">
 												<p:draggable for="pnl" opacity="0.5" revert="true"
 													handle=".ui-panel-titlebar" stack=".ui-panel" scope="doing" />
+											</c:if>
+											
 											
 										</p:panel>
 									</p:column>
