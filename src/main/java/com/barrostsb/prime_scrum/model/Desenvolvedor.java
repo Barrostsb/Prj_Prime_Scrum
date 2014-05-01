@@ -47,10 +47,10 @@ public class Desenvolvedor extends Pessoa{
 //	@ManyToMany
 //	@JoinTable(name = "desenvolvedor_projeto", joinColumns = @JoinColumn(name = "id_desenvolvedor"), inverseJoinColumns = @JoinColumn(name = "id_projeto"))
 	
-	@ManyToMany(cascade={ CascadeType.ALL, CascadeType.MERGE })  
-    @JoinTable(name="desenvolvedor_projeto",   
-            joinColumns= @JoinColumn(name="desenvolvedor_id" , referencedColumnName="id_desenvolvedor"),   
-            inverseJoinColumns = @JoinColumn(name="projeto_id" , referencedColumnName="id_projeto"))
+	@ManyToMany(mappedBy="listaDesenvolvedores")//cascade={ CascadeType.ALL, CascadeType.MERGE },fetch = FetchType.EAGER)  
+  //  @JoinTable(name="desenvolvedor_projeto",   
+    //        joinColumns= @JoinColumn(name="desenvolvedor_id" , referencedColumnName="id_desenvolvedor"),   
+      //      inverseJoinColumns = @JoinColumn(name="projeto_id" , referencedColumnName="id_projeto"))
 	public List<Projeto> getListaProjetos() {
 //		for(Projeto dev : listaProjetos){
 //			System.out.println("lista de desenvolvedores" + dev.getNome());

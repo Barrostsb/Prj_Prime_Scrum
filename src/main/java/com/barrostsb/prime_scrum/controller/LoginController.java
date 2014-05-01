@@ -114,60 +114,59 @@ public class LoginController{
         EntityManager manager = JpaUtils.getEntityManager();
         Pessoas pessoas = new Pessoas(manager);
         if(username != null  && password != null ) {
-    		
-        	if(pessoas.todos().contains(pessoas.PessoaPorLogin(username))){
-        		setUsuarioLogado(pessoas.PessoaPorLogin(username));
-        		if (password.equals(usuarioLogado.getSenha())){
-        			
-        			switch (usuarioLogado.getPermissao()) {
-					case "ROLE_ADM":
-						try {
-	                		FacesContext.getCurrentInstance().getExternalContext().redirect("restrict/home.jsf");
-	                	} catch (IOException e) {
-	                		e.printStackTrace();
-	                	}
-						break;
-					case "ROLE_DEV":
-						try {
-							FacesContext.getCurrentInstance().getExternalContext().redirect("restrict/desenvolvedor/home.jsf");
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						break;
-					case "ROLE_CLIENTE":
-						try {
-							FacesContext.getCurrentInstance().getExternalContext().redirect("restrict/cliente/home.jsf");
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						break;
+    		try {
+				
+    			if(pessoas.todos().contains(pessoas.PessoaPorLogin(username))){
+            		setUsuarioLogado(pessoas.PessoaPorLogin(username));
+            		if (password.equals(usuarioLogado.getSenha())){
+            			
+            			switch (usuarioLogado.getPermissao()) {
+    					case "ROLE_ADM":
+    						try {
+    	                		FacesContext.getCurrentInstance().getExternalContext().redirect("restrict/home.jsf");
+    	                	} catch (IOException e) {
+    	                		e.printStackTrace();
+    	                	}
+    						break;
+    					case "ROLE_DEV":
+    						try {
+    							FacesContext.getCurrentInstance().getExternalContext().redirect("restrict/desenvolvedor/home.jsf");
+    						} catch (IOException e) {
+    							e.printStackTrace();
+    						}
+    						break;
+    					case "ROLE_CLIENTE":
+    						try {
+    							FacesContext.getCurrentInstance().getExternalContext().redirect("restrict/cliente/home.jsf");
+    						} catch (IOException e) {
+    							e.printStackTrace();
+    						}
+    						break;
 
-					default:
-						break;
-					}
-        		
-        		}
-        		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);  
-        	}else {  
-            	loggedIn = false;  
-            	msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials"); 
-            } 
+    					default:
+    						break;
+    					}
+            		}
+            		msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao logar", "Senha inválida");  
+            	}else { 
+                	msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao logar", "Login inválido"); 
+                } 
+    			
+			} catch (Exception e) {
+            	msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao logar", "Credenciais inválidas");
+			}
+        	
         } else {  
-        	loggedIn = false;  
-        	msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials"); 
+        	msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao logar", "Os campos devem ser preenchidos"); 
         }
-          
         FacesContext.getCurrentInstance().addMessage(null, msg);  
-        context.addCallbackParam("loggedIn", loggedIn);  
     }  
     
     public void logout(ActionEvent actionEvent) {  
 //    	RequestContext context = RequestContext.getCurrentInstance();  
 //    	FacesMessage msg = null;  
 //    	boolean loggedIn = false; 
-//    	EntityManager manager = JpaUtils.getEntityManager();
-//    	Pessoas pessoas = new Pessoas(manager);
-//    	setUsuarioLogado(pessoas.PessoaPorLogin(null));
+    	usuarioLogado = null;
     	try {
     		FacesContext.getCurrentInstance().getExternalContext().redirect("/Prime_Scrum/index.jsp");
     	} catch (IOException e) {

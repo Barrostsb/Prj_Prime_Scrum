@@ -83,7 +83,7 @@ public class Projeto implements Serializable{
 	
 //	@ManyToMany(mappedBy="listaProjetos", fetch=FetchType.LAZY)
 	
-	@ManyToMany(cascade={ CascadeType.ALL, CascadeType.MERGE })  
+	@ManyToMany(cascade={ CascadeType.ALL, CascadeType.MERGE } , fetch = FetchType.EAGER)  
     @JoinTable(name="desenvolvedor_projeto",   
     		joinColumns = @JoinColumn(name="projeto_id" , referencedColumnName="id_projeto"),
     		inverseJoinColumns = @JoinColumn(name="desenvolvedor_id" , referencedColumnName="id_desenvolvedor"))

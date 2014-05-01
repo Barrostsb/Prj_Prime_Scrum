@@ -40,13 +40,14 @@
 
 						<h:outputText value="Desenvolvedores: " />
 						<p:selectCheckboxMenu
-							value="#{projetoController.projeto.listaDesenvolvedores}"
+							value="#{projetoController.projetoSelecionado.listaDesenvolvedores}"
 							label="Defina os desenvolvedores" filter="true"
 							filterText="Filter" filterMatchMode="startsWith"
 							panelStyle="width:220px" converter="pessoaConverter">
 							<f:selectItems value="#{projetoController.todosDesenvolvedores}"
 								var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
 						</p:selectCheckboxMenu>
+						
 
 						<h:outputLabel value="Status" />
 						<p:selectOneMenu

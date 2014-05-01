@@ -3,10 +3,15 @@ package com.barrostsb.prime_scrum.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import org.hibernate.criterion.Restrictions;
+
+import com.barrostsb.prime_scrum.model.Desenvolvedor;
 import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.model.Projeto;
+
 
 public class Projetos {
 	
@@ -45,10 +50,21 @@ public class Projetos {
 	
 	//TODO
 	public List<Projeto> projetosPorDev(int id) {
-		TypedQuery<Projeto> query = manager.createQuery("from Projeto  where desenvolvedor = " + id,
-				Projeto.class);
-		return query.getResultList();
+		Desenvolvedor desenvolvedor = manager.find(Desenvolvedor.class, id);
+		List< Projeto > projetos = desenvolvedor.getListaProjetos();
+		return projetos;
+		
+//		List<Integer> id_projeto  = manager.createNativeQuery("select projeto_id from desenvolvedor_projeto where desenvolvedor_id = " +id).getResultList(); 
+//		List<Projeto> projetos = null;
+//		for (int idProj : id_projeto){
+//			Projeto projeto = manager.find(Projeto.class, idProj);
+//			projetos.add(projeto);
+//		}
+//		
+//		return projetos;
 	}
+	
+	
 	
 	public List<Projeto> projetosPorCliente(int id) {
 		TypedQuery<Projeto> query = manager.createQuery("from Projeto  where cliente = " + id,
@@ -56,3 +72,5 @@ public class Projetos {
 		return query.getResultList();
 	}
 }
+
+

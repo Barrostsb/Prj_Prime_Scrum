@@ -1,12 +1,14 @@
 package com.barrostsb.prime_scrum.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.persistence.EntityManager;
@@ -28,7 +30,7 @@ import com.barrostsb.prime_scrum.repository.Projetos;
 import com.barrotsb.prime_scrum.facesUtils.FacesUtil;
 
 @ManagedBean(name = "projetoController")
-@ApplicationScoped
+@SessionScoped
 public class ProjetoController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -45,8 +47,6 @@ public class ProjetoController implements Serializable {
 	public void salvar() {
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
-		
-		System.out.println(desenvolvedores);
 
 		try {
 			trx.begin();
@@ -79,24 +79,27 @@ public class ProjetoController implements Serializable {
 	public void alterar() {
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage msg = null;
 		
-		for(Desenvolvedor dev : desenvolvedores){
-			System.out.println(">>>>>>>>>>>>>>>   " + dev.getNome());
-		}
 		
 		try {
 			trx.begin();
+			
+			//TODO
+			projetoSelecionado.setListaDesenvolvedores(projeto.getListaDesenvolvedores());
+			
 			CadastroProjetos cadastro = new CadastroProjetos(new Projetos(manager));
 			cadastro.alterar(projetoSelecionado);
-			//this.projeto = new Projeto();			
-			context.addMessage(null, new FacesMessage("Projeto alterado com sucesso!"));
+			this.projeto = new Projeto();			
 			trx.commit();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Projeto alterado com sucesso!",""));
 		} catch (BusinessException e) {
 			trx.rollback();
 			FacesMessage mensagem = new FacesMessage(e.getMessage());
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 		} 
 	}
+	
 	public void deletar(ActionEvent event) {
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
