@@ -61,6 +61,79 @@
 					</h:panelGrid>
 				</h:form>
 			</p:tab>
+	
+		
+			<p:tab title="Lista de Desenvolvedores">
+			<h:form id="formDevs">
+				<p:dataTable var="dev" value="#{projetoController.todosDesenvolvedores}">
+								<p:column headerText="Nome">
+									<h:outputText value="#{dev.nome}" />
+								</p:column>
+								
+								<p:column headerText="Login">
+									<h:outputText value="#{dev.login}" />
+								</p:column>
+								
+								<p:column headerText="Ações">
+									
+									<p:growl id="grow" showDetail="true" />
+
+									<p:commandButton update=":tbv1:dialog"
+										icon="ui-icon-pencil" title="View"
+										oncomplete="PF('dlgDadosDev').show();">
+										<f:attribute name="desenvolvedorSelecionado" value="#{dev}" />
+										<f:setPropertyActionListener value="#{dev}"
+											target="#{desenvolvedorController.devSelecionado}" />
+									</p:commandButton>
+
+									<p:commandButton icon="ui-icon-trash"
+										actionListener="#{desenvolvedorController.deletar}" update="grow">
+										<f:attribute name="desenvolvedorSelecionado" value="#{dev}" />
+										<p:confirm header="Confirmação"
+											message="Deseja realmente excluir este desenvolvedor?"
+											icon="ui-icon-alert" />
+
+										<p:confirmDialog global="true" showEffect="fade"
+											hideEffect="explode">
+											<p:commandButton value="Sim" type="button"
+												styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+											<p:commandButton value="Não" type="button"
+												styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+										</p:confirmDialog>
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+					</h:form>
+					
+					<p:dialog id="dialog" widgetVar="dlgDadosDev" showEffect="clip"
+						hideEffect="clip" modal="true" appendTo="@(body)" width="600"
+						height="370">
+
+						<h:form id="formDialog">
+							<p:outputPanel id="detail" style="text-align:center;"
+								layout="block">
+
+								<h:panelGrid columns="2" cellpadding="5">
+
+									<h:outputText value="Nome: " />
+									<p:inputText id="devNome"
+										value="#{desenvolvedorController.devSelecionado.nome}" />
+										
+									<h:outputText value="Login: " />
+									<p:inputText id="devLogin"
+										value="#{desenvolvedorController.devSelecionado.login}" />
+
+
+								</h:panelGrid>
+								<p:commandButton value="Alterar Dados" image="ui-icon-check"
+									action="#{desenvolvedorController.atualizarDados}"
+									update=":tbv1:formDevs"
+									process="@form" />
+
+							</p:outputPanel>
+						</h:form>
+					</p:dialog>
+			</p:tab>
 		</p:tabView>
 
 		<!--  <h:form id="formtable">

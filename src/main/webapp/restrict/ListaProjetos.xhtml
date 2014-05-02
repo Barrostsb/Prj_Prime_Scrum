@@ -12,7 +12,7 @@
 
 
 	<ui:define name="content">
-		<p:fieldset legend="Projetos de">
+		<p:fieldset legend="Projetos de #{loginController.usuarioLogado.nome}">
 			<h:form id="formRing">
 			
 
@@ -21,7 +21,6 @@
 
 					<p:outputPanel style="text-align:center;" layout="block"> 
 							#{projeto.nome} 
-							
 					</p:outputPanel>
 					
 					<p:outputPanel style="text-align:center;" layout="block">

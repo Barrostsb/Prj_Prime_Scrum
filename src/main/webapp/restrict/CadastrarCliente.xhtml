@@ -61,6 +61,77 @@
 					</h:panelGrid>
 				</h:form>
 			</p:tab>
+			
+			<p:tab title="Lista de Clientes">
+			<h:form id="formClientes">
+				<p:dataTable var="cliente" value="#{projetoController.todosClientes}">
+								<p:column headerText="Nome">
+									<h:outputText value="#{cliente.nome}" />
+								</p:column>
+								
+								<p:column headerText="Login">
+									<h:outputText value="#{cliente.login}" />
+								</p:column>
+								
+								<p:column headerText="Ações">
+									
+									<p:growl id="grow" showDetail="true" />
+									
+									<p:commandButton update=":tbv1:dialog"
+										icon="ui-icon-pencil" title="View"
+										oncomplete="PF('dlgDadosCliente').show();">
+										<f:attribute name="clienteSelecionado" value="#{cliente}" />
+										<f:setPropertyActionListener value="#{cliente}"
+											target="#{clienteController.clienteSelecionado}" />
+									</p:commandButton>
+
+									<p:commandButton icon="ui-icon-trash"
+										actionListener="#{clienteController.deletar}" update="grow">
+										<f:attribute name="clienteSelecionado" value="#{cliente}" />
+										<p:confirm header="Confirmação"
+											message="Deseja realmente excluir este cliente?"
+											icon="ui-icon-alert" />
+
+										<p:confirmDialog global="true" showEffect="fade"
+											hideEffect="explode">
+											<p:commandButton value="Sim" type="button"
+												styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+											<p:commandButton value="Não" type="button"
+												styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+										</p:confirmDialog>
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+					</h:form>
+					<p:dialog id="dialog" widgetVar="dlgDadosCliente" showEffect="clip"
+						hideEffect="clip" modal="true" appendTo="@(body)" width="600"
+						height="370">
+
+						<h:form id="formDialog">
+							<p:outputPanel id="detail" style="text-align:center;"
+								layout="block">
+
+								<h:panelGrid columns="2" cellpadding="5">
+
+									<h:outputText value="Nome: " />
+									<p:inputText id="clienteNome"
+										value="#{clienteController.clienteSelecionado.nome}" />
+										
+									<h:outputText value="Login: " />
+									<p:inputText id="clienteLogin"
+										value="#{clienteController.clienteSelecionado.login}" />
+
+
+								</h:panelGrid>
+								<p:commandButton value="Alterar Dados" image="ui-icon-check"
+									action="#{clienteController.atualizarDados}"
+									update=":tbv1:formClientes"
+									process="@form" />
+
+							</p:outputPanel>
+						</h:form>
+					</p:dialog>
+			</p:tab>
 		</p:tabView>
 
 		<!--  <h:form id="formtable">

@@ -8,7 +8,9 @@ import javax.persistence.TypedQuery;
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.model.Desenvolvedor;
 import com.barrostsb.prime_scrum.model.Pessoa;
+import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.model.ScrumMaster;
+import com.barrostsb.prime_scrum.model.Tarefa;
 
 public class Pessoas {
 	
@@ -58,5 +60,9 @@ public class Pessoas {
 	
 	public Pessoa DesenvolvedorPorId(Long id) {
 		return manager.find(Desenvolvedor.class, id);
+	}
+
+	public void delete(Pessoa pessoa){
+		this.manager.remove(manager.find(Pessoa.class, pessoa.getId_pessoa()));
 	}
 }
