@@ -50,7 +50,7 @@
 						<p:panel>
 							<p:commandButton value="Salvar"
 								action="#{clienteController.salvar}"
-								image="ui-icon ui-icon-disk" update=":tbv1:formCliente">
+								image="ui-icon ui-icon-disk" update=":tbv1">
 							</p:commandButton>
 
 							<p:commandButton value="Cancelar"
@@ -86,11 +86,11 @@
 									</p:commandButton>
 
 									<p:commandButton icon="ui-icon-trash"
-										actionListener="#{clienteController.deletar}" update="grow">
+										actionListener="#{clienteController.deletar}" update=":tbv1:formClientes">
 										<f:attribute name="clienteSelecionado" value="#{cliente}" />
 										<p:confirm header="Confirmação"
 											message="Deseja realmente excluir este cliente?"
-											icon="ui-icon-alert" />
+											icon="ui-icon-alert" update="grow"/>
 
 										<p:confirmDialog global="true" showEffect="fade"
 											hideEffect="explode">

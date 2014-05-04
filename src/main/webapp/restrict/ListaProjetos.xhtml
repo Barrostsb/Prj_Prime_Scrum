@@ -12,7 +12,7 @@
 
 
 	<ui:define name="content">
-		<p:fieldset legend="Projetos de #{loginController.usuarioLogado.nome}">
+		<p:fieldset legend="Projetos de #{loginController.usuarioLogado.nome}" style="text-align: center;">
 			<h:form id="formRing">
 			
 
@@ -40,19 +40,18 @@
 						
 						<p:growl id="grow" showDetail="true" /> 
 						
-												<p:commandButton icon="ui-icon-trash" actionListener="#{projetoController.deletar}"  onclick="" update="grow" >
+						<p:commandButton icon="ui-icon-trash" actionListener="#{projetoController.deletar}"  onclick="" update=":formRing" >
 							<f:attribute name="projetoSelecionado" value="#{projeto}" />
 							<p:confirm header="Confirmação" message="Deseja realmente excluir o projeto?" icon="ui-icon-alert" />
 								
 							<p:ajax listener="#{projetoController.deletar}"	update="@form" />
 								
 							<p:confirmDialog global="true" showEffect="fade" hideEffect="explode" >
-								<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  update="@form"  />
+								<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  update="grow"  />
 								<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 							</p:confirmDialog>
 						</p:commandButton>
-						
-						
+									
 					</p:outputPanel>
 				</p:ring>
 
@@ -75,8 +74,9 @@
 								value="#{projetoController.projetoSelecionado.cliente.nome}" />
 
 							<h:outputText value="Status: " />
-							<h:outputText id="prjStatus"
-								value="#{projetoController.projetoSelecionado.status}" />
+							<h:outputText value="#{projetoController.projetoSelecionado.status}" style="color:green;font-weight: bold;" rendered="#{projetoController.projetoSelecionado.status == 'Concluído'}" />
+							<h:outputText value="#{projetoController.projetoSelecionado.status}" style="color:blue;font-weight: bold;" rendered="#{projetoController.projetoSelecionado.status == 'Em Desenvolvimento'}" />
+							<h:outputText value="#{projetoController.projetoSelecionado.status}" style="color:red;font-weight: bold;" rendered="#{projetoController.projetoSelecionado.status == 'Não Iniciado'}" />
 
 						</h:panelGrid>
 					</p:outputPanel>

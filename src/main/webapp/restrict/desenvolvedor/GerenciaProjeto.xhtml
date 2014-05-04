@@ -22,28 +22,53 @@
 			<p:tab title="Dados Projeto">
 
 				<h:form id="formDadosProjeto">
-					<h:panelGrid columns="2" cellpadding="5">
+					<h:panelGrid columns="1" cellpadding="5" style="width:32%;text-align: center;">
 
-						<h:outputText value="Nome: " />
-						<p:outputLabel id="prjNome"
-							value="#{projetoController.projetoSelecionado.nome}" />
 
-						<h:outputLabel value="Cliente" />
-						<p:outputLabel
-							value="#{projetoController.projetoSelecionado.cliente.nome}" />
+						<p:fieldset legend="Cliente" >
+							<h:panelGrid columns="2" style="width:100%; height:50%" cellpadding="5">
+								<p:graphicImage value="/images/personal.png"/>
+								<h:inputHidden></h:inputHidden>
+								<h:outputText value="Nome: #{projetoController.projetoSelecionado.cliente.nome}" />
+								<h:inputHidden></h:inputHidden>
+								<h:outputText value="NickName: #{projetoController.projetoSelecionado.cliente.login}" />
+							</h:panelGrid>
+						</p:fieldset>
+						
+					 <p:fieldset legend="Situação do projeto: " >
+							<h:outputText value="#{projetoController.projetoSelecionado.status}" style="color:green;font-weight: bold;" rendered="#{projetoController.projetoSelecionado.status == 'Concluído'}" />
+							<h:outputText value="#{projetoController.projetoSelecionado.status}" style="color:blue;font-weight: bold;" rendered="#{projetoController.projetoSelecionado.status == 'Em Desenvolvimento'}" />
+							<h:outputText value="#{projetoController.projetoSelecionado.status}" style="color:red;font-weight: bold;" rendered="#{projetoController.projetoSelecionado.status == 'Não Iniciado'}" />
+					</p:fieldset>
+					
+						<p:fieldset legend="Scrum Master" >
+							<h:panelGrid columns="2" style="width:100%; height:50%" cellpadding="5">
+								<p:graphicImage value="/images/personal.png"/>
+								<h:inputHidden></h:inputHidden>
+								<h:outputText value="Nome: #{projetoController.projetoSelecionado.scrumMaster.nome}" />
+								<h:inputHidden></h:inputHidden>
+								<h:outputText value="NickName: #{projetoController.projetoSelecionado.scrumMaster.login}" />
+							</h:panelGrid>
+						</p:fieldset>
 
-						<h:outputText value="Desenvolvedores: " />
-						<p:selectCheckboxMenu
-							value="#{projetoController.projeto.listaDesenvolvedores}"
-							label="Defina os desenvolvedores" filter="true"
-							filterText="Filter" filterMatchMode="startsWith"
-							panelStyle="width:220px" converter="pessoaConverter">
-							<f:selectItems value="#{projetoController.todosDesenvolvedores}"
-								var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
-						</p:selectCheckboxMenu>
+						<p:fieldset legend="Desenvolvedores: " >
+
+						<p:carousel value="#{projetoController.projetoSelecionado.listaDesenvolvedores}" var="dev"
+							easing="easeOutBounce">
+							<h:panelGrid  columns="2" style="width:100%; height:50%" cellpadding="5">
+								<p:graphicImage value="/images/personal.png"/>
+								<h:inputHidden></h:inputHidden>
+								<h:outputText value="Nome: #{dev.nome}" />
+								<h:inputHidden></h:inputHidden>
+								<h:outputText value="NickName: #{dev.login}" />
+							</h:panelGrid>
+						</p:carousel>
+						
+					</p:fieldset>
+					
+
+
 					</h:panelGrid>
-
-
 				</h:form>
 
 

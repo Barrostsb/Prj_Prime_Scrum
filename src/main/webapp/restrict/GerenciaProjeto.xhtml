@@ -62,10 +62,12 @@
 						</p:selectOneMenu>
 
 					</h:panelGrid>
+					
+					<p:growl id="grow01" showDetail="true" />
 
 					<p:commandButton value="Alterar Projeto"
 						action="#{projetoController.alterar}" image="ui-icon ui-icon-disk"
-						process="@form">
+						process="@form" update="grow01">
 					</p:commandButton>
 				</h:form>
 
@@ -166,11 +168,11 @@
 									<p:growl id="grow" showDetail="true" />
 
 									<p:commandButton icon="ui-icon-trash"
-										actionListener="#{tarefaController.deletar}" update="grow">
+										actionListener="#{tarefaController.deletar}" update=":tbvGerenciaDeProjeto:formListaRequisitos, :tbvGerenciaDeProjeto:taskBoardForm" >
 										<f:attribute name="tarefaSelecionada" value="#{tarefa}" />
 										<p:confirm header="Confirmação"
 											message="Deseja realmente excluir esta tarefa?"
-											icon="ui-icon-alert" />
+											icon="ui-icon-alert" update="grow" />
 
 										<p:confirmDialog global="true" showEffect="fade"
 											hideEffect="explode">

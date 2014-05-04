@@ -12,7 +12,7 @@
 
 
 	<ui:define name="content">
-		<p:fieldset legend="Projetos de #{loginController.usuarioLogado.nome}">
+		<p:fieldset legend="Projetos de #{loginController.usuarioLogado.nome}" style="text-align: center;">
 			<h:form id="formRing">
 			
 
@@ -64,8 +64,9 @@
 								value="#{projetoController.projetoSelecionado.cliente.nome}" />
 
 							<h:outputText value="Status: " />
-							<h:outputText id="prjStatus"
-								value="#{projetoController.projetoSelecionado.status}" />
+							<h:outputText value="#{projetoController.projetoSelecionado.status}" style="color:green;font-weight: bold;" rendered="#{projetoController.projetoSelecionado.status == 'Concluído'}" />
+							<h:outputText value="#{projetoController.projetoSelecionado.status}" style="color:blue;font-weight: bold;" rendered="#{projetoController.projetoSelecionado.status == 'Em Desenvolvimento'}" />
+							<h:outputText value="#{projetoController.projetoSelecionado.status}" style="color:red;font-weight: bold;" rendered="#{projetoController.projetoSelecionado.status == 'Não Iniciado'}" />
 
 						</h:panelGrid>
 					</p:outputPanel>

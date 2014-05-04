@@ -50,7 +50,7 @@
 						<p:panel>
 							<p:commandButton value="Salvar"
 								action="#{desenvolvedorController.salvar}"
-								image="ui-icon ui-icon-disk" update=":tbv1:formDEV">
+								image="ui-icon ui-icon-disk" update=":tbv1">
 							</p:commandButton>
 
 							<p:commandButton value="Cancelar"
@@ -87,11 +87,11 @@
 									</p:commandButton>
 
 									<p:commandButton icon="ui-icon-trash"
-										actionListener="#{desenvolvedorController.deletar}" update="grow">
+										actionListener="#{desenvolvedorController.deletar}" update=":tbv1:formDevs">
 										<f:attribute name="desenvolvedorSelecionado" value="#{dev}" />
 										<p:confirm header="Confirmação"
 											message="Deseja realmente excluir este desenvolvedor?"
-											icon="ui-icon-alert" />
+											icon="ui-icon-alert" update="grow"/>
 
 										<p:confirmDialog global="true" showEffect="fade"
 											hideEffect="explode">
