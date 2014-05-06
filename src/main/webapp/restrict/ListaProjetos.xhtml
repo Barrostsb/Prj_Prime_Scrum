@@ -6,12 +6,12 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="/template/Layout.xhtml">
 
-	<f:metadata>
-		<f:viewAction action="#{projetoController.buscarTodosProjetos}" />
-	</f:metadata>
-
 
 	<ui:define name="content">
+	
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{loginController.testeSessaoAdm}"/> 
+	</f:metadata>
 		<p:fieldset legend="Projetos de #{loginController.usuarioLogado.nome}" style="text-align: center;">
 			<h:form id="formRing">
 			

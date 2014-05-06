@@ -13,6 +13,9 @@
 
 
 	<ui:define name="content">
+		<f:metadata>
+		<f:event type="preRenderView" listener="#{loginController.testeSessaoDev}"/> 
+	</f:metadata>
 		<p:panel id="prjHeader" header="Projeto">
 			<h:outputText id="prjId"
 				value="#{projetoController.projetoSelecionado.nome}" />

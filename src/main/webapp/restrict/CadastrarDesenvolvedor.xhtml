@@ -6,6 +6,11 @@
 	<!--    xmlns:c="http://java.sun.com/jsf/jstl/core" -->
 
 	<ui:define name="content">
+	
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{loginController.testeSessaoAdm}"/> 
+	</f:metadata>
+	
 		<p:tabView id="tbv1">
 			<p:tab title="Desenvolvedor">
 				<h:form prependId="false" id="formDEV">

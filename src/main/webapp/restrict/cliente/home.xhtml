@@ -7,7 +7,9 @@
 	  xmlns:c="http://java.sun.com/jsf/jstl/core"	
       xmlns:p="http://primefaces.org/ui">
          <ui:define name="content">
-            
+            <f:metadata>
+		<f:event type="preRenderView" listener="#{loginController.testeSessaoCliente}"/> 
+	</f:metadata>
     	<h:messages></h:messages>
          </ui:define>
       

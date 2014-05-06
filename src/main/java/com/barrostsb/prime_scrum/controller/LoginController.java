@@ -5,10 +5,14 @@ import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ComponentSystemEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
@@ -17,6 +21,7 @@ import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.business.CadastroPessoas;
 import com.barrostsb.prime_scrum.exception.BusinessException;
 import com.barrostsb.prime_scrum.model.Pessoa;
+import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.repository.Pessoas;
 
 @ManagedBean (name = "loginController")
@@ -146,7 +151,11 @@ public class LoginController{
     					default:
     						break;
     					}
+            			
             		}
+            		FacesContext fc = FacesContext.getCurrentInstance();
+            		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+            		session.setAttribute("usuarioLogado", usuarioLogado);
             		msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao logar", "Senha inválida");  
             	}else { 
                 	msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao logar", "Login inválido"); 
@@ -168,9 +177,101 @@ public class LoginController{
 //    	boolean loggedIn = false; 
     	usuarioLogado = null;
     	try {
-    		FacesContext.getCurrentInstance().getExternalContext().redirect("/Prime_Scrum/index.jsp");
+//    		FacesContext.getCurrentInstance().getExternalContext().redirect("/Prime_Scrum/index.jsp");
+    		FacesContext.getCurrentInstance().getExternalContext().redirect("/Prime_Scrum/Login.jsf");
     	} catch (IOException e) {
     		e.printStackTrace();
     	}
+    	FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.setAttribute("usuarioLogado", null);
     }
+    
+  	public void testeSessaoAdm(ComponentSystemEvent e){
+  		Pessoa p;
+		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpSession session = (HttpSession) request.getSession();
+		p = (Pessoa) session.getAttribute("usuarioLogado");
+		
+//		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//		response.setDateHeader("Expires", 0);  
+//		response.setHeader("Pragma", "noCache");  
+//		response.setHeader("Cache-Control","no-cache"); 
+		if(p == null){
+			try {
+				
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/Prime_Scrum/Login.jsf");
+	  			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Página restrita", "Faça login para continuar")); 
+	  		} catch (IOException e1) {
+	  			e1.printStackTrace();
+	  		}
+		}else{
+			if(!p.getPermissao().equals("ROLE_ADM")){
+				try {
+		  			FacesContext.getCurrentInstance().getExternalContext().redirect("/Prime_Scrum/index.jsp");
+		  			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Permissão negada", "Você não possui os privilégios necessarios para acessar esta pagina!")); 
+		  		} catch (IOException e1) {
+		  			System.out.println("nao ESTA NULO catch"+p.getNome());
+		  			e1.printStackTrace();
+		  		}
+			}
+		}
+		
+ 
+  	}
+  	
+  	public void testeSessaoDev(ComponentSystemEvent e){
+  		Pessoa p;
+  		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+  		HttpServletRequest request = (HttpServletRequest) req;
+  		HttpSession session = (HttpSession) request.getSession();
+  		p = (Pessoa) session.getAttribute("usuarioLogado");
+  		
+  		
+  		if(p == null){
+  			try {
+  				FacesContext.getCurrentInstance().getExternalContext().redirect("/Prime_Scrum/index.jsp");
+  				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Página restrita", "Faça login para continuar")); 
+  			} catch (IOException e1) {
+  				e1.printStackTrace();
+  			}
+  		}else{
+  			if(!p.getPermissao().equals("ROLE_DEV")){
+  				try {
+  					FacesContext.getCurrentInstance().getExternalContext().redirect("/Prime_Scrum/index.jsp");
+  					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Permissão negada", "Você não possui os privilégios necessarios para acessar esta pagina!")); 
+  				} catch (IOException e1) {
+  					e1.printStackTrace();
+  				}
+  			}
+  		}
+  	}
+  	
+  	public void testeSessaoCliente(ComponentSystemEvent e){
+  		Pessoa p;
+  		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+  		HttpServletRequest request = (HttpServletRequest) req;
+  		HttpSession session = (HttpSession) request.getSession();
+  		p = (Pessoa) session.getAttribute("usuarioLogado");
+  		
+  		
+  		if(p == null){
+  			try {
+  				FacesContext.getCurrentInstance().getExternalContext().redirect("/Prime_Scrum/index.jsp");
+  				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Página restrita", "Faça login para continuar")); 
+  			} catch (IOException e1) {
+  				e1.printStackTrace();
+  			}
+  		}else{
+  			if(!p.getPermissao().equals("ROLE_CLIENTE")){
+  				try {
+  					FacesContext.getCurrentInstance().getExternalContext().redirect("/Prime_Scrum/index.jsp");
+  					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Permissão negada", "Você não possui os privilégios necessarios para acessar esta pagina!")); 
+  				} catch (IOException e1) {
+  					e1.printStackTrace();
+  				}
+  			}
+  		}
+  	}
 }

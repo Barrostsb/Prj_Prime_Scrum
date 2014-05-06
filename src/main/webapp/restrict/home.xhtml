@@ -13,6 +13,10 @@
       
       
          <ui:define name="content">
+         
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{loginController.testeSessaoAdm}"/> 
+	</f:metadata>
             
     	<h:messages></h:messages>
          </ui:define>

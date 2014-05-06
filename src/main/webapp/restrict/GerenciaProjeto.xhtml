@@ -7,12 +7,12 @@
 	template="/template/Layout.xhtml">
 
 
-	<f:metadata>
-		<f:viewAction action="#{tarefaController.buscarTodasTarefa}" />
-	</f:metadata>
-
-
 	<ui:define name="content">
+	
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{loginController.testeSessaoAdm}"/> 
+	</f:metadata>
+	
 		<p:panel id="prjHeader" header="Projeto">
 			<h:outputText id="prjId"
 				value="#{projetoController.projetoSelecionado.nome}" />

@@ -6,6 +6,10 @@
 	<!--    xmlns:c="http://java.sun.com/jsf/jstl/core" -->
 
 	<ui:define name="content">
+	
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{loginController.testeSessaoCliente}"/> 
+	</f:metadata>
 		<p:tabView id="tbv1">
 			<p:tab title="Cliente">
 				<h:form prependId="false" id="formSM">

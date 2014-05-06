@@ -1,5 +1,6 @@
 package com.barrostsb.prime_scrum.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +8,12 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ComponentSystemEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
@@ -49,7 +52,8 @@ public class TarefaController implements Serializable {
 		 
 		return idDev;
 	}
-
+	
+	
 	public TarefaController() {  
 		tarefasBuscadas = new ArrayList<Tarefa>();
 	} 
