@@ -20,7 +20,7 @@
 					var="projeto">
 
 					<p:outputPanel style="text-align:center;" layout="block"> 
-							#{projeto.nome} 
+							<p:outputLabel value="#{projeto.nome}"/> 
 					</p:outputPanel>
 					
 					<p:outputPanel style="text-align:center;" layout="block">
@@ -32,7 +32,7 @@
 								target="#{projetoController.projetoSelecionado}" />
 						</p:commandButton>
 
-						<p:commandButton action="./GerenciaProjeto.jsf"
+						<p:commandButton action="./DadosProjeto.jsf"
 							image="ui-icon ui-icon-gear">
 							<f:setPropertyActionListener value="#{projeto}"
 								target="#{projetoController.projetoSelecionado}" />

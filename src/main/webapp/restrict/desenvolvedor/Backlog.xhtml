@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/template/LayoutDev.xhtml">
+
+
+	<f:metadata>
+		<f:viewAction action="#{tarefaController.buscarTodasTarefa}" />
+	</f:metadata>
+
+
+	<ui:define name="content">
+		<f:metadata>
+		<f:event type="preRenderView" listener="#{loginController.testeSessaoDev}"/> 
+	</f:metadata>
+	<p:panel id="prjHeader" header="Projeto: #{projetoController.projetoSelecionado.nome}">
+			<h:form id="adm" style="text-align:center;">
+				<p:commandLink id="dadosPrj"  style="margin-right:100px" value="Dados do Projeto" action="./DadosProjeto.jsf"/>
+				<p:outputLabel id="backlog"	style="margin-right:100px;color:blue;font-weight:bold;" value="Backlog" />
+				<p:commandLink id="taskboard"	style="margin-right:100px" value="TaskBoard" action="./TaskBoard.jsf"/>
+				<p:commandLink id="burndown"  style="margin-right:100px" value="BurnDown Chart" action="./BurnDown.jsf"/>
+			</h:form>
+	</p:panel>
+
+				<p:fieldset title="Requisitos">
+
+					<h:form id="formListaRequisitos">
+
+						<p:dataGrid var="tarefa"
+							value="#{tarefaController.tarefaPorProjeto}" columns="3"
+							rows="12" paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="9,12,15">
+
+							<p:panel header="#{tarefa.nome}" style="text-align:center">
+
+
+								<h:panelGrid columns="1" style="width:100%">
+
+									<p:commandButton update=":dialog"
+										icon="ui-icon-pencil" title="View"
+										oncomplete="PF('dlgDadostarefa').show();">
+										<f:setPropertyActionListener value="#{tarefa}"
+											target="#{tarefaController.tarefaSelecionada}" />
+									</p:commandButton>
+
+									<p:growl id="grow" showDetail="true" />
+
+								</h:panelGrid>
+							</p:panel>
+
+						</p:dataGrid>
+					</h:form>
+					<p:dialog id="dialog" widgetVar="dlgDadostarefa" showEffect="clip"
+						hideEffect="clip" modal="true" appendTo="@(body)" width="350"
+						height="250">
+
+						<h:form id="formDialog">
+							<p:outputPanel id="detail" style="text-align:center;"
+								layout="block">
+
+								<h:panelGrid columns="2" cellpadding="5">
+
+									<h:outputText value="Nome da Tarefa: " />
+									<h:outputText id="trfNome"
+										value="#{tarefaController.tarefaSelecionada.nome}" />
+
+									<h:outputText value="Prioridade:" />
+									<p:rating
+										value="#{desenvolvedorTarefaController.tarefa.prioridade}" />
+
+									<h:outputText value="Dificuldade:" />
+									<h:panelGrid columns="1" style="margin-bottom:10px">
+										<p:inputText id="txtDificuldade"
+											value="#{desenvolvedorTarefaController.tarefa.dificuldade}" />
+										<p:slider for="txtDificuldade" step="10" />
+									</h:panelGrid>
+
+									<h:outputLabel for="spinnerStep" value="Tempo de Execução: " />
+									<p:spinner id="spinnerStep"
+										value="#{desenvolvedorTarefaController.tarefa.tempo_execucao}"
+										stepFactor="0.5" prefix="Horas: " min="0" />
+
+								</h:panelGrid>
+								<p:commandButton value="Enviar Dados" image="ui-icon-check"
+									actionListener="#{desenvolvedorTarefaController.salvarDados}"
+									update=":formListaRequisitos"
+									process="@form" >
+									
+									<f:attribute name="tarefaSelecionada" value="#{tarefaController.tarefaSelecionada}" />
+									<f:attribute name="tarefaSelecionadaDev" value="#{tarefaController.tarefaSelecionada.desenvolvedor}" />
+								</p:commandButton>
+							</p:outputPanel>
+						</h:form>
+					</p:dialog>
+				</p:fieldset>
+	</ui:define>
+</ui:composition>

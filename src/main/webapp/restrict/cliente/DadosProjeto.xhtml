@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/template/LayoutCliente.xhtml">
+
+
+	<f:metadata>
+		<f:viewAction action="#{tarefaController.buscarTodasTarefa}" />
+	</f:metadata>
+
+
+	<ui:define name="content">
+	
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{loginController.testeSessaoCliente}"/> 
+	</f:metadata>
+	
+	<p:panel id="prjHeader" header="Projeto: #{projetoController.projetoSelecionado.nome}">
+			<h:form id="adm" style="text-align:center;">
+				<p:outputLabel id="dadosPrj"	style="margin-right:100px;color:blue;font-weight:bold;" value="Dados do Projeto" />
+				<p:commandLink id="backlog"		style="margin-right:100px" value="Backlog" action="./Backlog.jsf" />
+				<p:commandLink id="taskboard"	style="margin-right:100px" value="TaskBoard" action="./TaskBoard.jsf"/>
+				<p:commandLink id="burndown"  	style="margin-right:100px" value="BurnDown Chart" action="./BurnDown.jsf"/>
+			</h:form>
+	</p:panel>
+
+<h:form id="formDadosProjeto">
+					<h:panelGrid columns="1" cellpadding="5" style="width:32%;text-align: center;">
+						<p:fieldset legend="Cliente" >
+							<h:panelGrid columns="2" style="width:100%; height:50%" cellpadding="5">
+								<p:graphicImage value="/images/personal.png"/>
+								<h:inputHidden></h:inputHidden>
+								<h:outputText value="Nome: #{projetoController.projetoSelecionado.cliente.nome}" />
+								<h:inputHidden></h:inputHidden>
+								<h:outputText value="NickName: #{projetoController.projetoSelecionado.cliente.login}" />
+							</h:panelGrid>
+						</p:fieldset>
+						
+ 					<p:fieldset legend="Situação do projeto: " >
+							<h:outputText value="#{projetoController.projetoSelecionado.status}" style="color:green;font-weight: bold;" rendered="#{projetoController.projetoSelecionado.status == 'Concluído'}" />
+							<h:outputText value="#{projetoController.projetoSelecionado.status}" style="color:blue;font-weight: bold;" rendered="#{projetoController.projetoSelecionado.status == 'Em Desenvolvimento'}" />
+							<h:outputText value="#{projetoController.projetoSelecionado.status}" style="color:red;font-weight: bold;" rendered="#{projetoController.projetoSelecionado.status == 'Não Iniciado'}" />
+					</p:fieldset>
+					
+						<p:fieldset legend="Gerente do Projeto" >
+							<h:panelGrid columns="2" style="width:100%; height:50%" cellpadding="5">
+								<p:graphicImage value="/images/personal.png"/>
+								<h:inputHidden></h:inputHidden>
+								<h:outputText value="Nome: #{projetoController.projetoSelecionado.scrumMaster.nome}" />
+								<h:inputHidden></h:inputHidden>
+								<h:outputText value="NickName: #{projetoController.projetoSelecionado.scrumMaster.login}" />
+							</h:panelGrid>
+						</p:fieldset>
+
+						<p:fieldset legend="Desenvolvedores: " >
+
+						<p:carousel value="#{projetoController.projetoSelecionado.listaDesenvolvedores}" var="dev"
+							easing="easeOutBounce">
+							<h:panelGrid  columns="2" style="width:100%; height:50%" cellpadding="5">
+								<p:graphicImage value="/images/personal.png"/>
+								<h:inputHidden></h:inputHidden>
+								<h:outputText value="Nome: #{dev.nome}" />
+								<h:inputHidden></h:inputHidden>
+								<h:outputText value="NickName: #{dev.login}" />
+							</h:panelGrid>
+						</p:carousel>
+						
+					</p:fieldset>
+					
+
+
+					</h:panelGrid>
+				</h:form>
+	</ui:define>
+</ui:composition>

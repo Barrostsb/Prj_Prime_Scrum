@@ -43,7 +43,10 @@ public class ProjetoController implements Serializable {
 	private Projeto projetoSelecionado;
 
 	EntityManager manager = JpaUtils.getEntityManager();
-
+	
+	public ProjetoController() {
+		System.out.println(0);//TODO);
+	}
 	public void salvar() {
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();

@@ -13,71 +13,19 @@
 		<f:event type="preRenderView" listener="#{loginController.testeSessaoAdm}"/> 
 	</f:metadata>
 	
-		<p:panel id="prjHeader" header="Projeto">
-			<h:outputText id="prjId"
-				value="#{projetoController.projetoSelecionado.nome}" />
-		</p:panel>
-
-		<p:tabView id="tbvGerenciaDeProjeto">
-			<p:tab title="Dados Projeto">
-
-				<h:form id="formDadosProjeto">
-					<h:panelGrid columns="2" cellpadding="5">
-
-						<h:outputText value="Nome: " />
-						<p:inputText id="prjNome"
-							value="#{projetoController.projetoSelecionado.nome}" />
-
-						<h:outputLabel value="Cliente" />
-						<p:selectOneMenu
-							value="#{projetoController.projetoSelecionado.cliente}"
-							converter="clienteConverter" label="Cliente" 
-							filter="true" style="width:150px;">
-							<f:selectItem  noSelectionOption="true"/>
-							<f:selectItems value="#{projetoController.todosClientes}"
-								var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}"  />
-						</p:selectOneMenu>
-
-						<h:outputText value="Desenvolvedores: " />
-						<p:selectCheckboxMenu
-							value="#{projetoController.projeto.listaDesenvolvedores}"
-							label="Defina os desenvolvedores" filter="true"
-							filterText="Filter" filterMatchMode="startsWith"
-							panelStyle="width:220px" converter="pessoaConverter">
-							<f:selectItems value="#{projetoController.todosDesenvolvedores}"
-								var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
-						</p:selectCheckboxMenu>
-						
-
-						<h:outputLabel value="Status" />
-						<p:selectOneMenu
-							value="#{projetoController.projetoSelecionado.status}"
-							label="Defina o status" style="width:150px;">
-							<f:selectItem  noSelectionOption="true"
-								style="width:150px;" />
-							<f:selectItem itemLabel="Não Iniciado" itemValue="Não Iniciado" />
-							<f:selectItem itemLabel="Em Desenvolvimento"
-								itemValue="Em Desenvolvimento" />
-							<f:selectItem itemLabel="Concluído" itemValue="Concluído" />
-						</p:selectOneMenu>
-
-					</h:panelGrid>
-					
-					<p:growl id="grow01" showDetail="true" />
-
-					<p:commandButton value="Alterar Projeto"
-						action="#{projetoController.alterar}" image="ui-icon ui-icon-disk"
-						process="@form" update="grow01">
-					</p:commandButton>
-				</h:form>
+	
+	<p:panel id="prjHeader" header="Projeto: #{projetoController.projetoSelecionado.nome}">
+			<h:form id="adm" style="text-align:center;">
+				<p:commandLink id="dadosPrj"  style="margin-right:100px" value="Dados do Projeto" action="./DadosProjeto.jsf"/>
+				<p:outputLabel id="backlog"	style="margin-right:100px;color:blue;font-weight:bold;" value="Backlog" />
+				<p:commandLink id="taskboard"	style="margin-right:100px" value="TaskBoard" action="./TaskBoard.jsf"/>
+				<p:commandLink id="burndown"  style="margin-right:100px" value="BurnDown Chart" action="./BurnDown.jsf"/>
+			</h:form>
+	</p:panel>
 
 
-			</p:tab>
 
-			<p:tab title="BackLog">
-
-
-				<p:fieldset title="Novo requisito">
+				<p:fieldset legend="Novo requisito" style="text-align: center;">
 
 					<h:form prependId="false" id="formTask">
 						<p:growl id="msg0" />
@@ -126,14 +74,14 @@
 									action="#{tarefaController.salvar}"
 									image="ui-icon ui-icon-disk"
 									actionListener="#{tarefaController.setProj}"
-									update=":tbvGerenciaDeProjeto:formTask :tbvGerenciaDeProjeto:formListaRequisitos :tbvGerenciaDeProjeto:taskBoardForm">
+									update=":formTask :formListaRequisitos">
 									<!--   <f:attribute name="projeto" value="#{projetoController.projetoSelecionado}" />-->
 								</p:commandButton>
 
 								<p:commandButton value="Cancelar"
 									actionListener="#{tarefaController.clear}"
 									image="ui-icon ui-icon-close"
-									update=":tbvGerenciaDeProjeto:formTask">
+									update=":formTask">
 								</p:commandButton>
 							</p:panel>
 						</h:panelGrid>
@@ -142,7 +90,7 @@
 				</p:fieldset>
 
 
-				<p:fieldset title="Requisitos">
+				<p:fieldset	legend="Requisitos" style="text-align: center;">
 
 					<h:form id="formListaRequisitos">
 
@@ -157,7 +105,7 @@
 
 								<h:panelGrid columns="3" style="width:100%">
 
-									<p:commandButton update=":tbvGerenciaDeProjeto:dialog"
+									<p:commandButton update=":dialog"
 										icon="ui-icon-pencil" title="View"
 										oncomplete="PF('dlgDadostarefa').show();">
 										<f:attribute name="tarefaSelecionada" value="#{tarefa}" />
@@ -168,7 +116,7 @@
 									<p:growl id="grow" showDetail="true" />
 
 									<p:commandButton icon="ui-icon-trash"
-										actionListener="#{tarefaController.deletar}" update=":tbvGerenciaDeProjeto:formListaRequisitos, :tbvGerenciaDeProjeto:taskBoardForm" >
+										actionListener="#{tarefaController.deletar}" update=":formListaRequisitos" >
 										<f:attribute name="tarefaSelecionada" value="#{tarefa}" />
 										<p:confirm header="Confirmação"
 											message="Deseja realmente excluir esta tarefa?"
@@ -231,7 +179,7 @@
 								</h:panelGrid>
 								<p:commandButton value="Alterar Dados" image="ui-icon-check"
 									action="#{tarefaController.atualizarDados}"
-									update=":tbvGerenciaDeProjeto:formListaRequisitos"
+									update=":formListaRequisitos"
 									process="@form" />
 
 							</p:outputPanel>
@@ -269,113 +217,5 @@
 
 					</p:dialog>
 				</p:fieldset>
-
-
-
-			</p:tab>
-
-			<p:tab title="TaskBoard">
-				<h:form id="taskBoardForm">
-					<h:panelGrid columns="3" styleClass="panelGrid" id="gridMain">
-						<p:fieldset id="todoColumn" legend="TO DO">
-
-							<p:outputPanel id="dropAreaTodo">
-
-								<p:dataGrid id="todoGrid" var="tarefa"
-									value="#{taskBoardController.tarefasTodo}" columns="3"
-									style="width:33%">
-
-									<p:column>
-										<p:panel id="pnl" header="#{tarefa.nome}"
-											style="text-align:center">
-											<p:draggable for="pnl" opacity="0.5" revert="true"
-												handle=".ui-panel-titlebar" stack=".ui-panel" scope="doing" />
-										</p:panel>
-									</p:column>
-
-								</p:dataGrid>
-
-							</p:outputPanel>
-
-						</p:fieldset>
-
-						<p:fieldset id="inprocessColumn" legend="In Process">
-
-							<p:outputPanel id="dropAreaInprocess">
-
-								<p:dataGrid id="inprocessGrid" var="tarefa"
-									value="#{taskBoardController.tarefasInprocess}" columns="3"
-									style="width:33%">
-
-									<p:column>
-										<p:panel id="pnl" header="#{tarefa.nome}"
-											style="text-align:center">
-											<p:draggable for="pnl" revert="true"
-												handle=".ui-panel-titlebar" stack=".ui-panel" scope="done" />
-										</p:panel>
-									</p:column>
-
-								</p:dataGrid>
-
-							</p:outputPanel>
-
-						</p:fieldset>
-
-						<p:fieldset id="doneColumn" legend="Done !">
-
-							<p:outputPanel id="dropAreaDone">
-
-								<p:dataGrid id="doneGrid" var="tarefa"
-									value="#{taskBoardController.tarefasDone}" columns="3"
-									style="width:33%">
-
-									<p:column>
-										<p:panel id="pnl" header="#{tarefa.nome}"
-											style="text-align:center">
-											<p:draggable for="pnl" revert="true"
-												handle=".ui-panel-titlebar" stack=".ui-panel" scope="todo" />
-										</p:panel>
-									</p:column>
-
-								</p:dataGrid>
-
-							</p:outputPanel>
-
-						</p:fieldset>
-
-						<p:droppable for="dropAreaTodo" tolerance="touch"
-							activeStyleClass="ui-state-highlight" datasource="doneGrid"
-							scope="todo">
-							<p:ajax listener="#{taskBoardController.onDropTodo}"
-								update="taskBoardForm :tbvGerenciaDeProjeto:burndownForm" />
-						</p:droppable>
-
-						<p:droppable for="dropAreaInprocess" tolerance="touch"
-							activeStyleClass="ui-state-highlight" datasource="todoGrid"
-							scope="doing">
-							<p:ajax listener="#{taskBoardController.onDropDoing}"
-								update="taskBoardForm" />
-						</p:droppable>
-
-						<p:droppable for="dropAreaDone" tolerance="touch"
-							activeStyleClass="ui-state-highlight" datasource="inprocessGrid"
-							scope="done">
-							<p:ajax listener="#{taskBoardController.onDropDone}"
-								update="taskBoardForm :tbvGerenciaDeProjeto:burndownForm" />
-						</p:droppable>
-					</h:panelGrid>
-				</h:form>
-
-			</p:tab>
-			<p:tab title="Burndown">
-				<h:form id="burndownForm">
-					<p:lineChart value="#{burndownController.burnDownChart}"
-						legendPosition="e" zoom="true" animate="true"
-						title="Burndown Chart"
-						style="width:100%; height:100%; text-align:center;" />
-				</h:form>
-
-			</p:tab>
-		</p:tabView>
 	</ui:define>
 </ui:composition>

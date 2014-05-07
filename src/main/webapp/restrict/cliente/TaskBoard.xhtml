@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/template/LayoutCliente.xhtml">
+
+
+	<f:metadata>
+		<f:viewAction action="#{tarefaController.buscarTodasTarefa}" />
+	</f:metadata>
+
+
+	<ui:define name="content">
+	
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{loginController.testeSessaoCliente}"/> 
+	</f:metadata>
+	
+	<p:panel id="prjHeader" header="Projeto: #{projetoController.projetoSelecionado.nome}">
+			<h:form id="adm" style="text-align:center;">
+				<p:commandLink id="dadosPrj" 	style="margin-right:100px" value="Dados do Projeto" action="./DadosProjeto.jsf"/>
+				<p:commandLink id="backlog"		style="margin-right:100px" value="Backlog" action="./Backlog.jsf" />
+				<p:outputLabel id="taskboard"	style="margin-right:100px;color:blue;font-weight:bold;" value="TaskBoard" />
+				<p:commandLink id="burndown"  	style="margin-right:100px" value="BurnDown Chart" action="./BurnDown.jsf"/>
+			</h:form>
+	</p:panel>
+	
+				<h:form id="taskBoardForm">
+					<h:panelGrid columns="3" styleClass="panelGrid" id="gridMain">
+						<p:fieldset id="todoColumn" legend="TO DO">
+
+							<p:outputPanel id="dropAreaTodo">
+
+								<p:dataGrid id="todoGrid" var="tarefa"
+									value="#{taskBoardController.tarefasTodo}" columns="3"
+									style="width:33%">
+
+									<p:column>
+										<p:panel id="pnl" header="#{tarefa.nome}"
+											style="text-align:center">
+										</p:panel>
+									</p:column>
+
+								</p:dataGrid>
+
+							</p:outputPanel>
+
+						</p:fieldset>
+
+						<p:fieldset id="inprocessColumn" legend="In Process">
+
+							<p:outputPanel id="dropAreaInprocess">
+
+								<p:dataGrid id="inprocessGrid" var="tarefa"
+									value="#{taskBoardController.tarefasInprocess}" columns="3"
+									style="width:33%">
+
+									<p:column>
+										<p:panel id="pnl" header="#{tarefa.nome}"
+											style="text-align:center">
+										</p:panel>
+									</p:column>
+
+								</p:dataGrid>
+
+							</p:outputPanel>
+
+						</p:fieldset>
+
+						<p:fieldset id="doneColumn" legend="Done !">
+
+							<p:outputPanel id="dropAreaDone">
+
+								<p:dataGrid id="doneGrid" var="tarefa"
+									value="#{taskBoardController.tarefasDone}" columns="3"
+									style="width:33%">
+
+									<p:column>
+										<p:panel id="pnl" header="#{tarefa.nome}"
+											style="text-align:center">
+										</p:panel>
+									</p:column>
+
+								</p:dataGrid>
+
+							</p:outputPanel>
+
+						</p:fieldset>
+
+					</h:panelGrid>
+				</h:form>
+
+	</ui:define>
+</ui:composition>

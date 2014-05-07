@@ -25,6 +25,7 @@ import org.hibernate.Session;
 import org.primefaces.event.RateEvent;
 import org.primefaces.event.TabChangeEvent;
 
+import com.barrostsb.prime_scrum.JpaUtils.CreateTables;
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.business.CadastroTarefas;
 import com.barrostsb.prime_scrum.exception.BusinessException;
@@ -103,6 +104,7 @@ public class TarefaController implements Serializable {
 			FacesMessage mensagem = new FacesMessage(e.getMessage());
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 		}
+		new TaskBoardController();
 	}
 
 	public void alterar(Tarefa tarefa) {

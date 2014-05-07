@@ -49,14 +49,14 @@ public class BurndownController extends TaskBoardController implements Serializa
 	private void createBurnDownChart() {  
 		burndown = new CartesianChartModel(); 
 
-		if(getTarefasDone().size() > 0 ){
-			burndown.addSeries(getProgressoAtual());  
-			burndown.addSeries(getProgressoIdeal());
-		}else{
-			burndown.addSeries(getProgressoIdeal());
-			burndown.addSeries(getProgressoAtual());
-		}
-		
+//		if(getTarefasDone().size() > 0 ){
+//			burndown.addSeries(getProgressoAtual());  
+//			burndown.addSeries(getProgressoIdeal());
+//		}else{
+//			burndown.addSeries(getProgressoIdeal());
+//			burndown.addSeries(getProgressoAtual());
+//		}
+		burndown.addSeries(getProgressoAtual());
 	}
 	
 	private LineChartSeries getProgressoIdeal() {
@@ -125,10 +125,10 @@ public class BurndownController extends TaskBoardController implements Serializa
 			}
 			
 			
-			for (int aux = 0; aux < 5; aux ++){
-				calendar.add( Calendar.DAY_OF_MONTH , 1 );
-				progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH ) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), null);
-			}
+//			for (int aux = 0; aux < 5; aux ++){
+//				calendar.add( Calendar.DAY_OF_MONTH , 1 );
+//				progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH ) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), null);
+//			}
 			
 			//TODO fim da lista
 //			int iteratorAux = 0;

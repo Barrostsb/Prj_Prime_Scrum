@@ -109,10 +109,6 @@ public class TaskBoardController {
 //	            tarefasBuscadas.remove(tarea);
 //	            tarefasTodo.add(tarea);
 	            
-	            System.out.println("ID" + tarefa.getNome());
-	            System.out.println("TODO "+ tarefasTodo );
-	            System.out.println("IP "+ tarefasInprocess );
-	            System.out.println("DOne "+ tarefasDone );
 //	        }
 	    }
 
@@ -129,10 +125,6 @@ public class TaskBoardController {
 	    	   createtaskBoard();
 //	    	   tarefasBuscadas.remove(tarea);
 //	           tarefasInprocess.add(tarea);
-	           System.out.println("ID" + tarefa.getNome());
-	           System.out.println("TODO "+ tarefasTodo );
-	           System.out.println("IP "+ tarefasInprocess );
-	           System.out.println("DOne "+ tarefasDone );
 	           
 //	        }
 	    }
@@ -150,10 +142,6 @@ public class TaskBoardController {
 	  	   createtaskBoard();
 //	  	   tarefasBuscadas.remove(tarea);
 //	         tarefasInprocess.add(tarea);
-	         System.out.println("ID" + tarefa.getNome());
-	         System.out.println("TODO "+ tarefasTodo );
-	         System.out.println("IP "+ tarefasInprocess );
-	         System.out.println("DOne "+ tarefasDone );
 //	        }
 	    }    
 	    
