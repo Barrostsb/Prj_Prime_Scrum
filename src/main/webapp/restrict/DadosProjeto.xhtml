@@ -23,7 +23,7 @@
 
 <p:fieldset legend="Novo requisito" style="text-align: center;">
 				<h:form id="formDadosProjeto">
-					<h:panelGrid columns="2" cellpadding="5" style="text-align: center;">
+					<h:panelGrid columns="2" cellpadding="5" >
 
 						<h:outputText value="Nome: " />
 						<p:inputText id="prjNome"
@@ -40,6 +40,10 @@
 						</p:selectOneMenu>
 
 						<h:outputText value="Desenvolvedores: " />
+						
+						<p:commandButton value="Atuais Desenvolvedores" update=":display" oncomplete="PF('dlg').show()" />
+						
+						<h:inputHidden></h:inputHidden>
 						<p:selectCheckboxMenu
 							value="#{projetoController.projeto.listaDesenvolvedores}"
 							label="Defina os desenvolvedores" filter="true"
@@ -47,9 +51,10 @@
 							panelStyle="width:220px" converter="pessoaConverter">
 							<f:selectItems value="#{projetoController.todosDesenvolvedores}"
 								var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
+						
 						</p:selectCheckboxMenu>
 						
-
+						
 						<h:outputLabel value="Status" />
 						<p:selectOneMenu
 							value="#{projetoController.projetoSelecionado.status}"
@@ -73,5 +78,13 @@
 				</h:form>
 			</p:fieldset>
 
+		<p:dialog
+			header="Atuais desenvolvedores do projeto #{projetoController.projetoSelecionado.nome}"
+			modal="true" appendTo="@(body)" showEffect="clip" hideEffect="clip"
+			widgetVar="dlg" resizable="false" width="600" height="370">
+			<p:dataList id="display" value="#{projetoController.projetoSelecionado.listaDesenvolvedores}" var="dev">
+		        #{dev.nome}
+			</p:dataList>
+		</p:dialog>
 	</ui:define>
 </ui:composition>

@@ -2,15 +2,15 @@
   text-align:center;     
   width: 275px;    
   margin: 25px;    
-  min-height:175px;
+  min-height:25px;
   max-height:175px;
-  padding-top:35px;
+  /*padding-top:35px;*/
   position:relative;   
   border:1px solid #E8E8E8;  
-  border-top:60px solid #fdfd86;
+  /*border-top:60px solid #fdfd86;*/
   font-family:'Reenie Beanie';    
   font-size:22px;      
-  border-bottom-right-radius: 60px 5px;
+  border-bottom-right-radius: 25px 15px;
   display:inline-block;    
   background: rgb(255,255,136); /* Old browsers */
   background: -moz-linear-gradient(-45deg, rgba(255,255,136,1) 77%, rgba(255,255,214,1) 100%); /* FF3.6+ */
@@ -21,6 +21,31 @@
   background: linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffff88', endColorstr='#ffff88',GradientType=0 ); /* IE6-9 fallback on horizontal gradient */
 }
+
+ .postitTB {    
+  text-align:center;     
+  width: 130px;    
+  margin: 10px;    
+  min-height:25px;
+  max-height:175px;
+  /*padding-top:35px;*/
+  position:relative;   
+  border:1px solid #E8E8E8;  
+  /*border-top:60px solid #fdfd86;*/
+  font-family:'Reenie Beanie';    
+  font-size:22px;      
+  border-bottom-right-radius: 25px 15px;
+  display:inline-block;    
+  background: rgb(255,255,136); /* Old browsers */
+  background: -moz-linear-gradient(-45deg, rgba(255,255,136,1) 77%, rgba(255,255,214,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(77%,rgba(255,255,136,1)), color-stop(100%,rgba(255,255,214,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* IE10+ */
+  background: linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffff88', endColorstr='#ffff88',GradientType=0 ); /* IE6-9 fallback on horizontal gradient */
+}
+
 
 #tbvGerenciaDeProjeto\j_idt32_label.ui-selectonemenu-label\ui-inputfield\ui-corner-all{
 	width: 150px;

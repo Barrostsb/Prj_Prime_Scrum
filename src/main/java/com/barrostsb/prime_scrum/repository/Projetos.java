@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 
 import org.hibernate.criterion.Restrictions;
 
+import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.model.Desenvolvedor;
 import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.model.Projeto;
@@ -50,7 +51,9 @@ public class Projetos {
 	
 	//TODO
 	public List<Projeto> projetosPorDev(int id) {
-		Desenvolvedor desenvolvedor = manager.find(Desenvolvedor.class, id);
+		EntityManager mgr = JpaUtils.getEntityManager();
+		
+		Desenvolvedor desenvolvedor = mgr.find(Desenvolvedor.class, id);
 		List< Projeto > projetos = desenvolvedor.getListaProjetos();
 		return projetos;
 		

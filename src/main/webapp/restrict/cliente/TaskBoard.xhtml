@@ -34,12 +34,12 @@
 							<p:outputPanel id="dropAreaTodo">
 
 								<p:dataGrid id="todoGrid" var="tarefa"
-									value="#{taskBoardController.tarefasTodo}" columns="3"
+									value="#{taskBoardController.tarefasTodo}" columns="2"
 									style="width:33%">
 
 									<p:column>
 										<p:panel id="pnl" header="#{tarefa.nome}"
-											style="text-align:center">
+											style="text-align:center" class="postitTB">
 										</p:panel>
 									</p:column>
 
@@ -51,15 +51,15 @@
 
 						<p:fieldset id="inprocessColumn" legend="In Process">
 
-							<p:outputPanel id="dropAreaInprocess">
+							<p:outputPanel id="dropAreaInprocess" >
 
 								<p:dataGrid id="inprocessGrid" var="tarefa"
-									value="#{taskBoardController.tarefasInprocess}" columns="3"
+									value="#{taskBoardController.tarefasInprocess}" columns="2"
 									style="width:33%">
 
 									<p:column>
 										<p:panel id="pnl" header="#{tarefa.nome}"
-											style="text-align:center">
+											style="text-align:center" class="postitTB">
 										</p:panel>
 									</p:column>
 
@@ -74,13 +74,13 @@
 							<p:outputPanel id="dropAreaDone">
 
 								<p:dataGrid id="doneGrid" var="tarefa"
-									value="#{taskBoardController.tarefasDone}" columns="3"
+									value="#{taskBoardController.tarefasDone}" columns="2"
 									style="width:33%">
 
 									<p:column>
 										<p:panel id="pnl" header="#{tarefa.nome}"
-											style="text-align:center">
-										</p:panel>
+											style="text-align:center" class="postitTB">
+										</p:panel >
 									</p:column>
 
 								</p:dataGrid>
