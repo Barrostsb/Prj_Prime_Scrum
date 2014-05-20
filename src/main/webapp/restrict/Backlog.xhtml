@@ -25,7 +25,7 @@
 
 
 
-				<p:fieldset legend="Novo requisito" style="text-align: center;">
+				<p:fieldset legend="Nova tarefa" style="text-align: center;">
 
 					<h:form prependId="false" id="formTask">
 						<p:growl id="msg0" />
@@ -90,15 +90,15 @@
 				</p:fieldset>
 
 
-				<p:fieldset	legend="Requisitos" style="text-align: center;">
+				<p:fieldset	legend="Tarefas" style="text-align: center;">
 
 					<h:form id="formListaRequisitos">
 
 						<p:dataGrid var="tarefa"
 							value="#{tarefaController.tarefaPorProjeto}" columns="3"
-							rows="12" paginator="true"
+							rows="2" paginator="true"
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="9,12,15">
+							rowsPerPageTemplate="3,6,9">
 
 							<p:panel header="#{tarefa.nome}" class="postit" style="text-align:center">
 
@@ -135,8 +135,8 @@
 						</p:dataGrid>
 					</h:form>
 					<p:dialog id="dialog" widgetVar="dlgDadostarefa" showEffect="clip"
-						hideEffect="clip" modal="true" appendTo="@(body)" width="600"
-						height="370">
+						hideEffect="clip" modal="true" appendTo="@(body)" width="700"
+						height="500" class="postit">
 
 						<h:form id="formDialog">
 							<p:outputPanel id="detail" style="text-align:center;"
@@ -191,10 +191,6 @@
 								
 								<p:column headerText="Desenvolvedor">
 									<h:outputText value="#{tarefa.devNome}" />
-								</p:column>
-								
-								<p:column headerText="Tarefa">
-									<h:outputText value="#{tarefa.tarefaNome}" />
 								</p:column>
 								
 								<p:column headerText="Prioridade">

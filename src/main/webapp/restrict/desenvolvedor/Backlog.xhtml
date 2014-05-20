@@ -25,15 +25,15 @@
 			</h:form>
 	</p:panel>
 
-				<p:fieldset title="Requisitos">
+				<p:fieldset legend="Tarefas do Projeto" style="text-align:center">
 
 					<h:form id="formListaRequisitos">
 
 						<p:dataGrid var="tarefa"
 							value="#{tarefaController.tarefaPorProjeto}" columns="3"
-							rows="12" paginator="true"
+							rows="2" paginator="true"
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="9,12,15">
+							rowsPerPageTemplate="3,6,9">
 
 							<p:panel header="#{tarefa.nome}" style="text-align:center" class="postit">
 
@@ -55,8 +55,8 @@
 						</p:dataGrid>
 					</h:form>
 					<p:dialog id="dialog" widgetVar="dlgDadostarefa" showEffect="clip"
-						hideEffect="clip" modal="true" appendTo="@(body)" width="350"
-						height="250">
+						hideEffect="clip" modal="true" appendTo="@(body)" width="550"
+						height="300" class="postit">
 
 						<h:form id="formDialog">
 							<p:outputPanel id="detail" style="text-align:center;"

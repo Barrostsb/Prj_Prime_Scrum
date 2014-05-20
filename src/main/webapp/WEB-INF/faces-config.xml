@@ -7,5 +7,7 @@
 	<lifecycle>
 		<phase-listener>com.barrostsb.prime_scrum.JpaUtils.ControlaCache</phase-listener>
 	</lifecycle>
+	
+	
 
 </faces-config>

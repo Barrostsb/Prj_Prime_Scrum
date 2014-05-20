@@ -24,7 +24,7 @@
 	
 				<h:form id="burndownForm">
 					<p:lineChart value="#{burndownController.burnDownChart}"
-						legendPosition="e" zoom="true" animate="true"
+						legendPosition="ne" minY="0" yaxisLabel="Horas" xaxisLabel="Dias" zoom="true" animate="true"
 						title="Burndown Chart"
 						style="width:100%; height:100%; " />
 				</h:form>

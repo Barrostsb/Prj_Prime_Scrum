@@ -35,7 +35,8 @@ public class BurndownController extends TaskBoardController implements Serializa
 	private static final int HORAS_DO_DIA = 8;
 	private static final int PROJETO_CONCLUIDO = 0;
 
-	private CartesianChartModel burndown;  
+	private CartesianChartModel burndown; 
+	
 
 	public BurndownController() {  
 		createBurnDownChart();  
@@ -48,7 +49,9 @@ public class BurndownController extends TaskBoardController implements Serializa
 
 	private void createBurnDownChart() {  
 		burndown = new CartesianChartModel(); 
-
+		
+		
+		
 //		if(getTarefasDone().size() > 0 ){
 //			burndown.addSeries(getProgressoAtual());  
 //			burndown.addSeries(getProgressoIdeal());
