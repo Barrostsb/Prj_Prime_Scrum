@@ -49,7 +49,7 @@ public class ClienteController implements Serializable {
 			CadastroPessoas cadastro = new CadastroPessoas(new Pessoas(manager));
 			cliente.setPermissao("ROLE_CLIENTE");
 			cadastro.salvar(this.cliente);
-			this.cliente = new Pessoa();			
+			this.cliente = new Cliente();			
 			context.addMessage(null, new FacesMessage("Cliente salvo com sucesso!"));
 			trx.commit();
 		} catch (BusinessException e) {

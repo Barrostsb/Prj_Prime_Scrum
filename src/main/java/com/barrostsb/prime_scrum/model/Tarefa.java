@@ -108,7 +108,7 @@ public class Tarefa {
 	}
 	
 //	@Id
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name="id_projeto")
 	@ForeignKey(name="FK_Projeto_tarefa")
 	public Projeto getProjeto() {
