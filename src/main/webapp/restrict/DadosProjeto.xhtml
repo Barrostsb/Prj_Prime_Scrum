@@ -21,9 +21,9 @@
 			</h:form>
 	</p:panel>
 
-<p:fieldset legend="Novo requisito" style="text-align: center;">
+	<p:fieldset legend="Dados do projeto #{projetoController.projetoSelecionado.nome}" style="text-align: center;" >
 				<h:form id="formDadosProjeto">
-					<h:panelGrid columns="2" cellpadding="5" >
+					<h:panelGrid columns="2" cellpadding="10" style="text-align: left;">
 
 						<h:outputText value="Nome: " />
 						<p:inputText id="prjNome"
@@ -67,14 +67,18 @@
 							<f:selectItem itemLabel="Concluído" itemValue="Concluído" />
 						</p:selectOneMenu>
 
-					</h:panelGrid>
 					
-					<p:growl id="grow01" showDetail="true" />
+					
+					
 
+					<p:panel>
+					<p:growl id="grow01" showDetail="true" />
 					<p:commandButton value="Alterar Projeto"
 						action="#{projetoController.alterar}" image="ui-icon ui-icon-disk"
 						process="@form" update="grow01">
 					</p:commandButton>
+					</p:panel>
+					</h:panelGrid>
 				</h:form>
 			</p:fieldset>
 

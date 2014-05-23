@@ -30,7 +30,7 @@
 					<h:form prependId="false" id="formTask">
 						<p:growl id="msg0" />
 						<h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid"
-							id="grid0">
+							id="grid0" style="text-align: left;">
 							<h:outputLabel />
 
 							<h:inputHidden id="idTarefa"
@@ -96,7 +96,7 @@
 
 						<p:dataGrid var="tarefa"
 							value="#{tarefaController.tarefaPorProjeto}" columns="3"
-							rows="2" paginator="true"
+							rows="3" paginator="true"
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							rowsPerPageTemplate="3,6,9">
 

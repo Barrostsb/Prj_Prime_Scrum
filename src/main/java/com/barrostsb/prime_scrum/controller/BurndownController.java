@@ -34,6 +34,25 @@ public class BurndownController extends TaskBoardController implements Serializa
 	private static final long serialVersionUID = 1L;
 	private static final int HORAS_DO_DIA = 8;
 	private static final int PROJETO_CONCLUIDO = 0;
+	private float tempoTotalProjeto;
+	
+	public float getTempoTotalProjeto() {
+		return tempoTotalProjeto;
+	}
+
+	public void setTempoTotalProjeto(float tempoTotalProjeto) {
+		this.tempoTotalProjeto = tempoTotalProjeto;
+	}
+
+	private float tempoRestanteProjeto;
+
+	public float getTempoRestanteProjeto() {
+		return tempoRestanteProjeto;
+	}
+
+	public void setTempoRestanteProjeto(float tempoRestanteProjeto) {
+		this.tempoRestanteProjeto = tempoRestanteProjeto;
+	}
 
 	private CartesianChartModel burndown; 
 	
@@ -97,7 +116,8 @@ public class BurndownController extends TaskBoardController implements Serializa
 		LineChartSeries progressoAtual = new LineChartSeries();  
 		progressoAtual.setLabel("Progresso Atual");  
 		progressoAtual.setMarkerStyle("diamond");  
-		float tempoProjeto = getTempoProjeto();
+		tempoRestanteProjeto = getTempoProjeto();
+		setTempoTotalProjeto(tempoRestanteProjeto);
 		
 		//TODO tornar dinamico com inicio do projeto
 		Calendar calendar = Calendar.getInstance(); 
@@ -117,13 +137,13 @@ public class BurndownController extends TaskBoardController implements Serializa
 			
 			
 			for(Tarefa tarefa : getTarefasDone()) {
-				tempoProjeto -= tarefa.getTempo_execucao();
+				tempoRestanteProjeto -= tarefa.getTempo_execucao();
 				
 				//TODO ver com data de termino tornar dinamico os dois lines
 				//TODO ORDENAR POR DATA
 				calendar.setTime(tarefa.getDataTermino());
 	//			System.out.println(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR));
-				progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
+				progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoRestanteProjeto);
 	//			System.out.println("Progresso  " + tempoProjeto);
 			}
 			

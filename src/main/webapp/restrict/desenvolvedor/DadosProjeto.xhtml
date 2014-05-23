@@ -25,13 +25,13 @@
 				<p:commandLink id="burndown"  	style="margin-right:100px" value="BurnDown Chart" action="./BurnDown.jsf"/>
 			</h:form>
 	</p:panel>
-
+<p:panel  style="text-align: center;">
 				<h:form id="formDadosProjeto">
-					<h:panelGrid columns="1" cellpadding="5" style="width:32%;text-align: center;">
+					<h:panelGrid columns="1" cellpadding="5" style="width:100%;text-align: center;">
 
 
 						<p:fieldset legend="Cliente" >
-							<h:panelGrid columns="2" style="width:100%; height:50%" cellpadding="5">
+							<h:panelGrid columns="1" style="width:100%; height:50%" cellpadding="5">
 								<p:graphicImage value="/images/personal.png"/>
 								<h:inputHidden></h:inputHidden>
 								<h:outputText value="Nome: #{projetoController.projetoSelecionado.cliente.nome}" />
@@ -47,7 +47,7 @@
 					</p:fieldset>
 					
 						<p:fieldset legend="Scrum Master" >
-							<h:panelGrid columns="2" style="width:100%; height:50%" cellpadding="5">
+							<h:panelGrid columns="1" style="width:100%; height:50%" cellpadding="5">
 								<p:graphicImage value="/images/personal.png"/>
 								<h:inputHidden></h:inputHidden>
 								<h:outputText value="Nome: #{projetoController.projetoSelecionado.scrumMaster.nome}" />
@@ -60,7 +60,7 @@
 
 						<p:carousel value="#{projetoController.projetoSelecionado.listaDesenvolvedores}" var="dev"
 							easing="easeOutBounce">
-							<h:panelGrid  columns="2" style="width:100%; height:50%" cellpadding="5">
+							<h:panelGrid  columns="1" style="width:100%; height:100%" cellpadding="5">
 								<p:graphicImage value="/images/personal.png"/>
 								<h:inputHidden></h:inputHidden>
 								<h:outputText value="Nome: #{dev.nome}" />
@@ -75,5 +75,6 @@
 
 					</h:panelGrid>
 				</h:form>
+			</p:panel>
 	</ui:define>
 </ui:composition>

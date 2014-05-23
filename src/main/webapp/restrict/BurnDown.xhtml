@@ -28,6 +28,14 @@
 						title="Burndown Chart"
 						style="width:100%; height:100%; " />
 				</h:form>
-
+				
+				<p:panel style="text-align:left; width:30%" >
+					<p:outputLabel value="TEMPO TOTAL DO PROJETO: " style="font-weight: bold;"/>
+					<p:outputLabel value=" #{burndownController.tempoTotalProjeto} Horas" style="color:blue;"/>
+					<br></br>
+					<p:outputLabel value="TEMPO RESTANTE DO PROJETO: " style="font-weight: bold;"/>
+					<p:outputLabel value=" #{burndownController.tempoRestanteProjeto} Horas" style="color:green;" rendered="#{burndownController.tempoRestanteProjeto == 0}"/>
+					<p:outputLabel value=" #{burndownController.tempoRestanteProjeto} Horas" style="color:red;" rendered="#{burndownController.tempoRestanteProjeto != 0}"/>
+				</p:panel>
 	</ui:define>
 </ui:composition>
