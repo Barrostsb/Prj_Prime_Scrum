@@ -17,12 +17,52 @@
 
 		<p:layoutUnit position="north" size="75" header="Prime Scrum"
 			resizable="false" closable="false" collapsible="false" style="text-align:center;">
+			<p:commandButton value="Login" oncomplete="PF('dlgLogin').show();"/>
+			<p:commandButton value="Cadastrar-se" oncomplete="PF('dlgNewSm').show();"/>
 		</p:layoutUnit>
 
 		<p:layoutUnit position="center">
-			<!-- <ui:include src="./tiles/TabView.xhtml" />-->
+			
 			<ui:insert name="content">
-				<h:form styleClass="loginPanelStyle" >
+				
+				<p:graphicImage value="/images/Logo/Logo.png" alt="Prime Scrum" title="Prime Scrum"/>
+				
+				
+				<p:galleria value="#{carrouselController.images}" var="image" panelWidth="700" panelHeight="313" showCaption="true">
+    				<p:graphicImage value="/images/#{image}" alt="Descri #{image}" title="#{image}"/>
+				</p:galleria>
+				
+				<p:panel showCaption="true">
+					<h2> O que é o Prime Scrum ?</h2>
+					<p:outputLabel>
+						Prime Scrum é um framework para gerenciamento de projetos desenvolvidos seguindo a metodologia ágil Scrum<br></br><br></br>
+						Conta com Task Board, Burn Down Chart, Planning entre outros componentes do Scrum <br></br><br></br>
+						Conta tambem com um controle de acesso para Gerentes, desenvolvedores e Clientes onde cada um poderá acompanhar o andamento do projeto e realizar alterações de acordo com suas permissões.<br></br><br></br>
+						Experimente o Prime Scrum, ele é Livre!!!
+					</p:outputLabel>
+				</p:panel>
+				
+				<p:panel>
+				<h3>Tecnologias Utilizadas</h3>
+				<p:galleria value="#{carrouselController.technologies}" var="tech" panelWidth="450" panelHeight="313" showCaption="true">
+    				<p:graphicImage value="/images/technology/#{tech}" alt="tech" title="#{image}"/>
+				</p:galleria>
+				</p:panel>
+				
+				
+			
+			</ui:insert>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" size="45" resizable="false"
+			closable="false" collapsible="false">
+			<p:outputLabel id="labelLink">Desenvolvido por: </p:outputLabel> <a id="link" href="https://github.com/Barrostsb" target="_blank"> THIAGO BARROS © </a>
+		</p:layoutUnit>
+		
+		<p:dialog id="dialogLogin" widgetVar="dlgLogin" showEffect="clip"
+						hideEffect="clip" modal="true" appendTo="@(body)" width="28 0"
+						height="150">
+		<h:form styleClass="loginPanelStyle" >
 	
 		<p:growl id="msgs" showDetail="true" sticky="false" />
 		
@@ -38,25 +78,18 @@
 					<f:validateLength minimum="1" />
 				</p:password>
 				<f:facet name="footer" >
-					<p:commandButton value="Entrar" update="msgs"  actionListener="#{loginController.login}"  type="submit"	icon="ui-icon-check" style="margin:0">
-					</p:commandButton>
-					<p:commandLink value="Cadastrar" oncomplete="PF('dlgNewSm').show();">
-					</p:commandLink>
+					<p:commandButton value="Entrar" update="msgs"  actionListener="#{loginController.login}"  type="submit"	icon="ui-icon-check" style="margin:0"/>
 				</f:facet>
 			</p:panelGrid>
-	</h:form>
-			
-			</ui:insert>
-		</p:layoutUnit>
-
-		<p:layoutUnit position="south" size="45" resizable="false"
-			closable="false" collapsible="false">
-
-		</p:layoutUnit>
+		</h:form>
+		<div id="loader" class="loader" align="center"> 
+			<img width="50px" height="50px" src="./images/loading.gif"/> 
+		</div>
+	</p:dialog>
 		
 		<p:dialog id="dialog" widgetVar="dlgNewSm" showEffect="clip"
 						hideEffect="clip" modal="true" appendTo="@(body)" width="600"
-						height="370">
+						height="320">
 
 						<h:form id="formDialog">
 							<h:panelGrid columns="2" cellpadding="10" styleClass="panelGrid"
@@ -102,7 +135,7 @@
 								image="ui-icon ui-icon-disk" update="@form">
 							</p:commandButton>
 
-							<p:commandButton value="Cancelar"
+							<p:commandButton value="Limpar"
 								actionListener="#{scrumMasterController.clear}"
 								image="ui-icon ui-icon-close" update="@form">
 							</p:commandButton>
@@ -111,9 +144,7 @@
 						</h:form>
 					</p:dialog>
 	</p:layout>
-	<div id="loader" class="loader" align="center"> 
-		<img width="250px" height="250px" src="./images/loading.gif"/> 
-	</div>
+
 	<script type="text/javascript" src="./js/script.js"/>
 </h:body>
 </html>

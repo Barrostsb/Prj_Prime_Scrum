@@ -7,7 +7,44 @@
 	margin-left: -200px;
 	margin-top: -100px;
 	text-align: center;
+}
+	
+#j_idt12 {
+	position: absolute;
+	top: 10%;
+	left: 35%;
+}
+	
+#j_idt13 {
+	position: absolute;
+	top: 90%;
+	left: 10%;
+}
+	
+#j_idt15 {
+	position: absolute;
+	top: 90%;
+	left: 65%;
+	width:350px;
+	height:358px;
+}
+	
+#j_idt19 {
+	position: absolute;
+	top: 180%;
+	left: 30%;
 }	
+
+#link{
+	position: absolute;
+	left: 50%;
+}
+
+#labelLink{
+	position: absolute;
+	left: 42%;
+}
+
 
 .loader{
 	display: none;
@@ -22,8 +59,8 @@
 
 .loader img{
 	position: absolute;
-	top: 35%;
-	left: 45%;
+	top: 40%;
+	left: 43%;
 	bottom: 0;
 	
 }

@@ -12,6 +12,7 @@ import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.model.Desenvolvedor;
 import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.model.Projeto;
+import com.barrostsb.prime_scrum.model.Tarefa;
 
 
 public class Projetos {
@@ -27,6 +28,13 @@ public class Projetos {
 	}
 	
 	public void delete(Projeto projeto){
+		List<Tarefa> tarefasBuscadas;
+		tarefasBuscadas = manager.createQuery("FROM Tarefa where id_projeto = :id_proj ", Tarefa.class)
+				.setParameter("id_proj", projeto.getId_projeto())
+				.getResultList();
+		for (Tarefa tarefa : tarefasBuscadas){
+			manager.remove(tarefa);
+		}
 		this.manager.remove(projeto);
 	}
 	
