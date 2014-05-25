@@ -69,7 +69,7 @@ public class ClienteController implements Serializable {
 		try {
 			trx.begin();
 			CadastroPessoas cadastro = new CadastroPessoas(new Pessoas(manager));
-			cadastro.deletar(clienteSelecionado);
+			cadastro.deletarCliente(clienteSelecionado);
 			context.addMessage(null, new FacesMessage("Cliente excluído com sucesso!"));
 			trx.commit();
 		} catch (BusinessException e) {

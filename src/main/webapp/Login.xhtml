@@ -19,6 +19,7 @@
 			resizable="false" closable="false" collapsible="false" style="text-align:center;">
 			<p:commandButton value="Login" oncomplete="PF('dlgLogin').show();"/>
 			<p:commandButton value="Cadastrar-se" oncomplete="PF('dlgNewSm').show();"/>
+			<a id="download" href="download/P.rar">Baixe uma cópia do Framework Prime Scrum</a>
 		</p:layoutUnit>
 
 		<p:layoutUnit position="center">
@@ -29,7 +30,7 @@
 				
 				
 				<p:galleria value="#{carrouselController.images}" var="image" panelWidth="700" panelHeight="313" showCaption="true">
-    				<p:graphicImage value="/images/#{image}" alt="Descri #{image}" title="#{image}"/>
+    				<p:graphicImage value="/images/carrousel/#{image.nome}" alt="#{image.descricao}" title="#{image.titulo}"/>
 				</p:galleria>
 				
 				<p:panel showCaption="true">
@@ -44,8 +45,8 @@
 				
 				<p:panel>
 				<h3>Tecnologias Utilizadas</h3>
-				<p:galleria value="#{carrouselController.technologies}" var="tech" panelWidth="450" panelHeight="313" showCaption="true">
-    				<p:graphicImage value="/images/technology/#{tech}" alt="tech" title="#{image}"/>
+				<p:galleria value="#{carrouselController.tecnologias}" var="tech" panelWidth="315" panelHeight="210" showCaption="true">
+    				<p:graphicImage value="/images/technology/#{tech.nome}" alt="#{tech.descricao}" title="#{tech.titulo}" />
 				</p:galleria>
 				</p:panel>
 				

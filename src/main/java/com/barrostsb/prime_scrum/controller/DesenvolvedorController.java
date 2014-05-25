@@ -71,7 +71,7 @@ public class DesenvolvedorController implements Serializable {
 		try {
 			trx.begin();
 			CadastroPessoas cadastro = new CadastroPessoas(new Pessoas(manager));
-			cadastro.deletar(desenvolvedorSelecionado);
+			cadastro.deletarDev(desenvolvedorSelecionado);
 			context.addMessage(null, new FacesMessage("Desenvolvedor excluído com sucesso!"));
 			trx.commit();
 		} catch (BusinessException e) {

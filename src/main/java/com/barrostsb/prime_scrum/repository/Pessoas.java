@@ -63,6 +63,30 @@ public class Pessoas {
 	}
 
 	public void delete(Pessoa pessoa){
+
+		this.manager.remove(manager.find(Pessoa.class, pessoa.getId_pessoa()));
+	}
+	public void deleteCliente(Pessoa pessoa){
+		List<Projeto> projetoBuscados;
+		projetoBuscados = manager.createQuery("FROM Projeto where cliente = :id_cliente ", Projeto.class)
+				.setParameter("id_cliente", pessoa)
+				.getResultList();
+		
+		for (Projeto projeto : projetoBuscados){
+			projeto.setCliente(null);
+			manager.persist(projeto);
+		}
+		this.manager.remove(manager.find(Pessoa.class, pessoa.getId_pessoa()));
+	}
+	public void deleteDev(Pessoa pessoa){
+		List<Projeto> projetoBuscados;
+		projetoBuscados = manager.createQuery("FROM Projeto ", Projeto.class)
+				.getResultList();
+		
+		for (Projeto projeto : projetoBuscados){
+			projeto.getListaDesenvolvedores().remove(pessoa);
+			manager.persist(projeto);
+		}
 		this.manager.remove(manager.find(Pessoa.class, pessoa.getId_pessoa()));
 	}
 }

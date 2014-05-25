@@ -27,4 +27,10 @@ public class CadastroPessoas {
 	public void deletar(Pessoa pessoa) throws BusinessException {
 		this.pessoas.delete(pessoa);
 	}
+	public void deletarCliente(Pessoa pessoa) throws BusinessException {
+		this.pessoas.deleteCliente(pessoa);
+	}
+	public void deletarDev(Pessoa pessoa) throws BusinessException {
+		this.pessoas.deleteDev(pessoa);
+	}
 }

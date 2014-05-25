@@ -9,19 +9,19 @@
 	text-align: center;
 }
 	
-#j_idt12 {
+#j_idt13 {
 	position: absolute;
 	top: 10%;
 	left: 35%;
 }
 	
-#j_idt13 {
+#j_idt14 {
 	position: absolute;
 	top: 90%;
 	left: 10%;
 }
 	
-#j_idt15 {
+#j_idt16 {
 	position: absolute;
 	top: 90%;
 	left: 65%;
@@ -29,10 +29,10 @@
 	height:358px;
 }
 	
-#j_idt19 {
+#j_idt20 {
 	position: absolute;
 	top: 180%;
-	left: 30%;
+	left: 40%;
 }	
 
 #link{
@@ -43,6 +43,12 @@
 #labelLink{
 	position: absolute;
 	left: 42%;
+}
+
+#download{
+	position: absolute;
+	left: 80%;
+	top: 25%
 }
 
 

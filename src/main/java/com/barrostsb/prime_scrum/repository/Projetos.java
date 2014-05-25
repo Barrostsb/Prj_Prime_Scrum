@@ -35,6 +35,17 @@ public class Projetos {
 		for (Tarefa tarefa : tarefasBuscadas){
 			manager.remove(tarefa);
 		}
+		
+//		List<Desenvolvedor> devBuscados;
+//		devBuscados = manager.createQuery("FROM Desenvolvedor ", Desenvolvedor.class)
+//				.getResultList();
+//		
+//		for (Desenvolvedor dev : devBuscados){
+//			dev.getListaProjetos().remove(projeto);
+//			manager.persist(dev);
+//		}
+		projeto.setListaDesenvolvedores(null);
+		manager.persist(projeto);
 		this.manager.remove(projeto);
 	}
 	
