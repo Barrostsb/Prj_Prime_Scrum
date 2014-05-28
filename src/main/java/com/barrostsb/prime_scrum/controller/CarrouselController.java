@@ -63,8 +63,8 @@ public class CarrouselController {
 	    	
 	    	ScreenShots s6= new ScreenShots();
 	    	s6.setNome("6.png");
-	    	s6.setTitulo("Listagem de Tarefas");
-	    	s6.setDescricao("Veja e altere rapidamente suas tarefas");
+	    	s6.setTitulo("Planning");
+	    	s6.setDescricao("Veja e altere rapidamente suas tarefas com base nas informações de seus desenvolvedores!");
 	    	
 	    	ScreenShots s7 = new ScreenShots();
 	    	s7.setNome("7.png");
