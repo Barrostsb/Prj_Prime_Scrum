@@ -20,7 +20,6 @@
 		<class>com.barrostsb.prime_scrum.model.ScrumMaster</class> 
 		<class>com.barrostsb.prime_scrum.model.Cliente</class> 
 		<class>com.barrostsb.prime_scrum.model.Projeto</class> 
-		<class>com.barrostsb.prime_scrum.model.Sprint</class> 
 	 	<class>com.barrostsb.prime_scrum.model.Tarefa</class>
 	 	
 		<!--<class>com.barrostsb.prime_scrum.model.Historia</class> 

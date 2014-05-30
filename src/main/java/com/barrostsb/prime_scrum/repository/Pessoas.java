@@ -5,12 +5,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.model.Desenvolvedor;
 import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.model.ScrumMaster;
-import com.barrostsb.prime_scrum.model.Tarefa;
 
 public class Pessoas {
 	
@@ -42,8 +40,6 @@ public class Pessoas {
 	public Pessoa ScrumMasterPorId(Long id) {
 		return manager.find(ScrumMaster.class, id);
 	}
-	
-
 	
 	public List<Pessoa> todosDesenvolvedores() {
 		TypedQuery<Pessoa> query = manager.createQuery("from Desenvolvedor where id_pessoa = id_desenvolvedor", Pessoa.class);

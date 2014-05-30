@@ -199,10 +199,22 @@ public class ProjetoController implements Serializable {
 		session.setAttribute("projetoSelecionado", projetoSelecionado);
 	}
 	
+	public List<Desenvolvedor> getDevporSM() {
+		EntityManager maneger = JpaUtils.getEntityManager();
+		desenvolvedores = maneger.createQuery("FROM Desenvolvedor where id_scrumMaster = "+getUsuarioLogado().getId_pessoa(), Desenvolvedor.class).getResultList();
+		return desenvolvedores;
+	}
+	
 	public List<Desenvolvedor> getTodosDesenvolvedores() {
 		EntityManager maneger = JpaUtils.getEntityManager();
 		desenvolvedores = maneger.createQuery("FROM Desenvolvedor", Desenvolvedor.class).getResultList();
 		return desenvolvedores;
+	}
+	
+	public List<Cliente> getClientePorSM() {
+		EntityManager maneger = JpaUtils.getEntityManager();
+		clientes = maneger.createQuery("FROM Cliente where id_scrumMaster = "+getUsuarioLogado().getId_pessoa(), Cliente.class).getResultList();
+		return clientes;
 	}
 	
 	public List<Cliente> getTodosClientes() {

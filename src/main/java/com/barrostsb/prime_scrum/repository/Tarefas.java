@@ -3,11 +3,8 @@ package com.barrostsb.prime_scrum.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import com.barrostsb.prime_scrum.model.Pessoa;
-import com.barrostsb.prime_scrum.model.ScrumMaster;
 import com.barrostsb.prime_scrum.model.Tarefa;
 
 public class Tarefas {
@@ -32,9 +29,6 @@ public class Tarefas {
 
 	public List<Tarefa> todos() {
 		TypedQuery<Tarefa> query = manager.createQuery("From Tarefa ", Tarefa.class);
-//		String jpql = "select * from tarefa where tarefa.id_projeto = 1";
-//		Query query = manager . createQuery ( jpql );
-//		System.out.println(query);
 		return query.getResultList();
 	}
 }

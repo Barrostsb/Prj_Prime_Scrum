@@ -1,12 +1,8 @@
 package com.barrostsb.prime_scrum.business;
 
-import javax.persistence.EntityManager;
 
-import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.exception.BusinessException;
 import com.barrostsb.prime_scrum.model.Pessoa;
-import com.barrostsb.prime_scrum.model.Projeto;
-import com.barrostsb.prime_scrum.model.ScrumMaster;
 import com.barrostsb.prime_scrum.repository.Pessoas;
 
 public class CadastroPessoas {

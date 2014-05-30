@@ -11,8 +11,8 @@ import com.barrostsb.prime_scrum.model.Desenvolvedor;
 import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.repository.Pessoas;
 
-@FacesConverter(value="pessoaConverter" , forClass = Pessoa.class)
-public class PessoaConverter implements Converter {
+@FacesConverter(value="desenvolvedorConverter" , forClass = Pessoa.class)
+public class DesenvolvedorConverter implements Converter {
 	@Override
 	public Object getAsObject(FacesContext context,	UIComponent component, String value) {
 		Pessoa retorno = null;
@@ -21,7 +21,6 @@ public class PessoaConverter implements Converter {
 			if (value != null) {
 				Pessoas pessoas = new Pessoas(manager);
 				retorno = (Desenvolvedor)pessoas.PessoaPorLogin(value);
-//				retorno = pessoas.PessoaPorId(new Integer(value));
 			}
 			return retorno;
 		} finally {

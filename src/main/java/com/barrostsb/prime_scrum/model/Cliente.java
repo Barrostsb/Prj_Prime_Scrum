@@ -10,6 +10,12 @@ import javax.persistence.Table;
 public class Cliente extends Pessoa{
 
 	private static final long serialVersionUID = 1L;
+	private int id_scrumMaster;
 	
-
+	public int getId_scrumMaster() {
+		return id_scrumMaster;
+	}
+	public void setId_scrumMaster(int id_scrumMaster) {
+		this.id_scrumMaster = id_scrumMaster;
+	}
 }

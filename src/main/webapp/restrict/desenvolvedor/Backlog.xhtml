@@ -18,10 +18,10 @@
 	</f:metadata>
 	<p:panel id="prjHeader" header="Projeto: #{projetoController.projetoSelecionado.nome}">
 			<h:form id="adm" style="text-align:center;">
-				<p:commandLink id="dadosPrj"  style="margin-right:100px" value="Dados do Projeto" action="./DadosProjeto.jsf"/>
+				<p:commandLink id="dadosPrj"  style="margin-right:100px" value="Dados do Projeto" action="#{loginController.redirectDadosProjeto}"/>
 				<p:outputLabel id="backlog"	style="margin-right:100px;color:blue;font-weight:bold;" value="Backlog" />
-				<p:commandLink id="taskboard"	style="margin-right:100px" value="TaskBoard" action="./TaskBoard.jsf"/>
-				<p:commandLink id="burndown"  style="margin-right:100px" value="BurnDown Chart" action="./BurnDown.jsf"/>
+				<p:commandLink id="taskboard"	style="margin-right:100px" value="TaskBoard" action="#{loginController.redirectTaskBoard}"/>
+				<p:commandLink id="burndown"  	style="margin-right:100px" value="BurnDown Chart" action="#{loginController.redirectBurnDown}"/>
 			</h:form>
 	</p:panel>
 

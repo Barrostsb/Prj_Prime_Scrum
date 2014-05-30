@@ -274,4 +274,41 @@ public class LoginController{
   			}
   		}
   	}
+  	public void redirectDadosProjeto(){
+  		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("./DadosProjeto.jsf");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+  	}
+  	
+  	public void redirectBacklog(){
+  		try {
+  			FacesContext.getCurrentInstance().getExternalContext().redirect("./Backlog.jsf");
+  		} catch (IOException e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}
+  	}
+  	
+  	public void redirectTaskBoard(){
+  		try {
+  			FacesContext.getCurrentInstance().getExternalContext().redirect("./TaskBoard.jsf");
+  		} catch (IOException e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}
+  	}
+  	
+  	public void redirectBurnDown(){
+  		try {
+  			FacesContext.getCurrentInstance().getExternalContext().redirect("./BurnDown.jsf");
+  		} catch (IOException e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}
+  	}
+  	
+
 }

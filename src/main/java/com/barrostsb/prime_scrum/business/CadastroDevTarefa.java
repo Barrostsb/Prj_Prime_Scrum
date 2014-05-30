@@ -2,11 +2,7 @@ package com.barrostsb.prime_scrum.business;
 
 import com.barrostsb.prime_scrum.exception.BusinessException;
 import com.barrostsb.prime_scrum.model.Desenvolvedor_tarefa;
-import com.barrostsb.prime_scrum.model.Pessoa;
-import com.barrostsb.prime_scrum.model.Tarefa;
 import com.barrostsb.prime_scrum.repository.DevTarefas;
-import com.barrostsb.prime_scrum.repository.Pessoas;
-import com.barrostsb.prime_scrum.repository.Tarefas;
 
 public class CadastroDevTarefa {
 	private DevTarefas tarefas;

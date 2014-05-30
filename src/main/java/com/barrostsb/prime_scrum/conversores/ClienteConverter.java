@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.model.Cliente;
-import com.barrostsb.prime_scrum.model.Desenvolvedor;
 import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.repository.Pessoas;
 
@@ -22,7 +21,6 @@ public class ClienteConverter implements Converter {
 			if (value != null) {
 				Pessoas pessoas = new Pessoas(manager);
 				retorno = (Cliente)pessoas.PessoaPorLogin(value);
-//				retorno = pessoas.PessoaPorId(new Integer(value));
 			}
 			return retorno;
 		} finally {

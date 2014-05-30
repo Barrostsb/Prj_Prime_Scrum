@@ -15,9 +15,9 @@
 	<p:panel id="prjHeader" header="Projeto: #{projetoController.projetoSelecionado.nome}">
 			<h:form id="adm" style="text-align:center;">
 				<p:outputLabel id="dadosPrj"	style="margin-right:100px;color:blue;font-weight:bold;" value="Dados do Projeto" />
-				<p:commandLink id="backlog"		style="margin-right:100px" value="Backlog" action="./Backlog.jsf" />
-				<p:commandLink id="taskboard"	style="margin-right:100px" value="TaskBoard" action="./TaskBoard.jsf"/>
-				<p:commandLink id="burndown"  	style="margin-right:100px" value="BurnDown Chart" action="./BurnDown.jsf"/>
+				<p:commandLink id="backlog"		style="margin-right:100px" value="Backlog" action="#{loginController.redirectBacklog}" />
+				<p:commandLink id="taskboard"	style="margin-right:100px" value="TaskBoard" action="#{loginController.redirectTaskBoard}"/>
+				<p:commandLink id="burndown"  	style="margin-right:100px" value="BurnDown Chart" action="#{loginController.redirectBurnDown}"/>
 			</h:form>
 	</p:panel>
 
@@ -35,7 +35,7 @@
 							converter="clienteConverter" label="Cliente" 
 							filter="true" style="width:150px;">
 							<f:selectItem  noSelectionOption="true"/>
-							<f:selectItems value="#{projetoController.todosClientes}"
+							<f:selectItems value="#{projetoController.clientePorSM}"
 								var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}"  />
 						</p:selectOneMenu>
 
@@ -48,9 +48,9 @@
 							value="#{projetoController.projeto.listaDesenvolvedores}"
 							label="Defina os desenvolvedores" filter="true"
 							filterText="Filter" filterMatchMode="startsWith"
-							panelStyle="width:220px" converter="pessoaConverter">
-							<f:selectItems value="#{projetoController.todosDesenvolvedores}"
-								var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}" />
+							panelStyle="width:220px" converter="desenvolvedorConverter">
+							<f:selectItems value="#{projetoController.devporSM}"
+								var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.login}"  />
 						
 						</p:selectCheckboxMenu>
 						
@@ -58,9 +58,9 @@
 						<h:outputLabel value="Status" />
 						<p:selectOneMenu
 							value="#{projetoController.projetoSelecionado.status}"
-							label="Defina o status" style="width:150px;">
+							label="Defina o status" style="width:150px;" >
 							<f:selectItem  noSelectionOption="true"
-								style="width:150px;" />
+								 />
 							<f:selectItem itemLabel="Não Iniciado" itemValue="Não Iniciado" />
 							<f:selectItem itemLabel="Em Desenvolvimento"
 								itemValue="Em Desenvolvimento" />

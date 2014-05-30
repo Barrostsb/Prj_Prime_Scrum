@@ -3,14 +3,11 @@ package com.barrostsb.prime_scrum.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import org.hibernate.criterion.Restrictions;
 
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.model.Desenvolvedor;
-import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.model.Tarefa;
 
@@ -35,15 +32,6 @@ public class Projetos {
 		for (Tarefa tarefa : tarefasBuscadas){
 			manager.remove(tarefa);
 		}
-		
-//		List<Desenvolvedor> devBuscados;
-//		devBuscados = manager.createQuery("FROM Desenvolvedor ", Desenvolvedor.class)
-//				.getResultList();
-//		
-//		for (Desenvolvedor dev : devBuscados){
-//			dev.getListaProjetos().remove(projeto);
-//			manager.persist(dev);
-//		}
 		projeto.setListaDesenvolvedores(null);
 		manager.persist(projeto);
 		this.manager.remove(projeto);
@@ -68,7 +56,6 @@ public class Projetos {
 		return query.getResultList();
 	}
 	
-	//TODO
 	public List<Projeto> projetosPorDev(int id) {
 		EntityManager mgr = JpaUtils.getEntityManager();
 		
@@ -76,17 +63,7 @@ public class Projetos {
 		List< Projeto > projetos = desenvolvedor.getListaProjetos();
 		return projetos;
 		
-//		List<Integer> id_projeto  = manager.createNativeQuery("select projeto_id from desenvolvedor_projeto where desenvolvedor_id = " +id).getResultList(); 
-//		List<Projeto> projetos = null;
-//		for (int idProj : id_projeto){
-//			Projeto projeto = manager.find(Projeto.class, idProj);
-//			projetos.add(projeto);
-//		}
-//		
-//		return projetos;
 	}
-	
-	
 	
 	public List<Projeto> projetosPorCliente(int id) {
 		TypedQuery<Projeto> query = manager.createQuery("from Projeto  where cliente = " + id,

@@ -2,39 +2,9 @@ package com.barrostsb.prime_scrum.EntitiesPKs;
 
 import java.io.Serializable;
 
-import com.barrostsb.prime_scrum.model.Desenvolvedor;
-import com.barrostsb.prime_scrum.model.Tarefa;
 
 public class DevTaskVal_PK implements Serializable {
 	private static final long serialVersionUID = 1L;
-//	
-//	private int tarefa;
-//	private int desenvolvedor;
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + desenvolvedor;
-//		result = prime * result + tarefa;
-//		return result;
-//	}
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		DevTaskVal_PK other = (DevTaskVal_PK) obj;
-//		if (desenvolvedor != other.desenvolvedor)
-//			return false;
-//		if (tarefa != other.tarefa)
-//			return false;
-//		return true;
-//	}
-	
-	
 	private int devId;
 	private int tarefaId;
 	

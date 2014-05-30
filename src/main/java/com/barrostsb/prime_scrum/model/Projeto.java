@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,46 +14,55 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 
 @Entity
 @Table (name = "projeto")
 public class Projeto implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	private static final String NAO_INCICADO = "Não Iniciado";
 	
+	private static final long serialVersionUID = 1L;
+	
+	private static final String NAO_INCICADO = "Não Iniciado";
 	private int id_projeto;	
 	private ScrumMaster scrumMaster;
 	private Cliente cliente;
 	private List<Desenvolvedor> listaDesenvolvedores;
-
 	private String nome;
-//	private List<Sprint> listaSprint;
-//	private List<Historia> listaHistoria;
 	private Date dataInicio;
 	private Date dataTermino;
-	
 	private String status = NAO_INCICADO;
 
+	@Id
+	@GeneratedValue
+	public int getId_projeto() {
+		return id_projeto;
+	}
+	public void setId_projeto(int id_projeto) {
+		this.id_projeto = id_projeto;
+	}
+	
+	@Column
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
 	public Date getDataInicio() {
 		return dataInicio;
 	}
+	
 	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
 	}
+	
 	public String getStatus() {
 		return status;
 	}
+	
 	public void setStatus(String status) {
-		
 		if (status.equals("Não Iniciado")){
 			setDataInicio(null);
 			setDataTermino(null);
@@ -80,20 +88,14 @@ public class Projeto implements Serializable{
 		this.dataTermino = dataTermino;
 	}
 	
-	
-//	@ManyToMany(mappedBy="listaProjetos", fetch=FetchType.LAZY)
-	
 	@ManyToMany(cascade={ CascadeType.ALL, CascadeType.MERGE } , fetch = FetchType.EAGER)  
     @JoinTable(name="desenvolvedor_projeto",   
     		joinColumns = @JoinColumn(name="projeto_id" , referencedColumnName="id_projeto"),
     		inverseJoinColumns = @JoinColumn(name="desenvolvedor_id" , referencedColumnName="id_desenvolvedor"))
 	public List<Desenvolvedor> getListaDesenvolvedores() {
-//		for(Desenvolvedor dev : listaDesenvolvedores){
-//			System.out.println("lista de desenvolvedores" + dev.getNome());
-//		}
-		
 		return listaDesenvolvedores;
 	}
+	
 	public void setListaDesenvolvedores(List<Desenvolvedor> listaDesenvolvedores) {
 		this.listaDesenvolvedores = listaDesenvolvedores;
 	}
@@ -117,41 +119,7 @@ public class Projeto implements Serializable{
 		this.cliente = cliente;
 	}
 	
-	@Id
-	@GeneratedValue
-	public int getId_projeto() {
-		return id_projeto;
-	}
-	public void setId_projeto(int id_projeto) {
-		this.id_projeto = id_projeto;
-	}
 	
-	@Column
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
-//	@OneToMany(mappedBy = "projeto", fetch=FetchType.LAZY)
-//	public List<Sprint> getListaSprint() {
-//		return listaSprint;
-//	}
-//	
-//	public void setListaSprint(List<Sprint> listaSprint) {
-//		this.listaSprint = listaSprint;
-//	}
-	
-//	@OneToMany(mappedBy = "projeto", fetch=FetchType.LAZY)
-//	public List<Historia> getListaHistoria() {
-//		return listaHistoria;
-//	}
-//	public void setListaHistoria(List<Historia> listaHistoria) {
-//		this.listaHistoria = listaHistoria;
-//	}
-	
-
 	
 	@Override
 	public int hashCode() {
@@ -174,5 +142,4 @@ public class Projeto implements Serializable{
 			return false;
 		return true;
 	}
-	
 }

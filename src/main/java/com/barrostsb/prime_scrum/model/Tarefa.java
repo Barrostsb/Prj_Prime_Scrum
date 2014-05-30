@@ -1,89 +1,29 @@
 package com.barrostsb.prime_scrum.model;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
-import com.barrostsb.prime_scrum.EntitiesPKs.TarefaPK;
-
 @Entity
 @Table (name = "tarefa")
-//@IdClass(value=TarefaPK.class)
 public class Tarefa {
 	private Projeto projeto;
-//	private int sprint;
-//	private int historia;
 	private int id_tarefa;
 	private Desenvolvedor desenvolvedor;
-	
-//	//TODO
-//	private List<Desenvolvedor> listaDesenvolvedor;
-//	@ManyToMany(mappedBy="listaTarefas", fetch=FetchType.LAZY)
-//	public List<Desenvolvedor> getListaDesenvolvedor() {
-//		return listaDesenvolvedor;
-//	}
-//
-//	public void setListaDesenvolvedor(List<Desenvolvedor> listaDesenvolvedor) {
-//		this.listaDesenvolvedor = listaDesenvolvedor;
-//	}
-	
-	
-//	@OneToMany(mappedBy="tarefaId")
-//	private Set<Desenvolvedor_tarefa_valores> desenvolvedor_valores;
-	
-	
-	
-	
-
 	private String nome;
 	private String tskBrdDesc;
 	private Date dataTermino;
-	
-
-
 	private int prioridade;
-
 	private float tempo_execucao;
 	private int dificuldade;
-	
-	
-	
-	
-
-//	@Column
-//	public int getSprint() {
-//		return sprint;
-//	}
-//	
-//	public void setSprint(int sprint) {
-//		this.sprint = sprint;
-//	}
-	
-//	@ManyToOne
-//	@JoinColumn(name="id_historia")
-//	public int getHistoria() {
-//		return historia;
-//	}
-//	
-//	public void setHistoria(int historia) {
-//		this.historia = historia;
-//	}
-	
 	
 	@ManyToOne
 	@JoinColumn(name = "id_desenvolvedor", referencedColumnName="id_desenvolvedor", nullable= true)
@@ -96,7 +36,6 @@ public class Tarefa {
 		this.desenvolvedor = desenvolvedor;
 	}
 	
-	
 	@Id
 	@GeneratedValue
 	public int getId_tarefa() {
@@ -107,7 +46,6 @@ public class Tarefa {
 		this.id_tarefa = id_tarefa;
 	}
 	
-//	@Id
 	@ManyToOne
 	@JoinColumn(name="id_projeto")
 	@ForeignKey(name="FK_Projeto_tarefa")
@@ -123,8 +61,6 @@ public class Tarefa {
 	public String getNome() {
 		return nome;
 	}
-	
-
 
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -178,8 +114,6 @@ public class Tarefa {
 	public void setTskBrdDesc(String tskBrdDesc) {
 		this.tskBrdDesc = tskBrdDesc;
 	}
-	
-	
 	
 	@Override
 	public int hashCode() {

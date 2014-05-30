@@ -19,10 +19,10 @@
 	
 	<p:panel id="prjHeader" header="Projeto: #{projetoController.projetoSelecionado.nome}">
 			<h:form id="adm" style="text-align:center;">
-				<p:outputLabel id="dadosPrj"	style="margin-right:100px;color:blue;font-weight:bold;" value="Dados do Projeto" />
-				<p:commandLink id="backlog"		style="margin-right:100px" value="Backlog" action="./Backlog.jsf" />
-				<p:commandLink id="taskboard"	style="margin-right:100px" value="TaskBoard" action="./TaskBoard.jsf"/>
-				<p:commandLink id="burndown"  	style="margin-right:100px" value="BurnDown Chart" action="./BurnDown.jsf"/>
+<p:outputLabel id="dadosPrj"	style="margin-right:100px;color:blue;font-weight:bold;" value="Dados do Projeto" />
+				<p:commandLink id="backlog"		style="margin-right:100px" value="Backlog" action="#{loginController.redirectBacklog}" />
+				<p:commandLink id="taskboard"	style="margin-right:100px" value="TaskBoard" action="#{loginController.redirectTaskBoard}"/>
+				<p:commandLink id="burndown"  	style="margin-right:100px" value="BurnDown Chart" action="#{loginController.redirectBurnDown}"/>
 			</h:form>
 	</p:panel>
 <p:panel  style="text-align: center;">

@@ -9,6 +9,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.business.CadastroDevTarefa;
@@ -28,7 +30,7 @@ import com.barrotsb.prime_scrum.facesUtils.FacesUtil;
 public class ClienteController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Pessoa cliente = new Cliente();
+	private Cliente cliente = new Cliente();
 	private Pessoa clienteSelecionado;
 
 	public Pessoa getClienteSelecionado() {
@@ -49,6 +51,7 @@ public class ClienteController implements Serializable {
 			CadastroPessoas cadastro = new CadastroPessoas(new Pessoas(manager));
 			cliente.setPermissao("ROLE_CLIENTE");
 			cadastro.salvar(this.cliente);
+			cliente.setId_scrumMaster(getUsuarioLogado().getId_pessoa());
 			this.cliente = new Cliente();			
 			context.addMessage(null, new FacesMessage("Cliente salvo com sucesso!"));
 			trx.commit();
@@ -57,6 +60,15 @@ public class ClienteController implements Serializable {
 			FacesMessage mensagem = new FacesMessage(e.getMessage());
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 		}
+	}
+
+	private Pessoa getUsuarioLogado() {
+		Pessoa usuarioLogado;
+		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpSession session = (HttpSession) request.getSession();
+		usuarioLogado = (Pessoa) session.getAttribute("usuarioLogado");
+		return usuarioLogado;
 	}
 	
 	public void deletar(ActionEvent event) {
@@ -107,7 +119,7 @@ public class ClienteController implements Serializable {
 	}
 	
 	public String clear(){
-		cliente = new Pessoa();
+		cliente = new Cliente();
 		return "/restrict/CadastrarCliente.jsf"; 
 	}
 	
@@ -115,7 +127,7 @@ public class ClienteController implements Serializable {
 		return cliente;
 	}
 	
-	public void setCliente(Pessoa cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 }

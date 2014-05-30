@@ -51,7 +51,6 @@
 							requiredMessage="O Campo de confirmação de senha é Obrigatório!">
 						</p:password>
 
-
 						<p:panel>
 							<p:commandButton value="Salvar"
 								action="#{clienteController.salvar}"
@@ -69,7 +68,7 @@
 			
 			<p:tab title="Lista de Clientes">
 			<h:form id="formClientes">
-				<p:dataTable var="cliente" value="#{projetoController.todosClientes}">
+				<p:dataTable var="cliente" value="#{projetoController.clientePorSM}">
 								<p:column headerText="Nome">
 									<h:outputText value="#{cliente.nome}" />
 								</p:column>

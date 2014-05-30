@@ -9,6 +9,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.business.CadastroPessoas;
@@ -29,7 +31,7 @@ import com.barrotsb.prime_scrum.facesUtils.FacesUtil;
 public class DesenvolvedorController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Pessoa desenvolvedor = new Desenvolvedor();
+	private Desenvolvedor desenvolvedor = new Desenvolvedor();
 	private Pessoa devSelecionado;
 
 	public Pessoa getDevSelecionado() {
@@ -47,9 +49,11 @@ public class DesenvolvedorController implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		try {
+			getUsuarioLogado();
 			trx.begin();
 			CadastroPessoas cadastro = new CadastroPessoas(new Pessoas(manager));
 			desenvolvedor.setPermissao("ROLE_DEV");
+			desenvolvedor.setId_scrumMaster(getUsuarioLogado().getId_pessoa());
 			cadastro.salvar(this.desenvolvedor);
 			this.desenvolvedor = new Desenvolvedor();
 			context.addMessage(null, new FacesMessage("Desenvolvedor salvo com sucesso!"));
@@ -59,6 +63,15 @@ public class DesenvolvedorController implements Serializable {
 			FacesMessage mensagem = new FacesMessage(e.getMessage());
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 		}
+	}
+	
+	private Pessoa getUsuarioLogado() {
+		Pessoa usuarioLogado;
+		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpSession session = (HttpSession) request.getSession();
+		usuarioLogado = (Pessoa) session.getAttribute("usuarioLogado");
+		return usuarioLogado;
 	}
 	
 	public void deletar(ActionEvent event) {
@@ -109,7 +122,7 @@ public class DesenvolvedorController implements Serializable {
 	}
 
 	public String clear(){
-		desenvolvedor = new Pessoa();
+		desenvolvedor = new Desenvolvedor();
 		return "/restrict/CadastrarDesenvolvedor.jsf"; 
 	}
 
