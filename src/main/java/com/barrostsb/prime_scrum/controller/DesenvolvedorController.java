@@ -14,16 +14,10 @@ import javax.servlet.http.HttpSession;
 
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.business.CadastroPessoas;
-import com.barrostsb.prime_scrum.business.CadastroProjetos;
-import com.barrostsb.prime_scrum.business.CadastroTarefas;
 import com.barrostsb.prime_scrum.exception.BusinessException;
 import com.barrostsb.prime_scrum.model.Desenvolvedor;
 import com.barrostsb.prime_scrum.model.Pessoa;
-import com.barrostsb.prime_scrum.model.Projeto;
-import com.barrostsb.prime_scrum.model.Tarefa;
 import com.barrostsb.prime_scrum.repository.Pessoas;
-import com.barrostsb.prime_scrum.repository.Projetos;
-import com.barrostsb.prime_scrum.repository.Tarefas;
 import com.barrotsb.prime_scrum.facesUtils.FacesUtil;
 
 @ManagedBean(name = "desenvolvedorController")
@@ -33,15 +27,6 @@ public class DesenvolvedorController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Desenvolvedor desenvolvedor = new Desenvolvedor();
 	private Pessoa devSelecionado;
-
-	public Pessoa getDevSelecionado() {
-		return devSelecionado;
-	}
-
-	public void setDevSelecionado(Pessoa devSelecionado) {
-//		idTarefaSelecionada = this.tarefaSelecionada.getId_tarefa();
-		this.devSelecionado = devSelecionado;
-	}
 
 	public void salvar() {
 		EntityManager manager = JpaUtils.getEntityManager();
@@ -95,11 +80,7 @@ public class DesenvolvedorController implements Serializable {
 	}
 	
 	public void atualizarDados(){
-//		Tarefa tarefaSelecionada = (Tarefa) FacesUtil.getActionAttribute(event, "tarefaAtualizada");
-//		Integer tarefaSelecionada = (Integer) FacesUtil.getActionAttribute(event, "tarefaAtualizada");
-//		tarefaSelecionada.setPrioridade(5);
 		alterar(devSelecionado);
-//		System.out.println("prioridade  "+ prioridade);
 	}
 	
 	public void alterar(Pessoa desenvolvedor) {
@@ -124,6 +105,14 @@ public class DesenvolvedorController implements Serializable {
 	public String clear(){
 		desenvolvedor = new Desenvolvedor();
 		return "/restrict/CadastrarDesenvolvedor.jsf"; 
+	}
+	
+	public Pessoa getDevSelecionado() {
+		return devSelecionado;
+	}
+
+	public void setDevSelecionado(Pessoa devSelecionado) {
+		this.devSelecionado = devSelecionado;
 	}
 
 	public Pessoa getDesenvolvedor() {

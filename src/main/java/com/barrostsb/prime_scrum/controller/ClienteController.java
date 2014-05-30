@@ -13,15 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
-import com.barrostsb.prime_scrum.business.CadastroDevTarefa;
 import com.barrostsb.prime_scrum.business.CadastroPessoas;
 import com.barrostsb.prime_scrum.exception.BusinessException;
 import com.barrostsb.prime_scrum.model.Cliente;
-import com.barrostsb.prime_scrum.model.Desenvolvedor;
-import com.barrostsb.prime_scrum.model.Desenvolvedor_tarefa;
 import com.barrostsb.prime_scrum.model.Pessoa;
-import com.barrostsb.prime_scrum.model.ScrumMaster;
-import com.barrostsb.prime_scrum.repository.DevTarefas;
 import com.barrostsb.prime_scrum.repository.Pessoas;
 import com.barrotsb.prime_scrum.facesUtils.FacesUtil;
 
@@ -32,14 +27,6 @@ public class ClienteController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Cliente cliente = new Cliente();
 	private Pessoa clienteSelecionado;
-
-	public Pessoa getClienteSelecionado() {
-		return clienteSelecionado;
-	}
-
-	public void setClienteSelecionado(Pessoa clienteSelecionado) {
-		this.clienteSelecionado = clienteSelecionado;
-	}
 
 	public void salvar() {
 		EntityManager manager = JpaUtils.getEntityManager();
@@ -92,11 +79,7 @@ public class ClienteController implements Serializable {
 	}
 	
 	public void atualizarDados(){
-//		Tarefa tarefaSelecionada = (Tarefa) FacesUtil.getActionAttribute(event, "tarefaAtualizada");
-//		Integer tarefaSelecionada = (Integer) FacesUtil.getActionAttribute(event, "tarefaAtualizada");
-//		tarefaSelecionada.setPrioridade(5);
 		alterar(clienteSelecionado);
-//		System.out.println("prioridade  "+ prioridade);
 	}
 	
 	public void alterar(Pessoa cliente) {
@@ -129,5 +112,13 @@ public class ClienteController implements Serializable {
 	
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+	
+	public Pessoa getClienteSelecionado() {
+		return clienteSelecionado;
+	}
+
+	public void setClienteSelecionado(Pessoa clienteSelecionado) {
+		this.clienteSelecionado = clienteSelecionado;
 	}
 }

@@ -1,19 +1,15 @@
 package com.barrostsb.prime_scrum.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -25,7 +21,6 @@ import com.barrostsb.prime_scrum.model.Desenvolvedor;
 import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.model.ScrumMaster;
-import com.barrostsb.prime_scrum.model.Tarefa;
 import com.barrostsb.prime_scrum.repository.Projetos;
 import com.barrotsb.prime_scrum.facesUtils.FacesUtil;
 
@@ -39,14 +34,10 @@ public class ProjetoController implements Serializable {
 	private List<Projeto> projetosBuscados = null;
 	private List<Desenvolvedor> desenvolvedores;
 	private List<Cliente> clientes;
-
 	private Projeto projetoSelecionado;
 
 	EntityManager manager = JpaUtils.getEntityManager();
 	
-	public ProjetoController() {
-		System.out.println(0);//TODO);
-	}
 	public void salvar() {
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -82,13 +73,10 @@ public class ProjetoController implements Serializable {
 	public void alterar() {
 		EntityTransaction trx = manager.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
-		FacesMessage msg = null;
-		
 		
 		try {
 			trx.begin();
 			
-			//TODO
 			projetoSelecionado.setListaDesenvolvedores(projeto.getListaDesenvolvedores());
 			
 			CadastroProjetos cadastro = new CadastroProjetos(new Projetos(manager));
@@ -124,18 +112,6 @@ public class ProjetoController implements Serializable {
 	public void buscarTodosProjetos() {
 		Projetos prjs = new Projetos(manager);
 		prjs.todos();
-
-		//		EntityManager manager = JpaUtils.getEntityManager();
-		//		TypedQuery<Projeto> query = manager.createQuery("from Projeto", Projeto.class);
-		//		this.projetosBuscados = query.getResultList();
-		//		manager.close();
-
-		//		EntityManager maneger = JpaUtils.getEntityManager();
-		//		try {
-		//			projetosBuscados = maneger.createQuery("FROM Projeto").getResultList();
-		//		} finally {
-		//			maneger.close();
-		//		}
 	}
 	
 	public List<Projeto> getProjetosPorSM(){
@@ -155,7 +131,6 @@ public class ProjetoController implements Serializable {
 		projetosBuscados = prjs.projetosPorCliente(getUsuarioLogado().getId_pessoa());
 		return projetosBuscados;
 	}
-	
 
 	public String clear(){
 		projeto = new Projeto();
@@ -164,15 +139,7 @@ public class ProjetoController implements Serializable {
 
 
 	public List<Projeto> getProjetosBuscados() {
-//		EntityManager maneger = JpaUtils.getEntityManager();
-//		try {
-			projetosBuscados = manager.createQuery("FROM Projeto", Projeto.class).getResultList();
-//			TypedQuery<Projeto> query = maneger.createQuery("from Projeto", Projeto.class);
-//			projetosBuscados = query.getResultList();
-////			manager.close();
-//		} finally {
-//			maneger.close();
-//		}
+		projetosBuscados = manager.createQuery("FROM Projeto", Projeto.class).getResultList();
 		return projetosBuscados;
 	}
 
@@ -230,6 +197,5 @@ public class ProjetoController implements Serializable {
 				.getResultList();
 		return desenvolvedores;
 	}
-
 }
 

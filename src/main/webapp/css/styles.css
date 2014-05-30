@@ -3,16 +3,13 @@
   width: 275px;    
   margin: 25px;    
   min-height:25px;
- /* max-height:175px;*/
-  /*padding-top:35px;*/
   position:relative;   
   border:1px solid #E8E8E8;  
-  /*border-top:60px solid #fdfd86;*/
   font-family:'Reenie Beanie';    
   font-size:22px;      
   border-bottom-right-radius: 25px 15px;
   display:inline-block;    
-  background: rgb(255,255,136); /* Old browsers */
+  background: rgb(255,255,136); 
   background: -moz-linear-gradient(-45deg, rgba(255,255,136,1) 77%, rgba(255,255,214,1) 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, right bottom, color-stop(77%,rgba(255,255,136,1)), color-stop(100%,rgba(255,255,214,1))); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* Chrome10+,Safari5.1+ */
@@ -27,16 +24,13 @@
   width: 130px;    
   margin: 10px;    
   min-height:25px;
-/*  max-height:175px;*/
-  /*padding-top:35px;*/
   position:relative;   
   border:1px solid #E8E8E8;  
-  /*border-top:60px solid #fdfd86;*/
   font-family:'Reenie Beanie';    
   font-size:22px;      
   border-bottom-right-radius: 25px 15px;
   display:inline-block;    
-  background: rgb(255,255,136); /* Old browsers */
+  background: rgb(255,255,136); 
   background: -moz-linear-gradient(-45deg, rgba(255,255,136,1) 77%, rgba(255,255,214,1) 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, right bottom, color-stop(77%,rgba(255,255,136,1)), color-stop(100%,rgba(255,255,214,1))); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(-45deg, rgba(255,255,136,1) 77%,rgba(255,255,214,1) 100%); /* Chrome10+,Safari5.1+ */

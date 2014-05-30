@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -15,14 +14,11 @@ import javax.persistence.EntityTransaction;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.event.RateEvent;
-import org.primefaces.event.TabChangeEvent;
 
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.business.CadastroDevTarefa;
 import com.barrostsb.prime_scrum.business.CadastroTarefas;
 import com.barrostsb.prime_scrum.exception.BusinessException;
-import com.barrostsb.prime_scrum.model.Desenvolvedor;
 import com.barrostsb.prime_scrum.model.Desenvolvedor_tarefa;
 import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.model.Projeto;
@@ -39,25 +35,10 @@ public class DesenvolvedorTarefaController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Desenvolvedor_tarefa devTarefa = new Desenvolvedor_tarefa();
 	private List<Tarefa> tarefasBuscadas = null;
-
-	public DesenvolvedorTarefaController() {  
-		tarefasBuscadas = new ArrayList<Tarefa>();
-	} 
-
 	private List<Projeto> todosProjetos = null;
-
-	EntityManager manager = JpaUtils.getEntityManager();
-
-	public List<Projeto> getTodosProjetos() {
-		return todosProjetos;
-	}
-
-	public void setTodosProjetos(List<Projeto> todosProjetos) {
-		this.todosProjetos = todosProjetos;
-	}
-
 	private Tarefa tarefaSelecionada;
 
+	EntityManager manager = JpaUtils.getEntityManager();
 
 	public void prepararCadastro() {
 		EntityManager manager = JpaUtils.getEntityManager();
@@ -114,24 +95,11 @@ public class DesenvolvedorTarefaController implements Serializable {
 		usuario = (Pessoa) session.getAttribute("usuarioLogado");
 		
 		Tarefa tarefaSel = (Tarefa) FacesUtil.getActionAttribute(event, "tarefaSelecionada");
-//		Desenvolvedor tarefaSelDev = (Desenvolvedor) FacesUtil.getActionAttribute(event, "usuarioLogado");
-//		Desenvolvedor tarefaSelDev = (Desenvolvedor) FacesUtil.getActionAttribute(event, "tarefaSelecionadaDev");
-//		devTarefa.setTarefa(tarefaSel);
-//		devTarefa.setDesenvolvedor(tarefaSelDev);
-		
-//		devTarefa.setDesenvolvedor((Desenvolvedor) usuario);
 		
 		devTarefa.setTarefaId(tarefaSel.getId_tarefa());
 		devTarefa.setTarefaNome(tarefaSel.getNome());
 		devTarefa.setDevId(usuario.getId_pessoa());
 		devTarefa.setDevNome(usuario.getLogin());
-		System.out.println("DADOS: " );
-		//System.out.println("dev: " + devTarefa.getDesenvolvedor().getNome());
-		//System.out.println("tarefe: " +devTarefa.getTarefa().getNome());
-		System.out.println("Dificuldade: " +devTarefa.getDificuldade());
-		System.out.println("priori: "+devTarefa.getPrioridade() );
-		System.out.println("tempo: " +devTarefa.getTempo_execucao());
-		
 		alterar();
 	}
 
@@ -159,12 +127,10 @@ public class DesenvolvedorTarefaController implements Serializable {
 		tarefas.todos();
 	}
 
-
 	public String clear(){
 		devTarefa = new Desenvolvedor_tarefa();
 		return "/restrict/desenvolvedor/CadastrarProjeto.jsf"; 
 	}
-
 
 	public List<Tarefa> getTodasTarefas() {
 		EntityManager maneger = JpaUtils.getEntityManager();
@@ -188,19 +154,25 @@ public class DesenvolvedorTarefaController implements Serializable {
 		projeto = (Projeto) session.getAttribute("projetoSelecionado");
 		return projeto;
 	}
+	
+	public DesenvolvedorTarefaController() {  
+		tarefasBuscadas = new ArrayList<Tarefa>();
+	} 
 
+	public List<Projeto> getTodosProjetos() {
+		return todosProjetos;
+	}
+
+	public void setTodosProjetos(List<Projeto> todosProjetos) {
+		this.todosProjetos = todosProjetos;
+	}
+
+	
 	public Tarefa getTarefaSelecionada() {
-//		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-//		HttpServletRequest request = (HttpServletRequest) req;
-//		HttpSession session = (HttpSession) request.getSession();
-//		tarefaSelecionada = (Tarefa) session.getAttribute("tarefaSelecionada");
 		return tarefaSelecionada;
 	}
 
 	public void setTarefaSelecionada(Tarefa tarefaSelecionada) {
-//		FacesContext fc = FacesContext.getCurrentInstance();
-//		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-//		session.setAttribute("tarefaSelecionada", tarefaSelecionada);
 		this.tarefaSelecionada = tarefaSelecionada;
 	}
 

@@ -1,29 +1,17 @@
 package com.barrostsb.prime_scrum.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.chart.CartesianChartModel;
-import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartSeries;
 
-import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
-import com.barrostsb.prime_scrum.model.Pessoa;
-import com.barrostsb.prime_scrum.model.Projeto;
 import com.barrostsb.prime_scrum.model.Tarefa;
 
 @ManagedBean(name = "burndownController")
@@ -68,16 +56,6 @@ public class BurndownController extends TaskBoardController implements Serializa
 
 	private void createBurnDownChart() {  
 		burndown = new CartesianChartModel(); 
-		
-		
-		
-//		if(getTarefasDone().size() > 0 ){
-//			burndown.addSeries(getProgressoAtual());  
-//			burndown.addSeries(getProgressoIdeal());
-//		}else{
-//			burndown.addSeries(getProgressoIdeal());
-//			burndown.addSeries(getProgressoAtual());
-//		}
 		burndown.addSeries(getProgressoAtual());
 	}
 	
@@ -104,7 +82,6 @@ public class BurndownController extends TaskBoardController implements Serializa
 	}
 
 	private float getTempoProjeto() {
-//		float tempoProjeto = PROJETO_CONCLUIDO;
 		float tempoProjeto = 0;
 		for(Tarefa tarefa : getTarefaPorProjeto()) {
 			tempoProjeto += tarefa.getTempo_execucao();
@@ -119,11 +96,9 @@ public class BurndownController extends TaskBoardController implements Serializa
 		tempoRestanteProjeto = getTempoProjeto();
 		setTempoTotalProjeto(tempoRestanteProjeto);
 		
-		//TODO tornar dinamico com inicio do projeto
 		Calendar calendar = Calendar.getInstance(); 
 		
 		
-		//progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
 		progressoAtual.set("Inicio", getTempoProjeto());
 		if(getTarefasDone().size() > 0){
 			Comparator comparator = new Comparator(){    
@@ -139,34 +114,13 @@ public class BurndownController extends TaskBoardController implements Serializa
 			for(Tarefa tarefa : getTarefasDone()) {
 				tempoRestanteProjeto -= tarefa.getTempo_execucao();
 				
-				//TODO ver com data de termino tornar dinamico os dois lines
-				//TODO ORDENAR POR DATA
 				calendar.setTime(tarefa.getDataTermino());
-	//			System.out.println(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR));
 				progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoRestanteProjeto);
-	//			System.out.println("Progresso  " + tempoProjeto);
 			}
-			
-			
-//			for (int aux = 0; aux < 5; aux ++){
-//				calendar.add( Calendar.DAY_OF_MONTH , 1 );
-//				progressoAtual.set(calendar.get(Calendar.DAY_OF_MONTH ) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), null);
-//			}
-			
-			//TODO fim da lista
-//			int iteratorAux = 0;
-
-//
-//			for(Calendar listaFim : listaDataIdeal.subList(iteratorAux, listaDataIdeal.size())) {
-//				progressoAtual.set(listaFim.get(Calendar.DAY_OF_MONTH) +"/"+listaFim.get(Calendar.MONTH)+"/"+listaFim.get(Calendar.YEAR), null);
-//			}
 		}
 		else{
 			progressoAtual.set("Inicio", getTempoProjeto());
 		}
 		return progressoAtual;
 	}
-	
-
-
 }

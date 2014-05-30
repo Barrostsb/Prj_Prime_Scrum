@@ -12,7 +12,6 @@ import javax.persistence.EntityTransaction;
 import com.barrostsb.prime_scrum.JpaUtils.JpaUtils;
 import com.barrostsb.prime_scrum.business.CadastroPessoas;
 import com.barrostsb.prime_scrum.exception.BusinessException;
-import com.barrostsb.prime_scrum.model.Desenvolvedor;
 import com.barrostsb.prime_scrum.model.Pessoa;
 import com.barrostsb.prime_scrum.model.ScrumMaster;
 import com.barrostsb.prime_scrum.repository.Pessoas;
