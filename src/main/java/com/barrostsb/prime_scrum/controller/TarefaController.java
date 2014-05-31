@@ -39,6 +39,10 @@ public class TarefaController implements Serializable {
 
 	EntityManager manager = JpaUtils.getEntityManager();
 	
+	public TarefaController() {  
+		tarefasBuscadas = new ArrayList<Tarefa>();
+	} 
+	
 	public void prepararCadastro() {
 		EntityManager manager = JpaUtils.getEntityManager();
 		try {
@@ -54,9 +58,6 @@ public class TarefaController implements Serializable {
 		return idDev;
 	}
 	
-	public TarefaController() {  
-		tarefasBuscadas = new ArrayList<Tarefa>();
-	} 
 
 	public List<Projeto> getTodosProjetos() {
 		return todosProjetos;
@@ -141,7 +142,6 @@ public class TarefaController implements Serializable {
 	
 	public void atualizarDados(){
 		alterar(tarefaSelecionada);
-		System.out.println("prioridadeAlterada  " + tarefaSelecionada.getPrioridade());
 	}
 
 	public List<Tarefa> getTodasTarefas() {
