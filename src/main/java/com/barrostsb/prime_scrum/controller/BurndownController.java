@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -58,6 +59,27 @@ public class BurndownController extends TaskBoardController implements Serializa
 		burndown.addSeries(getProgressoAtual());
 	}
 	
+	private LineChartSeries getProgressoIdeal() {
+		float tempoProjeto = getTempoProjeto();
+		LineChartSeries progressoIdeal = new LineChartSeries();
+		progressoIdeal.setLabel("Progresso Ideal");
+		
+		Calendar calendar = Calendar.getInstance();  
+		calendar.setTime(new Date());
+		
+		progressoIdeal.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
+		while(tempoProjeto > 0){
+			progressoIdeal.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
+			tempoProjeto -= HORAS_DO_DIA;			
+			calendar.add( Calendar.DAY_OF_MONTH , 1 ); 
+		}
+		if ((tempoProjeto <= 0) && (tempoProjeto > -8)){
+			tempoProjeto = PROJETO_CONCLUIDO;
+			progressoIdeal.set(calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR), tempoProjeto);
+		}
+		
+		return progressoIdeal;
+	}
 
 	private float getTempoProjeto() {
 		float tempoProjeto = 0;
