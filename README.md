@@ -1,11 +1,12 @@
 Prime_Scrum
 ===============
 
-Sistema para gerenciamento de projetos utilizando Scrum Como metodologia
---------------------------------------------------------------------------
+Sistema para gerenciamento de projetos utilizando Scrum como metodologia de desenvolvimento
+-------------------------------------------------------------------------------------------
 
-*Iniciado em: *01/2014
-*Concluido em: * 07/2014
+*Iniciado em:* 01/2014
+<br>
+*Concluido em:* 07/2014
 
 **Tecnologias Utilizadas**
 
