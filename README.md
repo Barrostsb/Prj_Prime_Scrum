@@ -1,4 +1,4 @@
-Prime_Scrum
+Prime_Scrum - LGPLv3
 ===============
 
 Sistema para gerenciamento de projetos utilizando Scrum como metodologia de desenvolvimento
